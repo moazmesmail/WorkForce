@@ -10,7 +10,6 @@ import {
     Tab,
     Avatar,
     Chip,
-    Divider,
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { workerNavItems } from './WorkerDashboard';
@@ -25,7 +24,8 @@ import {
     UploadCloud,
     Eye,
 } from 'lucide-react';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { documents } from '../../data/mockData';
 import { useLocation } from 'react-router';
@@ -113,6 +113,42 @@ export default function WorkerProfile() {
             </Box>
         </Grid>
     );
+
+    const documentColumns: MRT_ColumnDef<(typeof documents)[0]>[] = [
+        {
+            accessorKey: 'name',
+            header: 'Document Name',
+            size: 170,
+        },
+        {
+            accessorKey: 'uploadDate',
+            header: 'Upload Date',
+            size: 100,
+        },
+        {
+            accessorKey: 'status',
+            header: 'Status',
+            size: 100,
+            Cell: ({ cell }) => (
+                <StatusBadge status={cell.getValue() as string} />
+            ),
+        },
+        {
+            id: 'actions',
+            header: 'Actions',
+            size: 100,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: () => (
+                <Button
+                    size="small"
+                    startIcon={<Eye size={16} />}
+                >
+                    View
+                </Button>
+            ),
+        },
+    ];
 
     return (
         <DashboardLayout navItems={workerNavItems}>
@@ -380,44 +416,9 @@ export default function WorkerProfile() {
                             </Button>
                         </Box>
 
-                        <DataTable
-                            columns={[
-                                {
-                                    id: 'name',
-                                    label: 'Document Name',
-                                    minWidth: 170,
-                                },
-                                {
-                                    id: 'uploadDate',
-                                    label: 'Upload Date',
-                                    minWidth: 100,
-                                },
-                                {
-                                    id: 'status',
-                                    label: 'Status',
-                                    minWidth: 100,
-                                    format: (value: string) => (
-                                        <StatusBadge status={value} />
-                                    ),
-                                },
-                                {
-                                    id: 'actions',
-                                    label: 'Actions',
-                                    minWidth: 100,
-                                    align: 'center',
-                                    format: () => (
-                                        <Button
-                                            size="small"
-                                            startIcon={<Eye size={16} />}
-                                        >
-                                            View
-                                        </Button>
-                                    ),
-                                },
-                            ]}
-                            rows={documents}
-                            searchableKey="name"
-                            searchPlaceholder="Search documents..."
+                        <AppDataTable
+                            columns={documentColumns}
+                            data={documents}
                         />
                     </TabPanel>
 

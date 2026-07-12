@@ -3,7 +3,8 @@ import { Typography, Box, Paper, Grid, Button } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { workerNavItems } from './WorkerDashboard';
 import { StatusBadge } from '../shared/StatusBadge';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { sponsorshipRequests as mockSponsorshipRequests } from '../../data/mockData';
 import { useNavigate } from 'react-router';
 
@@ -24,42 +25,43 @@ export default function WorkerSponsorshipTransfer() {
         }
     }, []);
 
-    const columns: Column<any>[] = [
-        { id: 'requestDate', label: 'Date', minWidth: 100 },
-        { id: 'currentSponsor', label: 'Current Sponsor', minWidth: 150 },
+    const columns: MRT_ColumnDef<any>[] = [
+        { accessorKey: 'requestDate', header: 'Date', size: 100 },
+        { accessorKey: 'currentSponsor', header: 'Current Sponsor', size: 150 },
         {
-            id: 'desiredJobTitle',
-            label: 'Job Title',
-            minWidth: 150,
-            format: (v, row) => v || row.jobTitle || 'General',
+            accessorKey: 'desiredJobTitle',
+            header: 'Job Title',
+            size: 150,
+            Cell: ({ cell, row }) => cell.getValue() as string || row.original.jobTitle || 'General',
         },
         {
-            id: 'newSponsor',
-            label: 'Matched Sponsor',
-            minWidth: 180,
-            format: (v) =>
-                v === 'Pending System Match' ? (
+            accessorKey: 'newSponsor',
+            header: 'Matched Sponsor',
+            size: 180,
+            Cell: ({ cell }) =>
+                cell.getValue() === 'Pending System Match' ? (
                     <em style={{ color: '#8494AB' }}>Pending Match</em>
                 ) : (
-                    v
+                    cell.getValue() as string
                 ),
         },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 120,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'status',
+            header: 'Status',
+            size: 120,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 140,
-            align: 'center',
-            format: (value, row) => (
+            header: 'Actions',
+            size: 140,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Button
                     variant="outlined"
                     size="small"
-                    onClick={() => navigate(`/worker/sponsorship/${row.id}`)}
+                    onClick={() => navigate(`/worker/sponsorship/${row.original.id}`)}
                     sx={{
                         py: 0.5,
                         px: 1.5,
@@ -139,7 +141,7 @@ export default function WorkerSponsorshipTransfer() {
             <Typography variant="h5" gutterBottom>
                 Transfer History
             </Typography>
-            <DataTable columns={columns} rows={requests} />
+            <AppDataTable columns={columns} data={requests} />
         </DashboardLayout>
     );
 }

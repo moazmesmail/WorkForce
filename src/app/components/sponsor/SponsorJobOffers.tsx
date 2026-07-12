@@ -10,7 +10,8 @@ import {
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { sponsorNavItems } from './SponsorDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { jobOffers as initialOffers } from '../../data/mockData';
 import { XCircle } from 'lucide-react';
@@ -31,35 +32,36 @@ export default function SponsorJobOffers() {
         setCancelTarget(null);
     };
 
-    const columns: Column<Offer>[] = [
-        { id: 'workerName', label: 'Worker Name', minWidth: 160 },
-        { id: 'jobTitle', label: 'Position Offered', minWidth: 150 },
-        { id: 'workLocation', label: 'Location', minWidth: 120 },
-        { id: 'salaryOffered', label: 'Salary (SAR)', minWidth: 140 },
-        { id: 'offerDate', label: 'Date Sent', minWidth: 120 },
+    const columns: MRT_ColumnDef<Offer>[] = [
+        { accessorKey: 'workerName', header: 'Worker Name', size: 160 },
+        { accessorKey: 'jobTitle', header: 'Position Offered', size: 150 },
+        { accessorKey: 'workLocation', header: 'Location', size: 120 },
+        { accessorKey: 'salaryOffered', header: 'Salary (SAR)', size: 140 },
+        { accessorKey: 'offerDate', header: 'Date Sent', size: 120 },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 120,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'status',
+            header: 'Status',
+            size: 120,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 130,
-            align: 'center',
-            format: (_v, row) => (
+            header: 'Actions',
+            size: 130,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Button
                     size="small"
                     color="error"
                     variant="outlined"
                     startIcon={<XCircle size={16} />}
                     disabled={
-                        row.status === 'Accepted' ||
-                        row.status === 'Rejected' ||
-                        row.status === 'Cancelled'
+                        row.original.status === 'Accepted' ||
+                        row.original.status === 'Rejected' ||
+                        row.original.status === 'Cancelled'
                     }
-                    onClick={() => setCancelTarget(row)}
+                    onClick={() => setCancelTarget(row.original)}
                 >
                     Cancel
                 </Button>
@@ -78,11 +80,9 @@ export default function SponsorJobOffers() {
                 </Typography>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={offersList}
-                searchableKey="workerName"
-                searchPlaceholder="Search by worker name..."
+                data={offersList}
             />
 
             <Dialog

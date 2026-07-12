@@ -11,7 +11,8 @@ import {
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { sponsorNavItems } from './SponsorDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { workerRequests } from '../../data/mockData';
 import { Plus } from 'lucide-react';
@@ -34,22 +35,23 @@ export default function SponsorWorkerRequests() {
         (r) => statusFilter === '' || r.status === statusFilter
     );
 
-    const columns: Column<(typeof workerRequests)[0]>[] = [
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
+    const columns: MRT_ColumnDef<(typeof workerRequests)[0]>[] = [
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
         {
-            id: 'numberOfWorkersNeeded',
-            label: '# Needed',
-            minWidth: 90,
-            align: 'center',
+            accessorKey: 'numberOfWorkersNeeded',
+            header: '# Needed',
+            size: 90,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
         },
-        { id: 'workLocation', label: 'Location', minWidth: 120 },
-        { id: 'salaryRange', label: 'Salary (SAR)', minWidth: 150 },
-        { id: 'requestDate', label: 'Date', minWidth: 110 },
+        { accessorKey: 'workLocation', header: 'Location', size: 120 },
+        { accessorKey: 'salaryRange', header: 'Salary (SAR)', size: 150 },
+        { accessorKey: 'requestDate', header: 'Date', size: 110 },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 160,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'status',
+            header: 'Status',
+            size: 160,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
     ];
 
@@ -97,11 +99,9 @@ export default function SponsorWorkerRequests() {
                 </Box>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={filtered}
-                searchableKey="jobTitle"
-                searchPlaceholder="Search by job title..."
+                data={filtered}
             />
         </DashboardLayout>
     );

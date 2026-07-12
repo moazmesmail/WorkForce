@@ -11,16 +11,13 @@ import {
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { sponsorNavItems } from './SponsorDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { workers } from '../../data/mockData';
 import { Send, Star } from 'lucide-react';
 import {
     TextField,
-    MenuItem,
-    Select,
-    InputLabel,
-    FormControl,
 } from '@mui/material';
 
 // Only show workers who need sponsorship transfer (available to be matched)
@@ -46,30 +43,32 @@ export default function SponsorRecommendedWorkers() {
         setSelected(null);
     };
 
-    const columns: Column<(typeof workers)[0]>[] = [
-        { id: 'name', label: 'Worker Name', minWidth: 160 },
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
-        { id: 'nationality', label: 'Nationality', minWidth: 120 },
-        { id: 'currentCity', label: 'City', minWidth: 110 },
+    const columns: MRT_ColumnDef<(typeof workers)[0]>[] = [
+        { accessorKey: 'name', header: 'Worker Name', size: 160 },
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
+        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
+        { accessorKey: 'currentCity', header: 'City', size: 110 },
         {
-            id: 'yearsOfExperience',
-            label: 'Experience (yrs)',
-            minWidth: 130,
-            align: 'center',
+            accessorKey: 'yearsOfExperience',
+            header: 'Experience (yrs)',
+            size: 130,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
         },
         {
-            id: 'verificationStatus',
-            label: 'Documents',
-            minWidth: 130,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'verificationStatus',
+            header: 'Documents',
+            size: 130,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 130,
-            align: 'center',
-            format: (_v, row) =>
-                sent.includes(row.id) ? (
+            header: 'Actions',
+            size: 130,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) =>
+                sent.includes(row.original.id) ? (
                     <Button size="small" variant="outlined" disabled>
                         Offer Sent
                     </Button>
@@ -78,7 +77,7 @@ export default function SponsorRecommendedWorkers() {
                         size="small"
                         variant="contained"
                         startIcon={<Send size={16} />}
-                        onClick={() => handleSendOffer(row)}
+                        onClick={() => handleSendOffer(row.original)}
                     >
                         Send Offer
                     </Button>
@@ -106,11 +105,9 @@ export default function SponsorRecommendedWorkers() {
                 </Box>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={recommended}
-                searchableKey="name"
-                searchPlaceholder="Search by worker name..."
+                data={recommended}
             />
 
             <Dialog

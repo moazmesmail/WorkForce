@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { Typography, Box, Button, Snackbar, Alert } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { agencyNavItems } from './AgencyDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { documents as initialDocs } from '../../data/mockData';
 import { CheckCircle, XCircle, Eye } from 'lucide-react';
@@ -47,22 +48,23 @@ export default function AgencyVerifyDocuments() {
         });
     };
 
-    const columns: Column<Doc>[] = [
-        { id: 'workerName', label: 'Worker Name', minWidth: 160 },
-        { id: 'name', label: 'Document', minWidth: 150 },
-        { id: 'uploadDate', label: 'Upload Date', minWidth: 120 },
+    const columns: MRT_ColumnDef<Doc>[] = [
+        { accessorKey: 'workerName', header: 'Worker Name', size: 160 },
+        { accessorKey: 'name', header: 'Document', size: 150 },
+        { accessorKey: 'uploadDate', header: 'Upload Date', size: 120 },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 140,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'status',
+            header: 'Status',
+            size: 140,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 280,
-            align: 'center',
-            format: (_v, row) => (
+            header: 'Actions',
+            size: 280,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Box display="flex" gap={1} justifyContent="center">
                     <Button
                         size="small"
@@ -76,8 +78,8 @@ export default function AgencyVerifyDocuments() {
                         color="success"
                         variant="outlined"
                         startIcon={<CheckCircle size={14} />}
-                        disabled={row.status === 'Verified'}
-                        onClick={() => handleVerify(row)}
+                        disabled={row.original.status === 'Verified'}
+                        onClick={() => handleVerify(row.original)}
                     >
                         Verify
                     </Button>
@@ -87,10 +89,10 @@ export default function AgencyVerifyDocuments() {
                         variant="outlined"
                         startIcon={<XCircle size={14} />}
                         disabled={
-                            row.status === 'Verified' ||
-                            row.status === 'Rejected'
+                            row.original.status === 'Verified' ||
+                            row.original.status === 'Rejected'
                         }
-                        onClick={() => handleReject(row)}
+                        onClick={() => handleReject(row.original)}
                     >
                         Reject
                     </Button>
@@ -110,11 +112,9 @@ export default function AgencyVerifyDocuments() {
                 </Typography>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={docs}
-                searchableKey="workerName"
-                searchPlaceholder="Search by worker name..."
+                data={docs}
             />
 
             <Snackbar

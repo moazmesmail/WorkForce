@@ -12,7 +12,8 @@ import {
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { sponsorNavItems } from './SponsorDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { workers } from '../../data/mockData';
 import { Send } from 'lucide-react';
@@ -31,28 +32,29 @@ export default function SponsorWorkerSearch() {
         setSelectedWorker(null);
     };
 
-    const columns: Column<(typeof workers)[0]>[] = [
-        { id: 'name', label: 'Worker Name', minWidth: 150 },
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
-        { id: 'nationality', label: 'Nationality', minWidth: 120 },
-        { id: 'experience', label: 'Experience (Yrs)', minWidth: 100 },
+    const columns: MRT_ColumnDef<(typeof workers)[0]>[] = [
+        { accessorKey: 'name', header: 'Worker Name', size: 150 },
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
+        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
+        { accessorKey: 'yearsOfExperience', header: 'Experience (Yrs)', size: 100 },
         {
-            id: 'verificationStatus',
-            label: 'Status',
-            minWidth: 120,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'verificationStatus',
+            header: 'Status',
+            size: 120,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 120,
-            align: 'center',
-            format: (value, row) => (
+            header: 'Actions',
+            size: 120,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Button
                     size="small"
                     variant="contained"
                     startIcon={<Send size={16} />}
-                    onClick={() => handleOpenOffer(row.name)}
+                    onClick={() => handleOpenOffer(row.original.name)}
                 >
                     Send Offer
                 </Button>
@@ -85,11 +87,9 @@ export default function SponsorWorkerSearch() {
                 />
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={workers}
-                searchableKey="name"
-                searchPlaceholder="Search by worker name..."
+                data={workers}
             />
 
             <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>

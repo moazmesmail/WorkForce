@@ -11,7 +11,8 @@ import {
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { workerNavItems } from './WorkerDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { workerRequests } from '../../data/mockData';
 import { useNavigate } from 'react-router';
@@ -31,28 +32,29 @@ export default function WorkerJobOpportunities() {
             (titleFilter === '' || r.jobTitle === titleFilter)
     );
 
-    const columns: Column<(typeof workerRequests)[0]>[] = [
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
-        { id: 'sponsorName', label: 'Sponsor', minWidth: 170 },
-        { id: 'workLocation', label: 'Location', minWidth: 120 },
-        { id: 'salaryRange', label: 'Salary (SAR)', minWidth: 150 },
-        { id: 'requiredExperience', label: 'Experience', minWidth: 120 },
+    const columns: MRT_ColumnDef<(typeof workerRequests)[0]>[] = [
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
+        { accessorKey: 'sponsorName', header: 'Sponsor', size: 170 },
+        { accessorKey: 'workLocation', header: 'Location', size: 120 },
+        { accessorKey: 'salaryRange', header: 'Salary (SAR)', size: 150 },
+        { accessorKey: 'requiredExperience', header: 'Experience', size: 120 },
         {
-            id: 'accommodationProvided',
-            label: 'Accommodation',
-            minWidth: 130,
-            format: (value: boolean) => (value ? 'Provided' : 'Not Provided'),
+            accessorKey: 'accommodationProvided',
+            header: 'Accommodation',
+            size: 130,
+            Cell: ({ cell }) => (cell.getValue() ? 'Provided' : 'Not Provided'),
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 120,
-            align: 'center',
-            format: (_v, row) => (
+            header: 'Actions',
+            size: 120,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Button
                     size="small"
                     variant="outlined"
-                    onClick={() => navigate(`/worker/jobs/${row.id}`)}
+                    onClick={() => navigate(`/worker/jobs/${row.original.id}`)}
                 >
                     View & Apply
                 </Button>
@@ -95,11 +97,9 @@ export default function WorkerJobOpportunities() {
                 </FormControl>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={filtered}
-                searchableKey="sponsorName"
-                searchPlaceholder="Search by sponsor..."
+                data={filtered}
             />
         </DashboardLayout>
     );

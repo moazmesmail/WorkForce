@@ -22,7 +22,8 @@ import { Send, Star, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { jobOffers, workers } from '../../data/mockData';
 import { DashboardLayout } from '../shared/DashboardLayout';
-import { Column, DataTable } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { sponsorNavItems } from './SponsorDashboard';
 
@@ -43,9 +44,9 @@ export default function SponsorWorkers() {
     const [expFilter, setExpFilter] = useState('');
     const [filteredRows, setFilteredRows] = useState<any[]>([]);
 
-    const [mockWorkers, setMockWorkers] = useState(workers);
+    const [mockWorkers] = useState(workers);
+    const [mockJobOffers] = useState(jobOffers);
 
-    const [mockJobOffers, setMockJobOffers] = useState(jobOffers);
     useEffect(() => {
         try {
             console.log('mockWorkers:', mockWorkers);
@@ -70,9 +71,9 @@ export default function SponsorWorkers() {
             // Apply experience filter
             if (expFilter) {
                 list = list.filter((w: any) => {
-                    const numericExp = parseInt(w.experience, 10);
+                    const numericExp = parseInt(w.yearsOfExperience, 10);
                     if (expFilter === 'no-experience') {
-                        return numericExp === 0 || !w.experience;
+                        return numericExp === 0 || !w.yearsOfExperience;
                     } else if (expFilter === '1-3') {
                         return numericExp >= 1 && numericExp <= 3;
                     } else if (expFilter === '3plus') {
@@ -86,7 +87,7 @@ export default function SponsorWorkers() {
         } catch (err) {
             console.error('CRASH IN USEEFFECT:', err);
         }
-    }, [tabValue, nationalityFilter, expFilter]);
+    }, [tabValue, nationalityFilter, expFilter, mockWorkers]);
 
     const handleOpenOffer = (worker: any) => {
         setSelectedWorker(worker);
@@ -127,28 +128,29 @@ export default function SponsorWorkers() {
         setOpen(false);
     };
 
-    const columns: Column<any>[] = [
-        { id: 'name', label: 'Worker Name', minWidth: 150 },
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
-        { id: 'nationality', label: 'Nationality', minWidth: 120 },
-        { id: 'experience', label: 'Experience (Yrs)', minWidth: 100 },
+    const columns: MRT_ColumnDef<any>[] = [
+        { accessorKey: 'name', header: 'Worker Name', size: 150 },
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
+        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
+        { accessorKey: 'yearsOfExperience', header: 'Experience (Yrs)', size: 100 },
         {
-            id: 'verificationStatus',
-            label: 'Status',
-            minWidth: 120,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'verificationStatus',
+            header: 'Status',
+            size: 120,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 120,
-            align: 'center',
-            format: (value, row) => (
+            header: 'Actions',
+            size: 120,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Button
                     size="small"
                     variant="contained"
                     startIcon={<Send size={14} />}
-                    onClick={() => handleOpenOffer(row)}
+                    onClick={() => handleOpenOffer(row.original)}
                 >
                     Send Offer
                 </Button>
@@ -257,11 +259,9 @@ export default function SponsorWorkers() {
             </Paper>
 
             {/* Workers list DataTable */}
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={filteredRows}
-                searchableKey="name"
-                searchPlaceholder="Search by worker name..."
+                data={filteredRows}
             />
 
             {/* Send Offer Dialog */}

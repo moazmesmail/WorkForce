@@ -19,7 +19,8 @@ import {
 import { UploadCloud, Eye, RefreshCw } from 'lucide-react';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { workerNavItems } from './WorkerDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { myDocuments as initialDocs } from '../../data/mockData';
 
@@ -84,21 +85,22 @@ export default function WorkerDocuments() {
         setFileName('');
     };
 
-    const columns: Column<Doc>[] = [
-        { id: 'name', label: 'Document Name', minWidth: 200 },
-        { id: 'uploadDate', label: 'Upload Date', minWidth: 130 },
+    const columns: MRT_ColumnDef<Doc>[] = [
+        { accessorKey: 'name', header: 'Document Name', size: 200 },
+        { accessorKey: 'uploadDate', header: 'Upload Date', size: 130 },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 140,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'status',
+            header: 'Status',
+            size: 140,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 180,
-            align: 'center',
-            format: (_v, row) => (
+            header: 'Actions',
+            size: 180,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Box display="flex" gap={1} justifyContent="center">
                     <Button
                         size="small"
@@ -114,7 +116,7 @@ export default function WorkerDocuments() {
                         startIcon={<RefreshCw size={14} />}
                         component="label"
                         onClick={() => {
-                            setDocType(row.name);
+                            setDocType(row.original.name);
                             setUploadOpen(true);
                         }}
                     >
@@ -150,11 +152,9 @@ export default function WorkerDocuments() {
                 </Button>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={docs}
-                searchableKey="name"
-                searchPlaceholder="Search documents..."
+                data={docs}
             />
 
             <Dialog

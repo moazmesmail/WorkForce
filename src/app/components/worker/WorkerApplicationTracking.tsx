@@ -3,7 +3,8 @@ import { Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { workerNavItems } from './WorkerDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { workerApplications } from '../../data/mockData';
 
@@ -11,28 +12,29 @@ export default function WorkerApplicationTracking() {
     const navigate = useNavigate();
     const [appList] = useState(workerApplications);
 
-    const columns: Column<(typeof workerApplications)[0]>[] = [
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
-        { id: 'sponsorName', label: 'Sponsor', minWidth: 170 },
-        { id: 'workLocation', label: 'Location', minWidth: 120 },
-        { id: 'dateApplied', label: 'Date Applied', minWidth: 120 },
+    const columns: MRT_ColumnDef<(typeof workerApplications)[0]>[] = [
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
+        { accessorKey: 'sponsorName', header: 'Sponsor', size: 170 },
+        { accessorKey: 'workLocation', header: 'Location', size: 120 },
+        { accessorKey: 'dateApplied', header: 'Date Applied', size: 120 },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 140,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'status',
+            header: 'Status',
+            size: 140,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 130,
-            align: 'center',
-            format: (_v, row) =>
-                row.status === 'Offer Received' ? (
+            header: 'Actions',
+            size: 130,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) =>
+                row.original.status === 'Offer Received' ? (
                     <Button
                         size="small"
                         variant="contained"
-                        onClick={() => navigate(`/worker/offers/${row.id}`)}
+                        onClick={() => navigate(`/worker/offers/${row.original.id}`)}
                     >
                         View Offer
                     </Button>
@@ -55,11 +57,9 @@ export default function WorkerApplicationTracking() {
                 </Typography>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={appList}
-                searchableKey="jobTitle"
-                searchPlaceholder="Search by job title..."
+                data={appList}
             />
         </DashboardLayout>
     );

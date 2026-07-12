@@ -12,7 +12,8 @@ import {
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { sponsorNavItems } from './SponsorDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import {
     recruitmentRequests as mockRecruitment,
@@ -91,7 +92,7 @@ export default function SponsorRecruitmentApproval() {
                         status: newStatus,
                         newSponsor:
                             actionType === 'Approve'
-                                ? currentUser?.name || 'TechNova Solutions'
+                                  ? currentUser?.name || 'TechNova Solutions'
                                 : r.newSponsor,
                     };
                 }
@@ -171,72 +172,74 @@ export default function SponsorRecruitmentApproval() {
         </Box>
     );
 
-    const recruitmentColumns: Column<any>[] = [
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
-        { id: 'workersNeeded', label: 'Workers Needed', minWidth: 120 },
-        { id: 'requestDate', label: 'Date', minWidth: 120 },
+    const recruitmentColumns: MRT_ColumnDef<any>[] = [
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
+        { accessorKey: 'workersNeeded', header: 'Workers Needed', size: 120 },
+        { accessorKey: 'requestDate', header: 'Date', size: 120 },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 120,
-            format: (v: string) => <StatusBadge status={v} />,
+            accessorKey: 'status',
+            header: 'Status',
+            size: 120,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 260,
-            align: 'center',
-            format: (value, row) => (
-                <ActionButtons row={row} type="recruitment" />
+            header: 'Actions',
+            size: 260,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
+                <ActionButtons row={row.original} type="recruitment" />
             ),
         },
     ];
 
-    const sponsorshipColumns: Column<any>[] = [
+    const sponsorshipColumns: MRT_ColumnDef<any>[] = [
         {
-            id: 'workerName',
-            label: 'Worker Name',
-            minWidth: 140,
-            format: (v) => v || 'Ahmed Hassan',
+            accessorKey: 'workerName',
+            header: 'Worker Name',
+            size: 140,
+            Cell: ({ cell }) => cell.getValue<string>() || 'Ahmed Hassan',
         },
-        { id: 'currentSponsor', label: 'Current Sponsor', minWidth: 140 },
+        { accessorKey: 'currentSponsor', header: 'Current Sponsor', size: 140 },
         {
-            id: 'desiredJobTitle',
-            label: 'Job Title',
-            minWidth: 140,
-            format: (v, row) => v || row.jobTitle || 'General',
-        },
-        {
-            id: 'preferredLocation',
-            label: 'Preferred Location',
-            minWidth: 150,
-            format: (v) => v || 'Riyadh',
+            accessorKey: 'desiredJobTitle',
+            header: 'Job Title',
+            size: 140,
+            Cell: ({ cell, row }) => cell.getValue<string>() || row.original.jobTitle || 'General',
         },
         {
-            id: 'expectedSalary',
-            label: 'Expected Salary',
-            minWidth: 140,
-            format: (v) => v || 'Not Specified',
+            accessorKey: 'preferredLocation',
+            header: 'Preferred Location',
+            size: 150,
+            Cell: ({ cell }) => cell.getValue<string>() || 'Riyadh',
         },
         {
-            id: 'availabilityDate',
-            label: 'Availability',
-            minWidth: 120,
-            format: (v) => v || 'Immediate',
+            accessorKey: 'expectedSalary',
+            header: 'Expected Salary',
+            size: 140,
+            Cell: ({ cell }) => cell.getValue<string>() || 'Not Specified',
         },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 120,
-            format: (v: string) => <StatusBadge status={v} />,
+            accessorKey: 'availabilityDate',
+            header: 'Availability',
+            size: 120,
+            Cell: ({ cell }) => cell.getValue<string>() || 'Immediate',
+        },
+        {
+            accessorKey: 'status',
+            header: 'Status',
+            size: 120,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 260,
-            align: 'center',
-            format: (value, row) => (
-                <ActionButtons row={row} type="sponsorship" />
+            header: 'Actions',
+            size: 260,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
+                <ActionButtons row={row.original} type="sponsorship" />
             ),
         },
     ];
@@ -261,20 +264,16 @@ export default function SponsorRecruitmentApproval() {
             </Box>
 
             {tabIndex === 0 && (
-                <DataTable
+                <AppDataTable
                     columns={recruitmentColumns}
-                    rows={recruitmentList}
-                    searchableKey="jobTitle"
-                    searchPlaceholder="Search job titles..."
+                    data={recruitmentList}
                 />
             )}
 
             {tabIndex === 1 && (
-                <DataTable
+                <AppDataTable
                     columns={sponsorshipColumns}
-                    rows={sponsorshipList}
-                    searchableKey="workerName"
-                    searchPlaceholder="Search worker names..."
+                    data={sponsorshipList}
                 />
             )}
 

@@ -14,7 +14,8 @@ import {
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { agencyNavItems } from './AgencyDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { recruitmentRequests, agencyWorkers } from '../../data/mockData';
 import { Send, Users } from 'lucide-react';
@@ -54,31 +55,38 @@ export default function AgencyRecruitmentRequests() {
         setSelectedRequest(null);
     };
 
-    const columns: Column<Request>[] = [
-        { id: 'id', label: 'Request ID', minWidth: 100 },
-        { id: 'sponsor', label: 'Sponsor', minWidth: 160 },
-        { id: 'jobTitle', label: 'Job Title', minWidth: 150 },
-        { id: 'location', label: 'Location', minWidth: 120 },
-        { id: 'workersNeeded', label: 'Needed', minWidth: 90, align: 'center' },
-        { id: 'requestDate', label: 'Date', minWidth: 110 },
+    const columns: MRT_ColumnDef<Request>[] = [
+        { accessorKey: 'id', header: 'Request ID', size: 100 },
+        { accessorKey: 'sponsor', header: 'Sponsor', size: 160 },
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
+        { accessorKey: 'location', header: 'Location', size: 120 },
         {
-            id: 'status',
-            label: 'Status',
-            minWidth: 130,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'workersNeeded',
+            header: 'Needed',
+            size: 90,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+        },
+        { accessorKey: 'requestDate', header: 'Date', size: 110 },
+        {
+            accessorKey: 'status',
+            header: 'Status',
+            size: 130,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 180,
-            align: 'center',
-            format: (_v, row) => (
+            header: 'Actions',
+            size: 180,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Button
                     size="small"
                     variant="contained"
                     startIcon={<Send size={16} />}
-                    onClick={() => handleOpenDialog(row)}
-                    disabled={row.status === 'Completed'}
+                    onClick={() => handleOpenDialog(row.original)}
+                    disabled={row.original.status === 'Completed'}
                 >
                     Submit Candidates
                 </Button>
@@ -97,11 +105,9 @@ export default function AgencyRecruitmentRequests() {
                 </Typography>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={requests}
-                searchableKey="sponsor"
-                searchPlaceholder="Search by sponsor..."
+                data={requests}
             />
 
             <Dialog

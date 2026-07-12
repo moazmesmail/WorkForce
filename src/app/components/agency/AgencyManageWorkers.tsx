@@ -11,11 +11,11 @@ import {
     Grid,
     Snackbar,
     Alert,
-    Chip,
 } from '@mui/material';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { agencyNavItems } from './AgencyDashboard';
-import { DataTable, Column } from '../shared/DataTable';
+import { AppDataTable } from '../ui/data-display/AppDataTable';
+import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { agencyWorkers as initialWorkers } from '../../data/mockData';
 import { Edit, Eye, ArrowRightLeft } from 'lucide-react';
@@ -52,29 +52,30 @@ export default function AgencyManageWorkers() {
         });
     };
 
-    const columns: Column<AgencyWorker>[] = [
-        { id: 'name', label: 'Name', minWidth: 160 },
-        { id: 'jobTitle', label: 'Job Title', minWidth: 140 },
-        { id: 'nationality', label: 'Nationality', minWidth: 120 },
-        { id: 'currentCity', label: 'City', minWidth: 110 },
+    const columns: MRT_ColumnDef<AgencyWorker>[] = [
+        { accessorKey: 'name', header: 'Name', size: 160 },
+        { accessorKey: 'jobTitle', header: 'Job Title', size: 140 },
+        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
+        { accessorKey: 'currentCity', header: 'City', size: 110 },
         {
-            id: 'sponsorshipStatus',
-            label: 'Sponsorship',
-            minWidth: 180,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'sponsorshipStatus',
+            header: 'Sponsorship',
+            size: 180,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
-            id: 'verificationStatus',
-            label: 'Documents',
-            minWidth: 150,
-            format: (value: string) => <StatusBadge status={value} />,
+            accessorKey: 'verificationStatus',
+            header: 'Documents',
+            size: 150,
+            Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            label: 'Actions',
-            minWidth: 260,
-            align: 'center',
-            format: (_v, row) => (
+            header: 'Actions',
+            size: 260,
+            muiTableHeadCellProps: { align: 'center' },
+            muiTableBodyCellProps: { align: 'center' },
+            Cell: ({ row }) => (
                 <Box
                     display="flex"
                     gap={1}
@@ -92,7 +93,7 @@ export default function AgencyManageWorkers() {
                         size="small"
                         variant="outlined"
                         startIcon={<Edit size={14} />}
-                        onClick={() => handleEdit(row)}
+                        onClick={() => handleEdit(row.original)}
                     >
                         Edit
                     </Button>
@@ -102,10 +103,10 @@ export default function AgencyManageWorkers() {
                         color="secondary"
                         startIcon={<ArrowRightLeft size={14} />}
                         disabled={
-                            row.sponsorshipStatus ===
+                            row.original.sponsorshipStatus ===
                             'Needs Sponsorship Transfer'
                         }
-                        onClick={() => handleSubmitForTransfer(row)}
+                        onClick={() => handleSubmitForTransfer(row.original)}
                     >
                         Transfer
                     </Button>
@@ -125,11 +126,9 @@ export default function AgencyManageWorkers() {
                 </Typography>
             </Box>
 
-            <DataTable
+            <AppDataTable
                 columns={columns}
-                rows={workers}
-                searchableKey="name"
-                searchPlaceholder="Search workers by name..."
+                data={workers}
             />
 
             <Dialog
