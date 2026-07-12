@@ -17,17 +17,19 @@ import AgencyRegistration from './components/agency/AgencyRegistration';
 // Worker Routes
 import WorkerDashboard from './components/worker/WorkerDashboard';
 import WorkerProfile from './components/worker/WorkerProfile';
-import WorkerDocuments from './components/worker/WorkerDocuments';
 import WorkerSponsorshipTransfer from './components/worker/WorkerSponsorshipTransfer';
+import WorkerSponsorshipTransferForm from './components/worker/WorkerSponsorshipTransferForm';
+import WorkerSponsorshipTransferDetails from './components/worker/WorkerSponsorshipTransferDetails';
 import WorkerJobOpportunities from './components/worker/WorkerJobOpportunities';
+import WorkerJobDetails from './components/worker/WorkerJobDetails';
 import WorkerApplicationTracking from './components/worker/WorkerApplicationTracking';
 import WorkerJobOffer from './components/worker/WorkerJobOffer';
 
 // Sponsor Routes
 import SponsorDashboard from './components/sponsor/SponsorDashboard';
 import SponsorWorkerRequests from './components/sponsor/SponsorWorkerRequests';
-import SponsorWorkerSearch from './components/sponsor/SponsorWorkerSearch';
-import SponsorRecommendedWorkers from './components/sponsor/SponsorRecommendedWorkers';
+import SponsorWorkerRequestForm from './components/sponsor/SponsorWorkerRequestForm';
+import SponsorWorkers from './components/sponsor/SponsorWorkers';
 import SponsorJobOffers from './components/sponsor/SponsorJobOffers';
 import SponsorRecruitmentApproval from './components/sponsor/SponsorRecruitmentApproval';
 
@@ -39,49 +41,131 @@ import AgencyVerifyDocuments from './components/agency/AgencyVerifyDocuments';
 import AgencyRecruitmentRequests from './components/agency/AgencyRecruitmentRequests';
 
 export default function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterSelectPage />} />
-          
-          <Route path="/register/worker" element={<WorkerRegistration />} />
-          <Route path="/register/sponsor" element={<SponsorRegistration />} />
-          <Route path="/register/agency" element={<AgencyRegistration />} />
-          
-          {/* Worker Routes */}
-          <Route path="/worker/dashboard" element={<WorkerDashboard />} />
-          <Route path="/worker/profile" element={<WorkerProfile />} />
-          <Route path="/worker/documents" element={<WorkerDocuments />} />
-          <Route path="/worker/sponsorship" element={<WorkerSponsorshipTransfer />} />
-          <Route path="/worker/jobs" element={<WorkerJobOpportunities />} />
-          <Route path="/worker/applications" element={<WorkerApplicationTracking />} />
-          <Route path="/worker/offers/:id" element={<WorkerJobOffer />} />
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <AuthProvider>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<LandingPage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route
+                            path="/register"
+                            element={<RegisterSelectPage />}
+                        />
 
-          {/* Sponsor Routes */}
-          <Route path="/sponsor/dashboard" element={<SponsorDashboard />} />
-          <Route path="/sponsor/requests" element={<SponsorWorkerRequests />} />
-          <Route path="/sponsor/search" element={<SponsorWorkerSearch />} />
-          <Route path="/sponsor/recommended" element={<SponsorRecommendedWorkers />} />
-          <Route path="/sponsor/offers" element={<SponsorJobOffers />} />
-          <Route path="/sponsor/approval" element={<SponsorRecruitmentApproval />} />
+                        <Route
+                            path="/register/worker"
+                            element={<WorkerRegistration />}
+                        />
+                        <Route
+                            path="/register/sponsor"
+                            element={<SponsorRegistration />}
+                        />
+                        <Route
+                            path="/register/agency"
+                            element={<AgencyRegistration />}
+                        />
 
-          {/* Agency Routes */}
-          <Route path="/agency/dashboard" element={<AgencyDashboard />} />
-          <Route path="/agency/register-worker" element={<AgencyRegisterWorker />} />
-          <Route path="/agency/workers" element={<AgencyManageWorkers />} />
-          <Route path="/agency/documents" element={<AgencyVerifyDocuments />} />
-          <Route path="/agency/requests" element={<AgencyRecruitmentRequests />} />
+                        {/* Worker Routes */}
+                        <Route
+                            path="/worker/dashboard"
+                            element={<WorkerDashboard />}
+                        />
+                        <Route
+                            path="/worker/profile"
+                            element={<WorkerProfile />}
+                        />
+                        <Route
+                            path="/worker/sponsorship"
+                            element={<WorkerSponsorshipTransfer />}
+                        />
+                        <Route
+                            path="/worker/sponsorship/new"
+                            element={<WorkerSponsorshipTransferForm />}
+                        />
+                        <Route
+                            path="/worker/sponsorship/:id"
+                            element={<WorkerSponsorshipTransferDetails />}
+                        />
+                        <Route
+                            path="/worker/jobs"
+                            element={<WorkerJobOpportunities />}
+                        />
+                        <Route
+                            path="/worker/jobs/:id"
+                            element={<WorkerJobDetails />}
+                        />
+                        <Route
+                            path="/worker/applications"
+                            element={<WorkerApplicationTracking />}
+                        />
+                        <Route
+                            path="/worker/offers/:id"
+                            element={<WorkerJobOffer />}
+                        />
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-    </ThemeProvider>
-  );
+                        {/* Sponsor Routes */}
+                        <Route
+                            path="/sponsor/dashboard"
+                            element={<SponsorDashboard />}
+                        />
+                        <Route
+                            path="/sponsor/requests"
+                            element={<SponsorWorkerRequests />}
+                        />
+                        <Route
+                            path="/sponsor/requests/new"
+                            element={<SponsorWorkerRequestForm />}
+                        />
+                        <Route
+                            path="/sponsor/workers"
+                            element={<SponsorWorkers />}
+                        />
+                        <Route
+                            path="/sponsor/offers"
+                            element={<SponsorJobOffers />}
+                        />
+                        <Route
+                            path="/sponsor/approval"
+                            element={<SponsorRecruitmentApproval />}
+                        />
+
+                        {/* Agency Routes */}
+                        <Route
+                            path="/agency/dashboard"
+                            element={<AgencyDashboard />}
+                        />
+                        <Route
+                            path="/agency/register-worker"
+                            element={<AgencyRegisterWorker />}
+                        />
+                        <Route
+                            path="/agency/workers"
+                            element={<AgencyManageWorkers />}
+                        />
+                        <Route
+                            path="/agency/documents"
+                            element={<AgencyVerifyDocuments />}
+                        />
+                        <Route
+                            path="/agency/requests"
+                            element={<AgencyRecruitmentRequests />}
+                        />
+                        <Route
+                            path="/agency/sponsorship/new"
+                            element={
+                                <WorkerSponsorshipTransferForm
+                                    isAgencyMode={true}
+                                />
+                            }
+                        />
+
+                        {/* Fallback */}
+                        <Route path="*" element={<Navigate to="/" replace />} />
+                    </Routes>
+                </BrowserRouter>
+            </AuthProvider>
+        </ThemeProvider>
+    );
 }

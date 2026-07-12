@@ -1,4 +1,8 @@
 # Dependencies
+.prettierignore
+.prettierrc
+
+
 node_modules/
 /.pnpm-store
 /package-lock.json

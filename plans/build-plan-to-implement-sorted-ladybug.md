@@ -99,6 +99,7 @@ src/app/
 ## Design Tokens
 
 Apply globally in `src/styles/theme.css` updates or inline Tailwind:
+
 - **Primary blue:** `#1565C0` (MUI blue[800])
 - **Primary green:** `#2E7D32` (MUI green[800])
 - **Background:** white `#FFFFFF`, surface `#F5F7FA`
@@ -110,37 +111,44 @@ Apply globally in `src/styles/theme.css` updates or inline Tailwind:
 ## Implementation Steps
 
 ### 1. Setup routing and auth context
+
 - Configure `react-router` in `App.tsx` with `BrowserRouter` + `Routes`
 - Create `AuthContext.tsx` with `currentUser` (name, role: `'worker'|'sponsor'|'agency'`), `login()`, `logout()`
 - Create `mockData.ts` with realistic mock arrays for workers, jobs, applications, sponsorship requests, recruitment requests
 
 ### 2. Public pages
+
 - **LandingPage:** Hero section with headline, 3-actor description (Worker / Agency / Sponsor), Login and Register buttons. Use MUI `Box`, `Typography`, `Button`. Simple icon + text layout in a row for the 3 actors.
 - **LoginPage:** `Card` with account type tab selector (Worker / Agency / Sponsor), Email + Password fields, Login button that sets auth context and redirects to appropriate dashboard
 - **RegisterSelectPage:** 3 option cards or list items linking to each registration form
 
 ### 3. Registration forms (Worker, Sponsor, Agency)
+
 - Standard MUI `TextField`, `Select`, `RadioGroup` fields per spec
 - Single-page forms with section dividers
 - "Register" button sets auth context and redirects to dashboard
 
 ### 4. Shared Dashboard Layout (`DashboardLayout.tsx`)
+
 - Fixed left sidebar (240px) with logo, nav links (icons + text), logout button
 - Top app bar with user name + role indicator
 - Main content area with `children` slot
 - Sidebar nav items defined per role, passed as props
 
 ### 5. StatusBadge component
+
 - Accepts `status` string, maps to color variant (green/amber/red/blue/gray)
 - Uses MUI `Chip` with `size="small"` and appropriate `color`
 
 ### 6. DataTable component
+
 - Wraps MUI `Table` with `TableHead`, `TableBody`, `TableRow`, `TableCell`
 - Accepts `columns` (label, key, render?) and `rows` arrays
 - Includes search field (`TextField`) above table and pagination (`TablePagination`) below
 - Optional column filter `Select` dropdowns
 
 ### 7. Worker module (8 pages)
+
 - **Dashboard:** Profile info table (key-value pairs), quick action buttons
 - **Profile:** Editable form with sections (Basic, Contact, Employment, Sponsorship, Documents), Save button
 - **Documents:** DataTable with Name/Upload Date/Status/Actions columns; Upload/View/Replace actions via Dialog
@@ -151,6 +159,7 @@ Apply globally in `src/styles/theme.css` updates or inline Tailwind:
 - **Job Offer:** Detail view of employer info + job info + Accept/Reject buttons with confirm Dialog
 
 ### 8. Sponsor module (6 pages)
+
 - **Dashboard:** Summary row (4 stat boxes), Recent activity table
 - **Worker Requests:** Table of existing requests + "Create New Request" button → 3-step stepper Dialog (Step 1: Job Info, Step 2: Worker Requirements, Step 3: Employment Details)
 - **Worker Search:** DataTable with search + filters (nationality, job title, experience); "Send Offer" Dialog
@@ -159,6 +168,7 @@ Apply globally in `src/styles/theme.css` updates or inline Tailwind:
 - **Recruitment Approval:** Two tab sections — Recruitment Approval table + Sponsorship Transfer Approval table; Approve/Reject buttons with confirm Dialog
 
 ### 9. Agency module (5 pages)
+
 - **Dashboard:** Summary stats (total workers, pending verification, submitted requests); two mini-tables
 - **Register Worker:** Full form (Basic, Contact, Employment, Sponsorship, Documents sections)
 - **Manage Workers:** DataTable with search; "Edit" opens edit Dialog, "View" opens profile Dialog
@@ -166,6 +176,7 @@ Apply globally in `src/styles/theme.css` updates or inline Tailwind:
 - **Recruitment Requests:** DataTable with Request ID/Sponsor/Job/Workers/Date/Status/Actions
 
 ### 10. Global styling
+
 - Update `src/styles/theme.css` to set primary color variables to blue/green
 - Ensure white background, clean typography
 - MUI theme override: primary=`#1565C0`, secondary=`#2E7D32`
@@ -175,6 +186,7 @@ Apply globally in `src/styles/theme.css` updates or inline Tailwind:
 ## Mock Data Strategy
 
 `mockData.ts` exports:
+
 - `workers[]` — 10-15 worker profiles with name, nationality, jobTitle, experience, city, verificationStatus, sponsorshipStatus
 - `jobs[]` — 8-10 job listings with title, location, salaryRange, experience, accommodation, status
 - `applications[]` — worker's applications linked to jobs

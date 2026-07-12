@@ -5,6 +5,7 @@ Design and build a complete modern MVP website prototype for a workforce recruit
 3. Sponsor (Employer)
 
 The platform helps:
+
 - Workers create and manage profiles, upload documents, find job opportunities, apply for jobs, receive offers, and manage sponsorship transfer requests.
 - Recruitment agencies register workers, manage worker profiles, verify documents, submit sponsorship transfer requests, and track recruitment requests.
 - Sponsors register, create worker requests, search workers, view recommended workers, send job offers, and approve recruitment and sponsorship transfer requests.
@@ -16,6 +17,7 @@ GENERAL WEBSITE REQUIREMENTS
 Build a complete responsive website prototype.
 
 Technology/UI style reference:
+
 - React Material UI (MUI) style interface
 - Professional SaaS dashboard
 - Clean white background
@@ -28,6 +30,7 @@ Technology/UI style reference:
 - Simple and professional UI suitable for startup pitch presentation
 
 Avoid:
+
 - Complex animations
 - Excessive illustrations
 - Card-based layouts for data display
@@ -35,6 +38,7 @@ Avoid:
 - AI score indicators
 
 Use:
+
 - MUI DataGrid style tables
 - Search fields
 - Filter dropdowns
@@ -44,7 +48,6 @@ Use:
 - Dialog confirmations
 - Stepper forms
 
-
 ====================================
 WEBSITE STRUCTURE
 ====================================
@@ -52,15 +55,16 @@ WEBSITE STRUCTURE
 Create:
 
 Public Pages:
+
 - Landing Page
 - Login Page
 - Registration Selection Page
 
 Authentication:
+
 - Worker Login
 - Recruitment Agency Login
 - Sponsor Login
-
 
 After login:
 
@@ -70,7 +74,6 @@ Recruitment Agency → Agency Dashboard
 
 Sponsor → Sponsor Dashboard
 
-
 ====================================
 LANDING PAGE
 ====================================
@@ -78,6 +81,7 @@ LANDING PAGE
 Create homepage with:
 
 Sections:
+
 - Platform introduction
 - Explain connection between:
   Workers
@@ -85,9 +89,9 @@ Sections:
   Sponsors
 
 Buttons:
+
 - Login
 - Register
-
 
 Registration selection:
 
@@ -96,7 +100,6 @@ User chooses:
 - Register as Worker
 - Register as Recruitment Agency
 - Register as Sponsor
-
 
 ====================================
 AUTHENTICATION
@@ -115,16 +118,15 @@ Account Type Selection:
 - Recruitment Agency
 - Sponsor
 
-
 ====================================
+
 1. WORKER MODULE
-====================================
-
+   \====================================
 
 Create worker dashboard application.
 
+---
 
-------------------------------------
 Worker Registration
 ------------------------------------
 
@@ -138,14 +140,13 @@ Basic Information:
 - Date of Birth
 - Current City
 
-
 Contact Information:
 
 - Mobile Number
 - Email (optional)
 
+---
 
-------------------------------------
 Worker Dashboard
 ------------------------------------
 
@@ -154,6 +155,7 @@ Create dashboard with:
 Profile information table:
 
 Fields:
+
 - Full Name
 - Nationality
 - Job Title
@@ -164,7 +166,6 @@ Fields:
 - Sponsorship Status
 - Document Verification Status
 
-
 Actions:
 
 - Update Profile
@@ -173,15 +174,14 @@ Actions:
 - View Job Opportunities
 - Track Applications
 
+---
 
-------------------------------------
 Worker Profile Management
 ------------------------------------
 
 Create editable profile page.
 
 Sections:
-
 
 Basic Information:
 
@@ -191,12 +191,10 @@ Basic Information:
 - Date of Birth
 - Current City
 
-
 Contact Information:
 
 - Mobile Number
 - Email
-
 
 Employment Information:
 
@@ -205,29 +203,28 @@ Employment Information:
 - Current Employment Status
 
 Options:
+
 - Available
 - Employed
 
-
 - Preferred Work Location
-
 
 Sponsorship:
 
 - Current Sponsorship Status
 
 Options:
+
 - Sponsored
 - Needs Sponsorship Transfer
-
 
 Documents:
 
 - National ID or Passport Number
 - Resume (optional)
 
+---
 
-------------------------------------
 Document Upload
 ------------------------------------
 
@@ -242,12 +239,10 @@ Columns:
 - Status
 - Action
 
-
 Documents:
 
 - National ID / Passport
 - Resume
-
 
 Actions:
 
@@ -255,8 +250,8 @@ Actions:
 - View
 - Replace
 
+---
 
-------------------------------------
 Sponsorship Transfer Request
 ------------------------------------
 
@@ -272,11 +267,10 @@ Request Status:
 - Approved
 - Rejected
 
-
 Allow worker to submit sponsorship transfer request.
 
+---
 
-------------------------------------
 Job Opportunities
 ------------------------------------
 
@@ -292,14 +286,13 @@ Columns:
 - Status
 - Actions
 
-
 Actions:
 
 - View Details
 - Apply
 
+---
 
-------------------------------------
 Apply For Job
 ------------------------------------
 
@@ -312,14 +305,13 @@ Job Preference:
 - Expected Salary (optional)
 - Availability Date
 
-
 Application Message:
 
 - Short Introduction
 - Additional Notes
 
+---
 
-------------------------------------
 Application Tracking
 ------------------------------------
 
@@ -334,7 +326,6 @@ Columns:
 - Status
 - Actions
 
-
 Status:
 
 - Applied
@@ -343,8 +334,8 @@ Status:
 - Accepted
 - Rejected
 
+---
 
-------------------------------------
 Job Offer Response
 ------------------------------------
 
@@ -356,23 +347,18 @@ Display:
 - Job Information
 - Employment Details
 
-
 Actions:
 
 - Accept Offer
 - Reject Offer
 
-
-
+==================================== 2. SPONSOR MODULE
 ====================================
-2. SPONSOR MODULE
-====================================
-
 
 Create sponsor dashboard application.
 
+---
 
-------------------------------------
 Sponsor Registration
 ------------------------------------
 
@@ -387,24 +373,21 @@ Sponsor Type:
 - Individual
 - Company
 
-
 - City
 - Address
-
 
 Contact Information:
 
 - Mobile Number
 - Email
 
-
 Identification:
 
 - National ID
 - Commercial Registration Number
 
+---
 
-------------------------------------
 Sponsor Dashboard
 ------------------------------------
 
@@ -417,7 +400,6 @@ Summary:
 - Pending Applications
 - Completed Recruitment
 
-
 Navigation:
 
 - Profile
@@ -427,13 +409,12 @@ Navigation:
 - Job Offers
 - Recruitment Approval
 
+---
 
-------------------------------------
 Create Worker Request
 ------------------------------------
 
 Create multi-step form.
-
 
 Step 1: Job Information
 
@@ -448,18 +429,15 @@ Examples:
 - Housekeeper
 - Construction Worker
 
-
 - Number of Workers Needed
 - Job Description (optional)
 - Required Skills (optional)
-
 
 Required Experience:
 
 - No experience
 - 1-3 years
 - 3+ years
-
 
 Step 2: Worker Requirements
 
@@ -469,7 +447,6 @@ Fields:
 - Preferred Gender
 - Age Range
 - Language Requirements
-
 
 Step 3: Employment Details
 
@@ -488,12 +465,10 @@ Options:
 - Yes
 - No
 
-
 Transportation Provided:
 
 - Yes
 - No
-
 
 Request Status:
 
@@ -505,8 +480,8 @@ Display:
 - Completed
 - Cancelled
 
+---
 
-------------------------------------
 Worker Search
 ------------------------------------
 
@@ -525,7 +500,6 @@ Columns:
 - Document Verification Status
 - Actions
 
-
 Features:
 
 - Search
@@ -533,14 +507,13 @@ Features:
 - Sorting
 - Pagination
 
-
 Actions:
 
 - View Profile
 - Send Offer
 
+---
 
-------------------------------------
 Recommended Workers
 ------------------------------------
 
@@ -561,14 +534,13 @@ Columns:
 - Verification Status
 - Actions
 
-
 Actions:
 
 - View Profile
 - Send Offer
 
+---
 
-------------------------------------
 Job Offer Management
 ------------------------------------
 
@@ -582,14 +554,13 @@ Columns:
 - Status
 - Actions
 
-
 Actions:
 
 - Send Offer
 - Cancel Offer
 
+---
 
-------------------------------------
 Recruitment Approval
 ------------------------------------
 
@@ -605,12 +576,10 @@ Table:
 - Status
 - Actions
 
-
 Actions:
 
 - Approve
 - Reject
-
 
 Sponsorship Transfer Approval:
 
@@ -621,17 +590,13 @@ Table:
 - Request Status
 - Actions
 
-
-
+==================================== 3. RECRUITMENT AGENCY MODULE
 ====================================
-3. RECRUITMENT AGENCY MODULE
-====================================
-
 
 Create agency dashboard application.
 
+---
 
-------------------------------------
 Agency Registration
 ------------------------------------
 
@@ -641,8 +606,8 @@ Fields:
 - License Number
 - Contact Information
 
+---
 
-------------------------------------
 Agency Dashboard
 ------------------------------------
 
@@ -655,12 +620,10 @@ Workers:
 - Total Workers
 - Pending Verification
 
-
 Recruitment Requests:
 
 - Submitted Requests
 - Request Status
-
 
 Navigation:
 
@@ -670,15 +633,14 @@ Navigation:
 - Verify Documents
 - Recruitment Requests
 
+---
 
-------------------------------------
 Register Worker On Behalf Of Worker
 ------------------------------------
 
 Create worker registration form.
 
 Fields:
-
 
 Basic Information:
 
@@ -688,12 +650,10 @@ Basic Information:
 - Date of Birth
 - Current City
 
-
 Contact:
 
 - Mobile Number
 - Email
-
 
 Employment:
 
@@ -702,19 +662,17 @@ Employment:
 - Employment Status
 - Preferred Work Location
 
-
 Sponsorship:
 
 - Current Sponsorship Status
-
 
 Documents:
 
 - National ID / Passport Number
 - Resume
 
+---
 
-------------------------------------
 Manage Worker Profiles
 ------------------------------------
 
@@ -730,14 +688,13 @@ Columns:
 - Verification Status
 - Actions
 
-
 Actions:
 
 - View
 - Edit
 
+---
 
-------------------------------------
 Verify Worker Documents
 ------------------------------------
 
@@ -751,21 +708,19 @@ Columns:
 - Status
 - Actions
 
-
 Statuses:
 
 - Pending Verification
 - Verified
 - Rejected
 
-
 Actions:
 
 - Verify
 - Reject
 
+---
 
-------------------------------------
 Recruitment Requests
 ------------------------------------
 
@@ -781,7 +736,6 @@ Columns:
 - Status
 - Actions
 
-
 Statuses:
 
 - Pending
@@ -789,7 +743,6 @@ Statuses:
 - Candidates Selected
 - Completed
 - Cancelled
-
 
 ====================================
 GLOBAL COMPONENTS
@@ -810,7 +763,6 @@ Create reusable components:
 - Timelines
 - Buttons
 
-
 ====================================
 FINAL IMPLEMENTATION REQUIREMENTS
 ====================================
@@ -820,6 +772,7 @@ Create a complete MVP website prototype.
 The prototype must include all modules:
 
 Worker:
+
 - Registration
 - Login
 - Dashboard
@@ -831,8 +784,8 @@ Worker:
 - Application tracking
 - Offer response
 
-
 Sponsor:
+
 - Registration
 - Login
 - Dashboard
@@ -844,8 +797,8 @@ Sponsor:
 - Recruitment approval
 - Sponsorship transfer approval
 
-
 Recruitment Agency:
+
 - Registration
 - Login
 - Dashboard
@@ -854,8 +807,8 @@ Recruitment Agency:
 - Verify documents
 - Recruitment requests
 
-
 Important:
+
 - Use tables and lists for all data management screens.
 - Do not use worker cards.
 - Do not display matching percentages or AI scores.
