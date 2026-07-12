@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Typography,
     Box,
@@ -18,7 +19,11 @@ import { StatusBadge } from '../shared/StatusBadge';
 import { workers } from '../../data/mockData';
 import { Send } from 'lucide-react';
 
+import { useMockTranslation } from '../../utils/translateHelpers';
+
 export default function SponsorWorkerSearch() {
+    const { t } = useTranslation();
+    const { tName, tJobTitle, tNationality } = useMockTranslation();
     const [open, setOpen] = useState(false);
     const [selectedWorker, setSelectedWorker] = useState<string | null>(null);
 
@@ -33,19 +38,34 @@ export default function SponsorWorkerSearch() {
     };
 
     const columns: MRT_ColumnDef<(typeof workers)[0]>[] = [
-        { accessorKey: 'name', header: 'Worker Name', size: 150 },
-        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
-        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
-        { accessorKey: 'yearsOfExperience', header: 'Experience (Yrs)', size: 100 },
+        { 
+            accessorKey: 'name', 
+            header: t('sponsor.search.columns.name'), 
+            size: 150,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'jobTitle', 
+            header: t('sponsor.search.columns.jobTitle'), 
+            size: 150,
+            Cell: ({ cell }) => tJobTitle(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'nationality', 
+            header: t('sponsor.search.columns.nationality'), 
+            size: 120,
+            Cell: ({ cell }) => tNationality(cell.getValue() as string)
+        },
+        { accessorKey: 'yearsOfExperience', header: t('sponsor.search.columns.experience'), size: 100 },
         {
             accessorKey: 'verificationStatus',
-            header: 'Status',
+            header: t('sponsor.search.columns.status'),
             size: 120,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('sponsor.search.columns.actions'),
             size: 120,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -56,7 +76,7 @@ export default function SponsorWorkerSearch() {
                     startIcon={<Send size={16} />}
                     onClick={() => handleOpenOffer(row.original.name)}
                 >
-                    Send Offer
+                    {t('sponsor.search.actions.sendOffer')}
                 </Button>
             ),
         },
@@ -66,10 +86,10 @@ export default function SponsorWorkerSearch() {
         <DashboardLayout navItems={sponsorNavItems}>
             <Box mb={3}>
                 <Typography variant="h4" fontWeight="bold">
-                    Worker Search
+                    {t('sponsor.search.title')}
                 </Typography>
                 <Typography color="text.secondary">
-                    Find and recruit available talent directly.
+                    {t('sponsor.search.subtitle')}
                 </Typography>
             </Box>
 
@@ -77,12 +97,12 @@ export default function SponsorWorkerSearch() {
             <Box display="flex" gap={2} mb={3}>
                 <TextField
                     size="small"
-                    label="Filter by Nationality"
+                    label={t('sponsor.search.filters.nationality')}
                     variant="outlined"
                 />
                 <TextField
                     size="small"
-                    label="Filter by Experience"
+                    label={t('sponsor.search.filters.experience')}
                     variant="outlined"
                 />
             </Box>
@@ -93,26 +113,26 @@ export default function SponsorWorkerSearch() {
             />
 
             <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-                <DialogTitle>Send Offer to {selectedWorker}</DialogTitle>
+                <DialogTitle>{t('sponsor.search.dialog.title', { name: selectedWorker ? tName(selectedWorker) : '' })}</DialogTitle>
                 <DialogContent dividers>
                     <Grid container spacing={2} sx={{ mt: 1 }}>
                         <Grid size={{ xs: 12 }}>
                             <TextField
                                 fullWidth
-                                label="Job Title"
+                                label={t('sponsor.search.dialog.jobTitle')}
                                 defaultValue="Software Engineer"
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
-                            <TextField fullWidth label="Salary Offer" />
+                            <TextField fullWidth label={t('sponsor.search.dialog.salaryOffer')} />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
-                            <TextField fullWidth label="Location" />
+                            <TextField fullWidth label={t('sponsor.search.dialog.location')} />
                         </Grid>
                         <Grid size={{ xs: 12 }}>
                             <TextField
                                 fullWidth
-                                label="Message to Worker"
+                                label={t('sponsor.search.dialog.message')}
                                 multiline
                                 rows={4}
                             />
@@ -120,9 +140,9 @@ export default function SponsorWorkerSearch() {
                     </Grid>
                 </DialogContent>
                 <DialogActions sx={{ p: 2 }}>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>{t('sponsor.search.dialog.cancel')}</Button>
                     <Button variant="contained" onClick={handleClose}>
-                        Send Offer
+                        {t('sponsor.search.dialog.sendOffer')}
                     </Button>
                 </DialogActions>
             </Dialog>

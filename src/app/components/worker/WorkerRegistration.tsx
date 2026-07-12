@@ -21,8 +21,10 @@ import {
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../context/AuthContext';
 import { SAUDI_CITIES, JOB_TITLES, NATIONALITIES } from '../../data/mockData';
+import { useTranslation } from 'react-i18next';
 
 export default function WorkerRegistration() {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [jobTitle, setJobTitle] = useState('');
     const [nationality, setNationality] = useState('');
@@ -48,37 +50,36 @@ export default function WorkerRegistration() {
                 <Card sx={{ boxShadow: 3 }}>
                     <CardContent sx={{ p: 4 }}>
                         <Typography variant="h4" gutterBottom fontWeight="bold">
-                            Worker Registration
+                            {t('public_reg.worker.title')}
                         </Typography>
                         <Typography
                             variant="body1"
                             color="text.secondary"
                             mb={4}
                         >
-                            Create your profile to start finding opportunities
-                            in Saudi Arabia.
+                            {t('public_reg.worker.subtitle')}
                         </Typography>
 
                         <form onSubmit={handleRegister}>
                             {/* Basic Information */}
                             <Typography variant="h6" gutterBottom mt={2}>
-                                Basic Information
+                                {t('public_reg.worker.basic_info_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Full Name"
+                                        label={t('public_reg.worker.full_name_label')}
                                         required
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
-                                        <InputLabel>Nationality</InputLabel>
+                                        <InputLabel>{t('public_reg.worker.nationality_label')}</InputLabel>
                                         <Select
                                             value={nationality}
-                                            label="Nationality"
+                                            label={t('public_reg.worker.nationality_label')}
                                             onChange={(e) =>
                                                 setNationality(e.target.value)
                                             }
@@ -93,19 +94,19 @@ export default function WorkerRegistration() {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
-                                        <InputLabel>Gender</InputLabel>
+                                        <InputLabel>{t('public_reg.worker.gender_label')}</InputLabel>
                                         <Select
                                             value={gender}
-                                            label="Gender"
+                                            label={t('public_reg.worker.gender_label')}
                                             onChange={(e) =>
                                                 setGender(e.target.value)
                                             }
                                         >
                                             <MenuItem value="Male">
-                                                Male
+                                                {t('public_reg.worker.gender_male')}
                                             </MenuItem>
                                             <MenuItem value="Female">
-                                                Female
+                                                {t('public_reg.worker.gender_female')}
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
@@ -113,7 +114,7 @@ export default function WorkerRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Date of Birth"
+                                        label={t('public_reg.worker.dob_label')}
                                         type="date"
                                         InputLabelProps={{ shrink: true }}
                                         required
@@ -121,10 +122,10 @@ export default function WorkerRegistration() {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
-                                        <InputLabel>Current City</InputLabel>
+                                        <InputLabel>{t('public_reg.worker.current_city_label')}</InputLabel>
                                         <Select
                                             value={city}
-                                            label="Current City"
+                                            label={t('public_reg.worker.current_city_label')}
                                             onChange={(e) =>
                                                 setCity(e.target.value)
                                             }
@@ -141,21 +142,21 @@ export default function WorkerRegistration() {
 
                             {/* Contact Information */}
                             <Typography variant="h6" gutterBottom mt={4}>
-                                Contact Information
+                                {t('public_reg.worker.contact_info_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Mobile Number"
+                                        label={t('public_reg.worker.mobile_label')}
                                         required
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Email (optional)"
+                                        label={t('public_reg.worker.email_label')}
                                         type="email"
                                         value={email}
                                         onChange={(e) =>
@@ -166,7 +167,7 @@ export default function WorkerRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Password"
+                                        label={t('public_reg.worker.password_label')}
                                         type="password"
                                         required
                                     />
@@ -175,16 +176,16 @@ export default function WorkerRegistration() {
 
                             {/* Employment Information */}
                             <Typography variant="h6" gutterBottom mt={4}>
-                                Employment Information
+                                {t('public_reg.worker.employment_info_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
-                                        <InputLabel>Job Title</InputLabel>
+                                        <InputLabel>{t('public_reg.worker.job_title_label')}</InputLabel>
                                         <Select
                                             value={jobTitle}
-                                            label="Job Title"
+                                            label={t('public_reg.worker.job_title_label')}
                                             onChange={(e) =>
                                                 setJobTitle(e.target.value)
                                             }
@@ -200,7 +201,7 @@ export default function WorkerRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Years of Experience"
+                                        label={t('public_reg.worker.experience_label')}
                                         type="number"
                                         inputProps={{ min: 0 }}
                                         required
@@ -209,11 +210,11 @@ export default function WorkerRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
                                         <InputLabel>
-                                            Employment Status
+                                            {t('public_reg.worker.employment_status_label')}
                                         </InputLabel>
                                         <Select
                                             value={employmentStatus}
-                                            label="Employment Status"
+                                            label={t('public_reg.worker.employment_status_label')}
                                             onChange={(e) =>
                                                 setEmploymentStatus(
                                                     e.target.value
@@ -221,10 +222,10 @@ export default function WorkerRegistration() {
                                             }
                                         >
                                             <MenuItem value="Available">
-                                                Available
+                                                {t('public_reg.worker.status_available')}
                                             </MenuItem>
                                             <MenuItem value="Employed">
-                                                Employed
+                                                {t('public_reg.worker.status_employed')}
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
@@ -232,11 +233,11 @@ export default function WorkerRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
                                         <InputLabel>
-                                            Preferred Work Location
+                                            {t('public_reg.worker.preferred_location_label')}
                                         </InputLabel>
                                         <Select
                                             value={preferredLocation}
-                                            label="Preferred Work Location"
+                                            label={t('public_reg.worker.preferred_location_label')}
                                             onChange={(e) =>
                                                 setPreferredLocation(
                                                     e.target.value
@@ -255,12 +256,12 @@ export default function WorkerRegistration() {
 
                             {/* Sponsorship */}
                             <Typography variant="h6" gutterBottom mt={4}>
-                                Sponsorship Status
+                                {t('public_reg.worker.sponsorship_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <FormControl component="fieldset">
                                 <FormLabel component="legend">
-                                    Current Sponsorship Status
+                                    {t('public_reg.worker.sponsorship_legend')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -272,26 +273,26 @@ export default function WorkerRegistration() {
                                     <FormControlLabel
                                         value="Sponsored"
                                         control={<Radio />}
-                                        label="Sponsored"
+                                        label={t('public_reg.worker.sponsorship_sponsored')}
                                     />
                                     <FormControlLabel
                                         value="Needs Sponsorship Transfer"
                                         control={<Radio />}
-                                        label="Needs Sponsorship Transfer"
+                                        label={t('public_reg.worker.sponsorship_needs_transfer')}
                                     />
                                 </RadioGroup>
                             </FormControl>
 
                             {/* Documents */}
                             <Typography variant="h6" gutterBottom mt={4}>
-                                Documents
+                                {t('public_reg.worker.documents_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="National ID or Passport Number"
+                                        label={t('public_reg.worker.id_passport_label')}
                                         required
                                     />
                                 </Grid>
@@ -302,7 +303,7 @@ export default function WorkerRegistration() {
                                         fullWidth
                                         sx={{ height: '56px' }}
                                     >
-                                        Upload Resume (optional)
+                                        {t('public_reg.worker.upload_resume_btn')}
                                         <input
                                             type="file"
                                             hidden
@@ -321,14 +322,14 @@ export default function WorkerRegistration() {
                                     variant="outlined"
                                     onClick={() => navigate('/register')}
                                 >
-                                    Back
+                                    {t('public_reg.worker.back_btn')}
                                 </Button>
                                 <Button
                                     type="submit"
                                     variant="contained"
                                     size="large"
                                 >
-                                    Complete Registration
+                                    {t('public_reg.worker.submit_btn')}
                                 </Button>
                             </Box>
                         </form>

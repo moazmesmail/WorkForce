@@ -21,8 +21,10 @@ import {
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../context/AuthContext';
 import { SAUDI_CITIES, JOB_TITLES, NATIONALITIES } from '../../data/mockData';
+import { useTranslation } from 'react-i18next';
 
 export default function SponsorRegistration() {
+    const { t } = useTranslation();
     const [email, setEmail] = useState('');
     const [sponsorType, setSponsorType] = useState<'Individual' | 'Company'>(
         'Company'
@@ -43,26 +45,25 @@ export default function SponsorRegistration() {
                 <Card sx={{ boxShadow: 3 }}>
                     <CardContent sx={{ p: 4 }}>
                         <Typography variant="h4" gutterBottom fontWeight="bold">
-                            Sponsor Registration
+                            {t('public_reg.sponsor.title')}
                         </Typography>
                         <Typography
                             variant="body1"
                             color="text.secondary"
                             mb={4}
                         >
-                            Register as an employer to hire verified workers in
-                            Saudi Arabia.
+                            {t('public_reg.sponsor.subtitle')}
                         </Typography>
 
                         <form onSubmit={handleRegister}>
                             {/* Basic Information */}
                             <Typography variant="h6" gutterBottom mt={2}>
-                                Basic Information
+                                {t('public_reg.sponsor.basic_info_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <FormControl component="fieldset" sx={{ mb: 2 }}>
                                 <FormLabel component="legend">
-                                    Sponsor Type
+                                    {t('public_reg.sponsor.type_label')}
                                 </FormLabel>
                                 <RadioGroup
                                     row
@@ -77,12 +78,12 @@ export default function SponsorRegistration() {
                                     <FormControlLabel
                                         value="Individual"
                                         control={<Radio />}
-                                        label="Individual"
+                                        label={t('public_reg.sponsor.type_individual')}
                                     />
                                     <FormControlLabel
                                         value="Company"
                                         control={<Radio />}
-                                        label="Company"
+                                        label={t('public_reg.sponsor.type_company')}
                                     />
                                 </RadioGroup>
                             </FormControl>
@@ -92,18 +93,18 @@ export default function SponsorRegistration() {
                                         fullWidth
                                         label={
                                             sponsorType === 'Company'
-                                                ? 'Company Name'
-                                                : 'Full Name'
+                                                ? t('public_reg.sponsor.company_name_label')
+                                                : t('public_reg.sponsor.full_name_label')
                                         }
                                         required
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={4}>
                                     <FormControl fullWidth required>
-                                        <InputLabel>City</InputLabel>
+                                        <InputLabel>{t('public_reg.sponsor.city_label')}</InputLabel>
                                         <Select
                                             value={city}
-                                            label="City"
+                                            label={t('public_reg.sponsor.city_label')}
                                             onChange={(e) =>
                                                 setCity(e.target.value)
                                             }
@@ -119,28 +120,28 @@ export default function SponsorRegistration() {
                                 <Grid item xs={12}>
                                     <TextField
                                         fullWidth
-                                        label="Address (optional)"
+                                        label={t('public_reg.sponsor.address_label')}
                                     />
                                 </Grid>
                             </Grid>
 
                             {/* Contact Information */}
                             <Typography variant="h6" gutterBottom mt={4}>
-                                Contact Information
+                                {t('public_reg.sponsor.contact_info_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Mobile Number"
+                                        label={t('public_reg.sponsor.mobile_label')}
                                         required
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Email (optional)"
+                                        label={t('public_reg.sponsor.email_label')}
                                         type="email"
                                         value={email}
                                         onChange={(e) =>
@@ -151,7 +152,7 @@ export default function SponsorRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Password"
+                                        label={t('public_reg.sponsor.password_label')}
                                         type="password"
                                         required
                                     />
@@ -160,7 +161,7 @@ export default function SponsorRegistration() {
 
                             {/* Identification */}
                             <Typography variant="h6" gutterBottom mt={4}>
-                                Identification
+                                {t('public_reg.sponsor.identification_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={2}>
@@ -168,7 +169,7 @@ export default function SponsorRegistration() {
                                     <Grid item xs={12} sm={6}>
                                         <TextField
                                             fullWidth
-                                            label="National ID Number"
+                                            label={t('public_reg.sponsor.national_id_label')}
                                             required
                                         />
                                     </Grid>
@@ -176,7 +177,7 @@ export default function SponsorRegistration() {
                                     <Grid item xs={12} sm={6}>
                                         <TextField
                                             fullWidth
-                                            label="Commercial Registration Number"
+                                            label={t('public_reg.sponsor.commercial_reg_label')}
                                             required
                                         />
                                     </Grid>
@@ -185,14 +186,14 @@ export default function SponsorRegistration() {
 
                             {/* Hiring Information */}
                             <Typography variant="h6" gutterBottom mt={4}>
-                                Hiring Information
+                                {t('public_reg.sponsor.hiring_info_title')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Number of Workers Needed"
+                                        label={t('public_reg.sponsor.workers_needed_label')}
                                         type="number"
                                         inputProps={{ min: 1 }}
                                         required
@@ -201,10 +202,10 @@ export default function SponsorRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth>
                                         <InputLabel>
-                                            Required Job Title
+                                            {t('public_reg.sponsor.required_job_title_label')}
                                         </InputLabel>
                                         <Select
-                                            label="Required Job Title"
+                                            label={t('public_reg.sponsor.required_job_title_label')}
                                             defaultValue=""
                                         >
                                             {JOB_TITLES.map((j) => (
@@ -218,14 +219,14 @@ export default function SponsorRegistration() {
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth>
                                         <InputLabel>
-                                            Preferred Nationality (optional)
+                                            {t('public_reg.sponsor.preferred_nationality_label')}
                                         </InputLabel>
                                         <Select
-                                            label="Preferred Nationality (optional)"
+                                            label={t('public_reg.sponsor.preferred_nationality_label')}
                                             defaultValue=""
                                         >
                                             <MenuItem value="">
-                                                No Preference
+                                                {t('public_reg.sponsor.no_preference')}
                                             </MenuItem>
                                             {NATIONALITIES.map((n) => (
                                                 <MenuItem key={n} value={n}>
@@ -237,9 +238,9 @@ export default function SponsorRegistration() {
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
-                                        <InputLabel>Work Location</InputLabel>
+                                        <InputLabel>{t('public_reg.sponsor.work_location_label')}</InputLabel>
                                         <Select
-                                            label="Work Location"
+                                            label={t('public_reg.sponsor.work_location_label')}
                                             defaultValue=""
                                         >
                                             {SAUDI_CITIES.map((c) => (
@@ -261,14 +262,14 @@ export default function SponsorRegistration() {
                                     variant="outlined"
                                     onClick={() => navigate('/register')}
                                 >
-                                    Back
+                                    {t('public_reg.sponsor.back_btn')}
                                 </Button>
                                 <Button
                                     type="submit"
                                     variant="contained"
                                     size="large"
                                 >
-                                    Complete Registration
+                                    {t('public_reg.sponsor.submit_btn')}
                                 </Button>
                             </Box>
                         </form>

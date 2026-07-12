@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface StatusBadgeProps {
     status: string;
@@ -46,7 +47,29 @@ function getStatusConfig(status: string): StatusConfig {
 }
 
 export const StatusBadge = ({ status }: StatusBadgeProps) => {
+    const { t } = useTranslation();
     const config = getStatusConfig(status);
+
+    const keyMap: Record<string, string> = {
+        'verified': 'status.verified',
+        'pending': 'status.pending',
+        'reviewing matches': 'status.reviewingMatches',
+        'candidates selected': 'status.candidatesSelected',
+        'completed': 'status.completed',
+        'cancelled': 'status.cancelled',
+        'draft': 'status.draft',
+        'approved': 'status.approved',
+        'rejected': 'status.rejected',
+        'pending verification': 'status.pendingVerification',
+        'needs match': 'sponsorship.pendingMatch',
+        'needs sponsorship transfer': 'status.needsSponsorshipTransfer',
+        'offer received': 'status.offerReceived',
+        'active': 'status.active',
+        'inactive': 'status.inactive',
+    };
+
+    const normalized = status.toLowerCase().trim();
+    const displayName = keyMap[normalized] ? t(keyMap[normalized]) : status;
 
     return (
         <Box
@@ -77,7 +100,7 @@ export const StatusBadge = ({ status }: StatusBadgeProps) => {
                     display: 'inline-block',
                 }}
             />
-            {status}
+            {displayName}
         </Box>
     );
 };

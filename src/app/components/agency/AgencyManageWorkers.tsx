@@ -19,10 +19,15 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { agencyWorkers as initialWorkers } from '../../data/mockData';
 import { Edit, Eye, ArrowRightLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 type AgencyWorker = (typeof initialWorkers)[0];
 
 export default function AgencyManageWorkers() {
+    const { t } = useTranslation();
+    const { tName, tJobTitle, tNationality, tCity } = useMockTranslation();
     const [workers, setWorkers] = useState(initialWorkers);
     const [openEdit, setOpenEdit] = useState(false);
     const [selectedWorker, setSelectedWorker] = useState<AgencyWorker | null>(
@@ -48,30 +53,50 @@ export default function AgencyManageWorkers() {
         );
         setSnackbar({
             open: true,
-            message: `${worker.name} is now available for sponsorship transfer.`,
+            message: t('agency.manageWorkers.transferSuccess', { name: tName(worker.name) }),
         });
     };
 
     const columns: MRT_ColumnDef<AgencyWorker>[] = [
-        { accessorKey: 'name', header: 'Name', size: 160 },
-        { accessorKey: 'jobTitle', header: 'Job Title', size: 140 },
-        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
-        { accessorKey: 'currentCity', header: 'City', size: 110 },
+        { 
+            accessorKey: 'name', 
+            header: t('agency.manageWorkers.columns.name'), 
+            size: 160,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'jobTitle', 
+            header: t('agency.manageWorkers.columns.jobTitle'), 
+            size: 140,
+            Cell: ({ cell }) => tJobTitle(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'nationality', 
+            header: t('agency.manageWorkers.columns.nationality'), 
+            size: 120,
+            Cell: ({ cell }) => tNationality(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'currentCity', 
+            header: t('agency.manageWorkers.columns.city'), 
+            size: 110,
+            Cell: ({ cell }) => tCity(cell.getValue() as string)
+        },
         {
             accessorKey: 'sponsorshipStatus',
-            header: 'Sponsorship',
+            header: t('agency.manageWorkers.columns.sponsorship'),
             size: 180,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             accessorKey: 'verificationStatus',
-            header: 'Documents',
+            header: t('agency.manageWorkers.columns.documents'),
             size: 150,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('agency.manageWorkers.columns.actions'),
             size: 260,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -87,7 +112,7 @@ export default function AgencyManageWorkers() {
                         variant="outlined"
                         startIcon={<Eye size={14} />}
                     >
-                        View
+                        {t('agency.manageWorkers.actions.view')}
                     </Button>
                     <Button
                         size="small"
@@ -95,7 +120,7 @@ export default function AgencyManageWorkers() {
                         startIcon={<Edit size={14} />}
                         onClick={() => handleEdit(row.original)}
                     >
-                        Edit
+                        {t('agency.manageWorkers.actions.edit')}
                     </Button>
                     <Button
                         size="small"
@@ -108,7 +133,7 @@ export default function AgencyManageWorkers() {
                         }
                         onClick={() => handleSubmitForTransfer(row.original)}
                     >
-                        Transfer
+                        {t('agency.manageWorkers.actions.transfer')}
                     </Button>
                 </Box>
             ),
@@ -119,10 +144,10 @@ export default function AgencyManageWorkers() {
         <DashboardLayout navItems={agencyNavItems}>
             <Box mb={3}>
                 <Typography variant="h4" fontWeight="bold">
-                    Manage Workers
+                    {t('agency.manageWorkers.title')}
                 </Typography>
                 <Typography color="text.secondary">
-                    View and manage workers registered by your agency.
+                    {t('agency.manageWorkers.subtitle')}
                 </Typography>
             </Box>
 
@@ -137,28 +162,28 @@ export default function AgencyManageWorkers() {
                 maxWidth="sm"
                 fullWidth
             >
-                <DialogTitle>Edit Worker Profile</DialogTitle>
+                <DialogTitle>{t('agency.manageWorkers.editTitle')}</DialogTitle>
                 <DialogContent dividers>
                     {selectedWorker && (
                         <Grid container spacing={2} sx={{ mt: 1 }}>
                             <Grid item xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="Full Name"
+                                    label={t('agency.manageWorkers.fullName')}
                                     defaultValue={selectedWorker.name}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     fullWidth
-                                    label="Job Title"
+                                    label={t('agency.manageWorkers.jobTitle')}
                                     defaultValue={selectedWorker.jobTitle}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     fullWidth
-                                    label="Years of Experience"
+                                    label={t('agency.manageWorkers.yearsOfExperience')}
                                     type="number"
                                     defaultValue={
                                         selectedWorker.yearsOfExperience
@@ -168,14 +193,14 @@ export default function AgencyManageWorkers() {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     fullWidth
-                                    label="Current City"
+                                    label={t('agency.manageWorkers.currentCity')}
                                     defaultValue={selectedWorker.currentCity}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     fullWidth
-                                    label="Mobile Number"
+                                    label={t('agency.manageWorkers.mobileNumber')}
                                     defaultValue={selectedWorker.mobileNumber}
                                 />
                             </Grid>
@@ -183,12 +208,12 @@ export default function AgencyManageWorkers() {
                     )}
                 </DialogContent>
                 <DialogActions sx={{ p: 2 }}>
-                    <Button onClick={() => setOpenEdit(false)}>Cancel</Button>
+                    <Button onClick={() => setOpenEdit(false)}>{t('agency.manageWorkers.actions.cancel')}</Button>
                     <Button
                         variant="contained"
                         onClick={() => setOpenEdit(false)}
                     >
-                        Save Changes
+                        {t('agency.manageWorkers.actions.save')}
                     </Button>
                 </DialogActions>
             </Dialog>

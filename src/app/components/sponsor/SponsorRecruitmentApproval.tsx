@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Typography,
     Box,
@@ -22,8 +23,12 @@ import {
 import { CheckCircle, XCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
+import { useMockTranslation } from '../../utils/translateHelpers';
+
 export default function SponsorRecruitmentApproval() {
     const { currentUser } = useAuth();
+    const { t } = useTranslation();
+    const { tName, tJobTitle, tCity } = useMockTranslation();
     const [tabIndex, setTabIndex] = useState(0);
     const [openDialog, setOpenDialog] = useState(false);
     const [actionType, setActionType] = useState<'Approve' | 'Reject' | null>(
@@ -92,7 +97,7 @@ export default function SponsorRecruitmentApproval() {
                         status: newStatus,
                         newSponsor:
                             actionType === 'Approve'
-                                  ? currentUser?.name || 'TechNova Solutions'
+                                   ? currentUser?.name || 'TechNova Solutions'
                                 : r.newSponsor,
                     };
                 }
@@ -145,7 +150,7 @@ export default function SponsorRecruitmentApproval() {
                     },
                 }}
             >
-                Approve
+                {t('sponsor.approvals.actions.approve')}
             </Button>
             <Button
                 size="small"
@@ -167,24 +172,29 @@ export default function SponsorRecruitmentApproval() {
                     },
                 }}
             >
-                Reject
+                {t('sponsor.approvals.actions.reject')}
             </Button>
         </Box>
     );
 
     const recruitmentColumns: MRT_ColumnDef<any>[] = [
-        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
-        { accessorKey: 'workersNeeded', header: 'Workers Needed', size: 120 },
-        { accessorKey: 'requestDate', header: 'Date', size: 120 },
+        { 
+            accessorKey: 'jobTitle', 
+            header: t('sponsor.approvals.columns.jobTitle'), 
+            size: 150,
+            Cell: ({ cell }) => tJobTitle(cell.getValue() as string)
+        },
+        { accessorKey: 'workersNeeded', header: t('sponsor.approvals.columns.workersNeeded'), size: 120 },
+        { accessorKey: 'requestDate', header: t('sponsor.approvals.columns.date'), size: 120 },
         {
             accessorKey: 'status',
-            header: 'Status',
+            header: t('sponsor.approvals.columns.status'),
             size: 120,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('sponsor.approvals.columns.actions'),
             size: 260,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -197,44 +207,49 @@ export default function SponsorRecruitmentApproval() {
     const sponsorshipColumns: MRT_ColumnDef<any>[] = [
         {
             accessorKey: 'workerName',
-            header: 'Worker Name',
+            header: t('sponsor.approvals.columns.workerName'),
             size: 140,
-            Cell: ({ cell }) => cell.getValue<string>() || 'Ahmed Hassan',
+            Cell: ({ cell }) => tName(cell.getValue<string>() || 'Ahmed Hassan'),
         },
-        { accessorKey: 'currentSponsor', header: 'Current Sponsor', size: 140 },
+        { 
+            accessorKey: 'currentSponsor', 
+            header: t('sponsor.approvals.columns.currentSponsor'), 
+            size: 140,
+            Cell: ({ cell }) => tName(cell.getValue<string>() || 'Al-Faris Trading Co.')
+        },
         {
             accessorKey: 'desiredJobTitle',
-            header: 'Job Title',
+            header: t('sponsor.approvals.columns.jobTitle'),
             size: 140,
-            Cell: ({ cell, row }) => cell.getValue<string>() || row.original.jobTitle || 'General',
+            Cell: ({ cell, row }) => tJobTitle(cell.getValue<string>() || row.original.jobTitle || 'General'),
         },
         {
             accessorKey: 'preferredLocation',
-            header: 'Preferred Location',
+            header: t('sponsor.approvals.columns.preferredLocation'),
             size: 150,
-            Cell: ({ cell }) => cell.getValue<string>() || 'Riyadh',
+            Cell: ({ cell }) => tCity(cell.getValue<string>() || 'Riyadh'),
         },
         {
             accessorKey: 'expectedSalary',
-            header: 'Expected Salary',
+            header: t('sponsor.approvals.columns.expectedSalary'),
             size: 140,
-            Cell: ({ cell }) => cell.getValue<string>() || 'Not Specified',
+            Cell: ({ cell }) => cell.getValue<string>() || t('sponsor.approvals.values.notSpecified'),
         },
         {
             accessorKey: 'availabilityDate',
-            header: 'Availability',
+            header: t('sponsor.approvals.columns.availability'),
             size: 120,
-            Cell: ({ cell }) => cell.getValue<string>() || 'Immediate',
+            Cell: ({ cell }) => cell.getValue<string>() || t('sponsor.approvals.values.immediate'),
         },
         {
             accessorKey: 'status',
-            header: 'Status',
+            header: t('sponsor.approvals.columns.status'),
             size: 120,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('sponsor.approvals.columns.actions'),
             size: 260,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -246,20 +261,20 @@ export default function SponsorRecruitmentApproval() {
 
     return (
         <DashboardLayout navItems={sponsorNavItems}>
+            {/* Page Header */}
             <Box mb={3}>
                 <Typography variant="h4" fontWeight="bold">
-                    Approvals Hub
+                    {t('sponsor.approvals.title')}
                 </Typography>
                 <Typography color="text.secondary">
-                    Review and approve agency recruitment submissions and
-                    incoming transfer requests.
+                    {t('sponsor.approvals.subtitle')}
                 </Typography>
             </Box>
 
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
                 <Tabs value={tabIndex} onChange={(_, nv) => setTabIndex(nv)}>
-                    <Tab label="Recruitment Submissions" />
-                    <Tab label="Transfer Requests" />
+                    <Tab label={t('sponsor.approvals.tabs.recruitment')} />
+                    <Tab label={t('sponsor.approvals.tabs.transfer')} />
                 </Tabs>
             </Box>
 
@@ -278,21 +293,28 @@ export default function SponsorRecruitmentApproval() {
             )}
 
             <Dialog open={openDialog} onClose={handleClose}>
-                <DialogTitle>{actionType} Request</DialogTitle>
+                <DialogTitle>
+                    {actionType === 'Approve' 
+                        ? t('sponsor.approvals.dialog.title_approve') 
+                        : t('sponsor.approvals.dialog.title_reject')}
+                </DialogTitle>
                 <DialogContent>
                     <Typography>
-                        Are you sure you want to {actionType?.toLowerCase()}{' '}
-                        this request? This action cannot be undone.
+                        {actionType === 'Approve'
+                            ? t('sponsor.approvals.dialog.confirmText_approve')
+                            : t('sponsor.approvals.dialog.confirmText_reject')}
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>{t('sponsor.approvals.dialog.cancel')}</Button>
                     <Button
                         onClick={handleConfirm}
                         variant="contained"
                         color={actionType === 'Approve' ? 'success' : 'error'}
                     >
-                        Confirm {actionType}
+                        {actionType === 'Approve'
+                            ? t('sponsor.approvals.dialog.confirmButton_approve')
+                            : t('sponsor.approvals.dialog.confirmButton_reject')}
                     </Button>
                 </DialogActions>
             </Dialog>

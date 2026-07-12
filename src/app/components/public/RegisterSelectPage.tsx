@@ -9,26 +9,28 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { Briefcase, Building, ShieldCheck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function RegisterSelectPage() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const options = [
         {
-            title: 'Worker',
-            description: 'Register to find jobs and manage sponsorships.',
+            titleKey: 'public_reg.select.options.worker.title',
+            descriptionKey: 'public_reg.select.options.worker.desc',
             icon: <Briefcase size={40} color="#1565C0" />,
             path: '/register/worker',
         },
         {
-            title: 'Sponsor',
-            description: 'Register to hire talent and request workers.',
+            titleKey: 'public_reg.select.options.sponsor.title',
+            descriptionKey: 'public_reg.select.options.sponsor.desc',
             icon: <Building size={40} color="#2E7D32" />,
             path: '/register/sponsor',
         },
         {
-            title: 'Recruitment Agency',
-            description: 'Register to provide talent to sponsors.',
+            titleKey: 'public_reg.select.options.agency.title',
+            descriptionKey: 'public_reg.select.options.agency.desc',
             icon: <ShieldCheck size={40} color="#1565C0" />,
             path: '/register/agency',
         },
@@ -52,11 +54,11 @@ export default function RegisterSelectPage() {
                     fontWeight="bold"
                     mb={6}
                 >
-                    Choose Account Type
+                    {t('public_reg.select.title')}
                 </Typography>
                 <Grid container spacing={4}>
                     {options.map((option) => (
-                        <Grid item xs={12} sm={4} key={option.title}>
+                        <Grid item xs={12} sm={4} key={option.titleKey}>
                             <Card
                                 sx={{
                                     height: '100%',
@@ -75,13 +77,13 @@ export default function RegisterSelectPage() {
                                             gutterBottom
                                             fontWeight="bold"
                                         >
-                                            {option.title}
+                                            {t(option.titleKey)}
                                         </Typography>
                                         <Typography
                                             variant="body2"
                                             color="text.secondary"
                                         >
-                                            {option.description}
+                                            {t(option.descriptionKey)}
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
@@ -99,7 +101,7 @@ export default function RegisterSelectPage() {
                         }}
                         onClick={() => navigate('/login')}
                     >
-                        Already have an account? Login here
+                        {t('public_reg.select.already_have_account')}
                     </Typography>
                 </Box>
             </Container>

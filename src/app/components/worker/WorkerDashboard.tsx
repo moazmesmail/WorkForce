@@ -23,6 +23,8 @@ import {
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { workerApplications, myDocuments } from '../../data/mockData';
+import { useTranslation } from 'react-i18next';
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 export const workerNavItems: NavItem[] = [
     { label: 'Dashboard', path: '/worker/dashboard', icon: <Home /> },
@@ -40,49 +42,51 @@ export const workerNavItems: NavItem[] = [
     },
 ];
 
-const stats = [
-    {
-        label: 'Active Applications',
-        value: '2',
-        icon: Briefcase,
-        color: '#0969DA',
-        bg: '#DDF4FF',
-        path: '/worker/applications',
-    },
-    {
-        label: 'Documents Uploaded',
-        value: '3',
-        icon: FileText,
-        color: '#1A7F37',
-        bg: '#DDFBE6',
-        path: '/worker/profile?tab=documents',
-    },
-    {
-        label: 'Profile Completion',
-        value: '85%',
-        icon: TrendingUp,
-        color: '#B54708',
-        bg: '#FEF0C7',
-        path: '/worker/profile',
-    },
-    {
-        label: 'Verification Status',
-        value: 'Verified',
-        icon: CheckCircle2,
-        color: '#0969DA',
-        bg: '#DDF4FF',
-        path: '/worker/profile?tab=documents',
-    },
-];
-
 export default function WorkerDashboard() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+    const { t } = useTranslation();
+    const { tJobTitle, tName } = useMockTranslation();
 
     const pendingDocs = myDocuments.filter(
         (d) => d.status !== 'Verified'
     ).length;
     const recentApps = workerApplications.slice(0, 3);
+
+    const stats = [
+        {
+            label: t('worker.stats.activeApplications'),
+            value: '2',
+            icon: Briefcase,
+            color: '#0969DA',
+            bg: '#DDF4FF',
+            path: '/worker/applications',
+        },
+        {
+            label: t('worker.stats.documentsUploaded'),
+            value: '3',
+            icon: FileText,
+            color: '#1A7F37',
+            bg: '#DDFBE6',
+            path: '/worker/profile?tab=documents',
+        },
+        {
+            label: t('worker.stats.profileCompletion'),
+            value: '85%',
+            icon: TrendingUp,
+            color: '#B54708',
+            bg: '#FEF0C7',
+            path: '/worker/profile',
+        },
+        {
+            label: t('worker.stats.verificationStatus'),
+            value: t('worker.verified'),
+            icon: CheckCircle2,
+            color: '#0969DA',
+            bg: '#DDF4FF',
+            path: '/worker/profile?tab=documents',
+        },
+    ];
 
     return (
         <DashboardLayout navItems={workerNavItems}>
@@ -96,10 +100,10 @@ export default function WorkerDashboard() {
                         mb: 0.25,
                     }}
                 >
-                    Welcome back, {currentUser?.name?.split(' ')[0] || 'there'}
+                    {t('worker.welcomeBack', { name: currentUser?.name?.split(' ')[0] || t('worker.there') })}
                 </Typography>
                 <Typography sx={{ color: '#5E7089', fontSize: '0.875rem' }}>
-                    Here&apos;s an overview of your account activity.
+                    {t('worker.dashboardSubtitle')}
                 </Typography>
             </Box>
 
@@ -193,7 +197,7 @@ export default function WorkerDashboard() {
                                     color: '#111827',
                                 }}
                             >
-                                Profile Overview
+                                {t('worker.profileOverview')}
                             </Typography>
                             <Button
                                 size="small"
@@ -205,7 +209,7 @@ export default function WorkerDashboard() {
                                     px: 1,
                                 }}
                             >
-                                Edit
+                                {t('worker.edit')}
                             </Button>
                         </Box>
                         <Divider sx={{ mb: 2 }} />
@@ -218,17 +222,17 @@ export default function WorkerDashboard() {
                         >
                             {[
                                 {
-                                    label: 'Full Name',
-                                    value: 'Mohamed Ali Hassan',
+                                    label: t('worker.fullName'),
+                                    value: currentUser?.name || t('worker.mockNameDefault'),
                                 },
-                                { label: 'Job Title', value: 'Driver' },
+                                { label: t('worker.jobTitle'), value: t('worker.driver') },
                                 {
-                                    label: 'Current Sponsor',
-                                    value: 'Al-Faris Trading Co.',
+                                    label: t('worker.currentSponsor'),
+                                    value: t('worker.mockSponsorName'),
                                 },
                                 {
-                                    label: 'Location',
-                                    value: 'Riyadh, Saudi Arabia',
+                                    label: t('worker.location'),
+                                    value: t('worker.mockLocation'),
                                 },
                             ].map((row) => (
                                 <Box
@@ -289,7 +293,7 @@ export default function WorkerDashboard() {
                                             lineHeight: 1.3,
                                         }}
                                     >
-                                        Action Required
+                                        {t('worker.actionRequired')}
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -298,9 +302,7 @@ export default function WorkerDashboard() {
                                             mt: 0.25,
                                         }}
                                     >
-                                        {pendingDocs} document
-                                        {pendingDocs > 1 ? 's' : ''} pending
-                                        verification
+                                        {t('worker.pendingVerificationCount', { count: pendingDocs })}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -326,7 +328,7 @@ export default function WorkerDashboard() {
                                     color: '#111827',
                                 }}
                             >
-                                Recent Applications
+                                {t('worker.recentApplications')}
                             </Typography>
                             <Button
                                 size="small"
@@ -338,7 +340,7 @@ export default function WorkerDashboard() {
                                     px: 1,
                                 }}
                             >
-                                View All
+                                {t('worker.viewAll')}
                             </Button>
                         </Box>
                         <Divider sx={{ mb: 2 }} />
@@ -352,71 +354,71 @@ export default function WorkerDashboard() {
                                 }}
                             >
                                 {recentApps.map((app) => (
-                                    <Box
-                                        key={app.id}
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'space-between',
-                                            p: 1.5,
-                                            borderRadius: '6px',
-                                            border: '1px solid #D2DAE5',
-                                            gap: 2,
-                                            '&:hover': {
-                                                backgroundColor: '#F5F7FA',
-                                            },
-                                            transition: 'background-color 0.1s',
-                                        }}
-                                    >
                                         <Box
+                                            key={app.id}
                                             sx={{
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                gap: 1.5,
-                                                minWidth: 0,
+                                                justifyContent: 'space-between',
+                                                p: 1.5,
+                                                borderRadius: '6px',
+                                                border: '1px solid #D2DAE5',
+                                                gap: 2,
+                                                '&:hover': {
+                                                    backgroundColor: '#F5F7FA',
+                                                },
+                                                transition: 'background-color 0.1s',
                                             }}
                                         >
                                             <Box
                                                 sx={{
-                                                    width: 32,
-                                                    height: 32,
-                                                    borderRadius: '8px',
-                                                    backgroundColor: '#DDF4FF',
                                                     display: 'flex',
                                                     alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    flexShrink: 0,
+                                                    gap: 1.5,
+                                                    minWidth: 0,
                                                 }}
                                             >
-                                                <Briefcase
-                                                    size={15}
-                                                    color="#0969DA"
-                                                />
-                                            </Box>
-                                            <Box sx={{ minWidth: 0 }}>
-                                                <Typography
+                                                <Box
                                                     sx={{
-                                                        fontSize: '0.875rem',
-                                                        fontWeight: 600,
-                                                        color: '#111827',
-                                                        whiteSpace: 'nowrap',
-                                                        overflow: 'hidden',
-                                                        textOverflow:
-                                                            'ellipsis',
+                                                        width: 32,
+                                                        height: 32,
+                                                        borderRadius: '8px',
+                                                        backgroundColor: '#DDF4FF',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        flexShrink: 0,
                                                     }}
                                                 >
-                                                    {app.jobTitle}
-                                                </Typography>
-                                                <Typography
-                                                    sx={{
-                                                        fontSize: '0.75rem',
-                                                        color: '#5E7089',
-                                                    }}
-                                                >
-                                                    {app.sponsorName}
-                                                </Typography>
+                                                    <Briefcase
+                                                        size={15}
+                                                        color="#0969DA"
+                                                    />
+                                                </Box>
+                                                <Box sx={{ minWidth: 0 }}>
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: '0.875rem',
+                                                            fontWeight: 600,
+                                                            color: '#111827',
+                                                            whiteSpace: 'nowrap',
+                                                            overflow: 'hidden',
+                                                            textOverflow:
+                                                                'ellipsis',
+                                                        }}
+                                                    >
+                                                        {tJobTitle(app.jobTitle)}
+                                                    </Typography>
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: '0.75rem',
+                                                            color: '#5E7089',
+                                                        }}
+                                                    >
+                                                        {tName(app.sponsorName)}
+                                                    </Typography>
+                                                </Box>
                                             </Box>
-                                        </Box>
                                         <Box
                                             sx={{
                                                 display: 'flex',
@@ -427,7 +429,7 @@ export default function WorkerDashboard() {
                                             }}
                                         >
                                             <Chip
-                                                label={app.status}
+                                                label={app.status === 'Reviewing' ? t('worker.status.reviewing') : app.status === 'Offer Received' ? t('worker.status.offerReceived') : app.status}
                                                 size="small"
                                                 sx={{
                                                     height: 20,
@@ -469,14 +471,14 @@ export default function WorkerDashboard() {
                                         fontSize: '0.875rem',
                                     }}
                                 >
-                                    No applications yet.
+                                    {t('worker.noApplications')}
                                 </Typography>
                                 <Button
                                     size="small"
                                     onClick={() => navigate('/worker/jobs')}
                                     sx={{ mt: 1, color: '#0969DA' }}
                                 >
-                                    Browse Jobs
+                                    {t('worker.browseJobs')}
                                 </Button>
                             </Box>
                         )}
@@ -494,34 +496,34 @@ export default function WorkerDashboard() {
                                 mb: 1.5,
                             }}
                         >
-                            Quick Actions
+                            {t('worker.quickActions')}
                         </Typography>
                         <Divider sx={{ mb: 2.5 }} />
                         <Grid container spacing={1.5}>
                             {[
                                 {
-                                    label: 'Browse Job Opportunities',
+                                    label: t('worker.quickActionsItems.browseJobs'),
                                     icon: Briefcase,
                                     path: '/worker/jobs',
                                     color: '#0969DA',
                                     bg: '#DDF4FF',
                                 },
                                 {
-                                    label: 'Upload Documents',
+                                    label: t('worker.quickActionsItems.uploadDocs'),
                                     icon: FileText,
                                     path: '/worker/documents',
                                     color: '#1A7F37',
                                     bg: '#DDFBE6',
                                 },
                                 {
-                                    label: 'Request Sponsorship Transfer',
+                                    label: t('worker.quickActionsItems.requestTransfer'),
                                     icon: Repeat,
                                     path: '/worker/sponsorship',
                                     color: '#B54708',
                                     bg: '#FEF0C7',
                                 },
                                 {
-                                    label: 'Update Profile',
+                                    label: t('worker.quickActionsItems.updateProfile'),
                                     icon: User,
                                     path: '/worker/profile',
                                     color: '#5E7089',

@@ -29,6 +29,7 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { documents } from '../../data/mockData';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -45,6 +46,7 @@ function TabPanel({ children, value, index }: TabPanelProps) {
 }
 
 export default function WorkerProfile() {
+    const { t } = useTranslation();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const tabParam = queryParams.get('tab');
@@ -114,20 +116,28 @@ export default function WorkerProfile() {
         </Grid>
     );
 
+    const getDocTypeTranslation = (type: string) => {
+        if (type === 'Passport Copy') return t('worker.docType.passport');
+        if (type === 'National ID') return t('worker.docType.nationalId');
+        if (type === 'Resume / CV') return t('worker.docType.resume');
+        return type;
+    };
+
     const documentColumns: MRT_ColumnDef<(typeof documents)[0]>[] = [
         {
             accessorKey: 'name',
-            header: 'Document Name',
+            header: t('worker.documentName'),
             size: 170,
+            Cell: ({ cell }) => getDocTypeTranslation(cell.getValue() as string),
         },
         {
             accessorKey: 'uploadDate',
-            header: 'Upload Date',
+            header: t('worker.uploadDate'),
             size: 100,
         },
         {
             accessorKey: 'status',
-            header: 'Status',
+            header: t('worker.status'),
             size: 100,
             Cell: ({ cell }) => (
                 <StatusBadge status={cell.getValue() as string} />
@@ -135,7 +145,7 @@ export default function WorkerProfile() {
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('worker.actions'),
             size: 100,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -144,7 +154,7 @@ export default function WorkerProfile() {
                     size="small"
                     startIcon={<Eye size={16} />}
                 >
-                    View
+                    {t('worker.view')}
                 </Button>
             ),
         },
@@ -191,7 +201,7 @@ export default function WorkerProfile() {
                                 lineHeight: 1.3,
                             }}
                         >
-                            Ahmed Hassan
+                            {t('worker.profile.mockName')}
                         </Typography>
                         <Typography
                             sx={{
@@ -200,7 +210,7 @@ export default function WorkerProfile() {
                                 mt: 0.25,
                             }}
                         >
-                            Software Engineer · Dubai, UAE
+                            {t('jobTitles.softwareEngineer')} · {t('worker.profile.location')}
                         </Typography>
                         <Box
                             sx={{
@@ -212,7 +222,7 @@ export default function WorkerProfile() {
                         >
                             <Chip
                                 icon={<CheckCircle size={11} />}
-                                label="Verified"
+                                label={t('worker.verified')}
                                 size="small"
                                 sx={{
                                     height: 22,
@@ -229,7 +239,7 @@ export default function WorkerProfile() {
                                 }}
                             />
                             <Chip
-                                label="Sponsored · Current Corp"
+                                label={t('worker.sponsoredCurrentCorp')}
                                 size="small"
                                 sx={{
                                     height: 22,
@@ -265,7 +275,7 @@ export default function WorkerProfile() {
                                   }
                         }
                     >
-                        {isEditing ? 'Save Changes' : 'Edit Profile'}
+                        {isEditing ? t('worker.saveChanges') : t('worker.editProfile')}
                     </Button>
                 </Box>
             </Paper>
@@ -275,13 +285,13 @@ export default function WorkerProfile() {
                 <Box sx={{ borderBottom: '1px solid #D2DAE5', px: 3 }}>
                     <Tabs value={tabValue} onChange={(_, v) => setTabValue(v)}>
                         {[
-                            { label: 'Basic Info', Icon: User },
-                            { label: 'Contact', Icon: Phone },
-                            { label: 'Employment', Icon: Briefcase },
-                            { label: 'Documents', Icon: FileText },
-                        ].map((t, i) => (
+                            { label: t('worker.tab.basicInfo'), key: 'Basic Info', Icon: User },
+                            { label: t('worker.tab.contact'), key: 'Contact', Icon: Phone },
+                            { label: t('worker.tab.employment'), key: 'Employment', Icon: Briefcase },
+                            { label: t('worker.tab.documents'), key: 'Documents', Icon: FileText },
+                        ].map((tabInfo, i) => (
                             <Tab
-                                key={t.label}
+                                key={tabInfo.key}
                                 label={
                                     <Box
                                         sx={{
@@ -290,8 +300,8 @@ export default function WorkerProfile() {
                                             gap: 0.75,
                                         }}
                                     >
-                                        <t.Icon size={14} />
-                                        {t.label}
+                                        <tabInfo.Icon size={14} />
+                                        {tabInfo.label}
                                     </Box>
                                 }
                                 value={i}
@@ -303,21 +313,21 @@ export default function WorkerProfile() {
                 <Box sx={{ p: 3 }}>
                     <TabPanel value={tabValue} index={0}>
                         <Grid container spacing={2.5}>
-                            <FieldRow label="Full Name" value="Ahmed Hassan" />
-                            <FieldRow label="Nationality" value="Egyptian" />
+                            <FieldRow label={t('worker.fullName')} value={t('worker.profile.mockName')} />
+                            <FieldRow label={t('worker.nationality')} value={t('worker.profile.mockNationality')} />
                             <FieldRow
-                                label="Date of Birth"
+                                label={t('worker.dateOfBirth')}
                                 value="1990-01-01"
                                 type="date"
                             />
-                            <FieldRow label="Gender" value="Male" />
+                            <FieldRow label={t('worker.gender')} value={t('worker.profile.mockGender')} />
                             <FieldRow
-                                label="Passport Number"
+                                label={t('worker.passportNumber')}
                                 value="A12345678"
                             />
                             <FieldRow
-                                label="Visa Type"
-                                value="Employment Visa"
+                                label={t('worker.visaType')}
+                                value={t('worker.profile.mockVisaType')}
                             />
                         </Grid>
                     </TabPanel>
@@ -325,25 +335,25 @@ export default function WorkerProfile() {
                     <TabPanel value={tabValue} index={1}>
                         <Grid container spacing={2.5}>
                             <FieldRow
-                                label="Email Address"
+                                label={t('worker.emailAddress')}
                                 value="ahmed@example.com"
                                 type="email"
                             />
                             <FieldRow
-                                label="Phone Number"
+                                label={t('worker.phoneNumber')}
                                 value="+971 50 123 4567"
                             />
                             <FieldRow
-                                label="Emergency Contact"
+                                label={t('worker.emergencyContact')}
                                 value="+20 100 555 7890"
                             />
                             <FieldRow
-                                label="Current Address"
-                                value="Dubai, UAE"
+                                label={t('worker.currentAddress')}
+                                value={t('worker.profile.location')}
                             />
                             <FieldRow
-                                label="Home Country Address"
-                                value="Cairo, Egypt"
+                                label={t('worker.homeCountryAddress')}
+                                value={t('worker.profile.homeCountryAddress')}
                             />
                         </Grid>
                     </TabPanel>
@@ -351,29 +361,29 @@ export default function WorkerProfile() {
                     <TabPanel value={tabValue} index={2}>
                         <Grid container spacing={2.5}>
                             <FieldRow
-                                label="Job Title"
-                                value="Software Engineer"
+                                label={t('worker.jobTitle')}
+                                value={t('jobTitles.softwareEngineer')}
                             />
                             <FieldRow
-                                label="Years of Experience"
+                                label={t('worker.yearsOfExperience')}
                                 value="5"
                                 type="number"
                             />
                             <FieldRow
-                                label="Current Sponsor"
-                                value="Current Corp"
+                                label={t('worker.currentSponsor')}
+                                value={t('worker.mockCurrentSponsor')}
                             />
                             <FieldRow
-                                label="Monthly Salary (AED)"
+                                label={t('worker.monthlySalaryAed')}
                                 value="15,000"
                             />
                             <FieldRow
-                                label="Contract Start"
+                                label={t('worker.contractStart')}
                                 value="2022-03-01"
                                 type="date"
                             />
                             <FieldRow
-                                label="Contract End"
+                                label={t('worker.contractEnd')}
                                 value="2025-03-01"
                                 type="date"
                             />
@@ -386,7 +396,7 @@ export default function WorkerProfile() {
                                         mb: 0.75,
                                     }}
                                 >
-                                    Skills
+                                    {t('worker.skills')}
                                 </Typography>
                                 <TextField
                                     fullWidth
@@ -406,13 +416,13 @@ export default function WorkerProfile() {
                             mb={3}
                         >
                             <Typography variant="h6" fontWeight="bold">
-                                My Documents
+                                {t('worker.myDocumentsTitle')}
                             </Typography>
                             <Button
                                 variant="contained"
                                 startIcon={<UploadCloud size={18} />}
                             >
-                                Upload Document
+                                {t('worker.uploadDocumentButton')}
                             </Button>
                         </Box>
 
@@ -437,7 +447,7 @@ export default function WorkerProfile() {
                                 startIcon={<Save size={15} />}
                                 onClick={() => setIsEditing(false)}
                             >
-                                Save Changes
+                                {t('worker.saveChanges')}
                             </Button>
                             <Button
                                 variant="outlined"
@@ -451,7 +461,7 @@ export default function WorkerProfile() {
                                     },
                                 }}
                             >
-                                Cancel
+                                {t('worker.cancel')}
                             </Button>
                         </Box>
                     )}

@@ -1,0 +1,946 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "registerWorker": "Register Worker",
+    "manageWorkers": "Manage Workers",
+    "verifyDocuments": "Verify Documents",
+    "recruitmentRequests": "Recruitment Requests",
+    "requests": "Requests",
+    "workers": "Workers",
+    "offers": "Offers",
+    "approvals": "Approvals Hub",
+    "profile": "Profile",
+    "sponsorshipTransfer": "Sponsorship Transfer",
+    "applicationTracking": "Application Tracking",
+    "jobOpportunities": "Job Opportunities",
+    "navigation": "Navigation"
+  },
+  "common": {
+    "logout": "Sign out",
+    "search": "Search...",
+    "actions": "Actions",
+    "status": "Status",
+    "cancel": "Cancel",
+    "save": "Save Changes",
+    "close": "Close",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "edit": "Edit",
+    "view": "View",
+    "notifications": "Notifications",
+    "loading": "Loading...",
+    "error": "Error loading data",
+    "noRecords": "No records found"
+  },
+  "roles": {
+    "worker": "Worker",
+    "sponsor": "Sponsor",
+    "agency": "Agency"
+  },
+  "status": {
+    "verified": "Verified",
+    "pending": "Pending",
+    "reviewingMatches": "Reviewing Matches",
+    "candidatesSelected": "Candidates Selected",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "draft": "Draft",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "pendingVerification": "Pending Verification",
+    "needsSponsorshipTransfer": "Needs Sponsorship Transfer",
+    "offerReceived": "Offer Received",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "sponsorship": {
+    "title": "Sponsorship Transfer",
+    "currentStatus": "Current Status",
+    "eligibility": "Eligibility",
+    "eligible": "Eligible for transfer",
+    "initiateTransfer": "Initiate Transfer",
+    "initiateDesc": "Start a new sponsorship transfer request. The system will match your request with prospective sponsors after submission.",
+    "requestTransfer": "Request Transfer",
+    "transferHistory": "Transfer History",
+    "viewDetails": "View Details",
+    "columns": {
+      "date": "Date",
+      "currentSponsor": "Current Sponsor",
+      "jobTitle": "Job Title",
+      "matchedSponsor": "Matched Sponsor",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "pendingMatch": "Pending Match",
+    "requestNotFound": "Request Not Found",
+    "requestNotFoundDesc": "The requested sponsorship transfer request could not be located.",
+    "detailsTitle": "Transfer Request Details",
+    "submittedOn": "Submitted on",
+    "jobPref": "Job Matching Preferences",
+    "prefLocation": "Preferred Work Location",
+    "expectedSalary": "Expected Monthly Salary",
+    "availDate": "Availability Date",
+    "additionalNotes": "Additional Application Notes",
+    "noNotes": "No additional application message or notes were attached to this request.",
+    "matchConfirmed": "Sponsor Match Confirmed",
+    "matchConfirmedDesc": "An employer has reviewed your preferences and approved your sponsorship transfer request.",
+    "matchedEmployer": "Matched Employer (New Sponsor)",
+    "currentEmployer": "Current Employer",
+    "approvalStatus": "Transfer Approval Status",
+    "matchRejected": "Request Rejected",
+    "matchRejectedDesc": "Your sponsorship transfer request has been rejected by the prospective sponsor or system matching pool.",
+    "awaitingMatch": "Awaiting Match",
+    "awaitingMatchDesc": "Your transfer request has been registered in our matching pool. Employers looking for your specific job title and location will match with your profile.",
+    "searchingPool": "Searching pool...",
+    "matchingStatus": "Matching Status",
+    "preconditions": "Preconditions",
+    "inSaudi": "Is the worker currently physically present inside Saudi Arabia? *",
+    "inSaudiDesc": "Sponsorship transfer regulations require that the worker must be in the Kingdom of Saudi Arabia at the time of request submission.",
+    "selectWorker": "Select Worker",
+    "workerName": "Worker Name *",
+    "desiredJobTitle": "Desired Job Title *",
+    "prefLocationLabel": "Preferred Work Location (Saudi City/Region) *",
+    "prefLocationPlaceholder": "e.g. Riyadh, Jeddah, Dammam",
+    "expectedSalaryLabel": "Expected Monthly Salary (SAR, optional)",
+    "expectedSalaryPlaceholder": "e.g. 3500",
+    "availDateLabel": "Availability Date *",
+    "appMessageLabel": "Application Message / Short Introduction (optional)",
+    "appMessagePlaceholder": "Introduce yourself or add notes...",
+    "submitRequest": "Submit Request",
+    "successMessage": "Sponsorship transfer request successfully submitted!",
+    "errInSaudi": "Worker must be physically inside Saudi Arabia to request a sponsorship transfer.",
+    "errRequired": "Please fill in all required fields marked with an asterisk (*).",
+    "submitRequestTitle": "Submit Sponsorship Transfer Request",
+    "agencyDesc": "Request sponsorship transfer for a worker. The system will match them with employers.",
+    "workerDesc": "Apply for sponsorship transfer. Employers will match with your profile and preferences."
+  },
+  "jobTitles": {
+    "driver": "Driver",
+    "cleaner": "Cleaner",
+    "housekeeper": "Housekeeper",
+    "constructionWorker": "Construction Worker",
+    "mason": "Mason",
+    "softwareEngineer": "Software Engineer",
+    "cook": "Cook",
+    "electrician": "Electrician",
+    "plumber": "Plumber",
+    "securityGuard": "Security Guard",
+    "gardener": "Gardener",
+    "painter": "Painter",
+    "carpenter": "Carpenter",
+    "generalLaborer": "General Laborer"
+  },
+  "agency": {
+    "dashboard": {
+      "title": "Agency Dashboard",
+      "welcome": "Welcome back, {{name}} — manage your worker pool and fulfill sponsor requests.",
+      "welcomeFallback": "there",
+      "totalWorkersManaged": "Total Workers Managed",
+      "pendingVerification": "Pending Verification",
+      "activeSponsorRequests": "Active Sponsor Requests",
+      "placementRate": "Placement Rate",
+      "recentWorkers": "Recent Workers",
+      "viewAll": "View All",
+      "sponsorRequests": "Sponsor Requests",
+      "workersNeeded": "{{count}} workers needed",
+      "quickActions": "Quick Actions",
+      "registerNewWorker": "Register New Worker",
+      "verifyDocuments": "Verify Documents",
+      "manageWorkers": "Manage Workers",
+      "sponsorshipTransfer": "Sponsorship Transfer",
+      "viewRequests": "View Requests"
+    },
+    "registerWorker": {
+      "title": "Register New Worker",
+      "subtitle": "Onboard a new worker into the agency pool on their behalf.",
+      "basicInfo": "Basic Information",
+      "fullName": "Full Name",
+      "nationality": "Nationality",
+      "gender": "Gender",
+      "genderMale": "Male",
+      "genderFemale": "Female",
+      "dateOfBirth": "Date of Birth",
+      "currentCity": "Current City",
+      "contactInfo": "Contact Information",
+      "mobileNumber": "Mobile Number",
+      "emailOptional": "Email (optional)",
+      "employmentInfo": "Employment Information",
+      "jobTitle": "Job Title",
+      "yearsOfExperience": "Years of Experience",
+      "employmentStatus": "Employment Status",
+      "statusAvailable": "Available",
+      "statusEmployed": "Employed",
+      "preferredWorkLocation": "Preferred Work Location",
+      "sponsorshipStatusTitle": "Sponsorship Status",
+      "currentSponsorshipStatus": "Current Sponsorship Status",
+      "sponsorshipSponsored": "Sponsored",
+      "sponsorshipNeedsTransfer": "Needs Sponsorship Transfer",
+      "documents": "Documents",
+      "idOrPassport": "National ID or Passport Number",
+      "uploadResume": "Upload Resume (optional)",
+      "cancel": "Cancel",
+      "submit": "Submit Registration",
+      "successMessage": "Worker registered successfully and added to agency pool."
+    },
+    "manageWorkers": {
+      "title": "Manage Workers",
+      "subtitle": "View and manage workers registered by your agency.",
+      "columns": {
+        "name": "Name",
+        "jobTitle": "Job Title",
+        "nationality": "Nationality",
+        "city": "City",
+        "sponsorship": "Sponsorship",
+        "documents": "Documents",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View",
+        "edit": "Edit",
+        "transfer": "Transfer",
+        "cancel": "Cancel",
+        "save": "Save Changes"
+      },
+      "editTitle": "Edit Worker Profile",
+      "fullName": "Full Name",
+      "jobTitle": "Job Title",
+      "yearsOfExperience": "Years of Experience",
+      "currentCity": "Current City",
+      "mobileNumber": "Mobile Number",
+      "transferSuccess": "{{name}} is now available for sponsorship transfer."
+    },
+    "verifyDocuments": {
+      "title": "Verify Documents",
+      "subtitle": "Review and approve worker uploaded documents.",
+      "columns": {
+        "workerName": "Worker Name",
+        "document": "Document",
+        "uploadDate": "Upload Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View",
+        "verify": "Verify",
+        "reject": "Reject"
+      },
+      "messages": {
+        "verified": "{{docName}} for {{workerName}} verified.",
+        "rejected": "{{docName}} for {{workerName}} rejected."
+      }
+    },
+    "recruitmentRequests": {
+      "title": "Recruitment Requests",
+      "subtitle": "Fulfill sponsor requests by submitting suitable candidates.",
+      "columns": {
+        "id": "Request ID",
+        "sponsor": "Sponsor",
+        "jobTitle": "Job Title",
+        "location": "Location",
+        "needed": "Needed",
+        "date": "Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "submitCandidates": "Submit Candidates",
+        "submitCountCandidates": "Submit ({{count}}) Candidates",
+        "cancel": "Cancel"
+      },
+      "submitCandidatesTitle": "Submit Candidates — {{title}}",
+      "selectWorkersDescPart1": "Select workers from your pool to submit for",
+      "selectWorkersDescPart2": "({{count}} needed).",
+      "yearsExp": "{{count}} yrs exp",
+      "candidatesSubmitted": "Candidates submitted successfully!"
+    }
+  },
+  "worker": {
+    "jobTitle": "Job Title",
+    "sponsor": "Sponsor",
+    "location": "Location",
+    "dateApplied": "Date Applied",
+    "status": "Status",
+    "actions": "Actions",
+    "viewOffer": "View Offer",
+    "noOfferYet": "No Offer Yet",
+    "applicationTrackingTitle": "Application Tracking",
+    "applicationTrackingSubtitle": "Monitor the status of your job applications.",
+    "welcomeBack": "Welcome back, {{name}}",
+    "there": "there",
+    "dashboardSubtitle": "Here's an overview of your account activity.",
+    "stats": {
+      "activeApplications": "Active Applications",
+      "documentsUploaded": "Documents Uploaded",
+      "profileCompletion": "Profile Completion",
+      "verificationStatus": "Verification Status"
+    },
+    "verified": "Verified",
+    "profileOverview": "Profile Overview",
+    "edit": "Edit",
+    "fullName": "Full Name",
+    "currentSponsor": "Current Sponsor",
+    "driver": "Driver",
+    "mockNameDefault": "Mohamed Ali Hassan",
+    "mockSponsorName": "Al-Faris Trading Co.",
+    "mockLocation": "Riyadh, Saudi Arabia",
+    "actionRequired": "Action Required",
+    "pendingVerificationCount": "{{count}} document(s) pending verification",
+    "recentApplications": "Recent Applications",
+    "viewAll": "View All",
+    "noApplications": "No applications yet.",
+    "browseJobs": "Browse Jobs",
+    "quickActions": "Quick Actions",
+    "quickActionsItems": {
+      "browseJobs": "Browse Job Opportunities",
+      "uploadDocs": "Upload Documents",
+      "requestTransfer": "Request Sponsorship Transfer",
+      "updateProfile": "Update Profile"
+    },
+    "documentName": "Document Name",
+    "uploadDate": "Upload Date",
+    "view": "View",
+    "replace": "Replace",
+    "myDocumentsTitle": "My Documents",
+    "myDocumentsSubtitle": "Manage your identity and employment documents.",
+    "uploadDocumentButton": "Upload Document",
+    "uploadDocumentTitle": "Upload Document",
+    "documentTypeLabel": "Document Type",
+    "docType": {
+      "passport": "Passport Copy",
+      "nationalId": "National ID",
+      "resume": "Resume / CV"
+    },
+    "selectedFile": "Selected: {{fileName}}",
+    "chooseFile": "Choose File (PDF, JPG, PNG)",
+    "cancel": "Cancel",
+    "upload": "Upload",
+    "docReplacedMsg": "{{docType}} replaced and pending verification.",
+    "docUploadedMsg": "{{docType}} uploaded successfully.",
+    "jobNotFoundTitle": "Job Not Found",
+    "jobNotFoundDesc": "The requested job opportunity could not be located.",
+    "jobOverviewTitle": "Job Overview",
+    "salaryRangeLabel": "Salary Range",
+    "requiredExperienceLabel": "Required Experience",
+    "accommodationLabel": "Accommodation",
+    "provided": "Provided",
+    "notProvided": "Not Provided",
+    "datePostedLabel": "Date Posted",
+    "jobDescAndReqsTitle": "Job Description & Requirements",
+    "jobDescIntroText1": "We are seeking a motivated",
+    "jobDescIntroText2": "to work with",
+    "jobDescIntroText3": "in",
+    "jobDescIntroText4": "In this role, you will be part of a collaborative team focusing on executing key priorities, scaling operations, and upholding high quality standards.",
+    "keyResponsibilities": "Key Responsibilities",
+    "resp1": "Collaborate with multidisciplinary stakeholders to understand requirements and execute plans.",
+    "resp2": "Ensure alignment with organizational goals and safety standards inside the workplace.",
+    "resp3": "Perform daily activities and workflows efficiently, keeping records updated.",
+    "resp4": "Participate in refinement workshops, process optimization efforts, and reviews.",
+    "qualificationsAndSkills": "Qualifications & Skills",
+    "qual1Text1": "Minimum",
+    "qual1Text2": "of relevant work experience in the field.",
+    "qual2": "Strong communication skills and capacity to work within structured teams.",
+    "qual3": "Familiarity with modern workspace compliance standards.",
+    "appSubmittedTitle": "Application Submitted",
+    "alreadyAppliedDesc": "You have already applied for this position. The employer is currently reviewing your profile.",
+    "trackApplicationButton": "Track Application",
+    "applyForJobTitle": "Apply for this Job",
+    "submitProfileToText": "Submit your profile directly to",
+    "applyNow": "Apply Now",
+    "positionClosed": "Position Closed",
+    "appSuccessAlert": "Application submitted successfully! Redirecting to tracking...",
+    "jobOfferDetailsTitle": "Job Offer Details",
+    "backToApplicationsButton": "Back to Applications",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "salaryOfferedLabel": "Salary Offered",
+    "workLocationLabel": "Work Location",
+    "workingHoursLabel": "Working Hours",
+    "contractDurationLabel": "Contract Duration",
+    "transportationLabel": "Transportation",
+    "offerDateLabel": "Offer Date",
+    "offerReviewWarning": "Please review the offer carefully. Accepting initiates the sponsorship transfer process and is binding.",
+    "rejectOfferButton": "Reject Offer",
+    "acceptOfferButton": "Accept Offer",
+    "acceptOfferTitle": "Accept this Job Offer?",
+    "rejectOfferTitle": "Reject this Job Offer?",
+    "acceptOfferDesc": "By accepting, you agree to the terms and initiate the sponsorship transfer.",
+    "rejectOfferDesc": "Are you sure you want to reject this offer? This action cannot be undone.",
+    "confirmAcceptButton": "Confirm Accept",
+    "confirmRejectButton": "Confirm Reject",
+    "salarySar": "Salary (SAR)",
+    "experience": "Experience",
+    "viewAndApplyButton": "View & Apply",
+    "jobOpportunitiesTitle": "Job Opportunities",
+    "jobOpportunitiesSubtitle": "Browse open positions and submit your application.",
+    "filterByJobTitleLabel": "Filter by Job Title",
+    "allTitles": "All Titles",
+    "profile": {
+      "mockName": "Ahmed Hassan",
+      "mockNationality": "Egyptian",
+      "mockGender": "Male",
+      "mockVisaType": "Employment Visa",
+      "location": "Dubai, UAE",
+      "homeCountryAddress": "Cairo, Egypt"
+    },
+    "sponsoredCurrentCorp": "Sponsored · Current Corp",
+    "editProfile": "Edit Profile",
+    "tab": {
+      "basicInfo": "Basic Info",
+      "contact": "Contact",
+      "employment": "Employment",
+      "documents": "Documents"
+    },
+    "nationality": "Nationality",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "passportNumber": "Passport Number",
+    "visaType": "Visa Type",
+    "emailAddress": "Email Address",
+    "phoneNumber": "Phone Number",
+    "emergencyContact": "Emergency Contact",
+    "currentAddress": "Current Address",
+    "homeCountryAddress": "Home Country Address",
+    "yearsOfExperience": "Years of Experience",
+    "mockCurrentSponsor": "Current Corp",
+    "monthlySalaryAed": "Monthly Salary (AED)",
+    "contractStart": "Contract Start",
+    "contractEnd": "Contract End",
+    "skills": "Skills",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel"
+  },
+  "sponsor": {
+    "dashboard": {
+      "title": "Sponsor Dashboard",
+      "welcome": "Welcome back, {{name}} — manage your workforce and recruitment pipeline.",
+      "there": "there",
+      "activeWorkers": "Active Workers",
+      "pendingRequests": "Pending Requests",
+      "sentOffers": "Sent Offers",
+      "pendingApprovals": "Pending Approvals",
+      "recentWorkerRequests": "Recent Worker Requests",
+      "viewAll": "View All",
+      "workerCount_one": "{{count}} worker",
+      "workerCount_other": "{{count}} workers",
+      "quickActions": "Quick Actions",
+      "createWorkerRequest": "Create Worker Request",
+      "searchAvailableWorkers": "Search Available Workers",
+      "viewRecommendedWorkers": "View Recommended Workers",
+      "manageApprovals": "Manage Approvals",
+      "activeRecruitments": "Active Recruitments",
+      "workersNeeded": "{{count}} needed"
+    },
+    "requests": {
+      "title": "Requests",
+      "subtitle": "Manage your requests for new workers.",
+      "filterByStatus": "Filter by Status",
+      "allStatuses": "All Statuses",
+      "newRequest": "New Request",
+      "columns": {
+        "jobTitle": "Job Title",
+        "needed": "# Needed",
+        "location": "Location",
+        "salary": "Salary (SAR)",
+        "date": "Date",
+        "status": "Status"
+      },
+      "status": {
+        "draft": "Draft",
+        "pending": "Pending",
+        "reviewingMatches": "Reviewing Matches",
+        "candidatesSelected": "Candidates Selected",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
+      },
+      "form": {
+        "title": "Create Worker Request",
+        "subtitle": "Request new workers with specific criteria for your organization.",
+        "jobInfo": "Job Information",
+        "jobTitle": "Job Title *",
+        "quantity": "Number of Workers Needed *",
+        "specifyJobTitle": "Specify Job Title *",
+        "experience": "Required Experience",
+        "experienceOptions": {
+          "none": "No experience",
+          "oneToThree": "1-3 years",
+          "threePlus": "3+ years"
+        },
+        "skills": "Required Skills (optional)",
+        "skillsPlaceholder": "e.g. Forklift Certification, Plumbing",
+        "description": "Job Description (optional)",
+        "workerReqs": "Worker Requirements",
+        "nationality": "Preferred Nationality (optional)",
+        "nationalityPlaceholder": "e.g. Indian, Pakistani, Filipino",
+        "gender": "Preferred Gender (optional)",
+        "genderOptions": {
+          "any": "Any",
+          "male": "Male",
+          "female": "Female"
+        },
+        "ageRange": "Age Range (optional)",
+        "ageRangePlaceholder": "e.g. 21-35",
+        "languages": "Language Requirements (optional)",
+        "languagesPlaceholder": "e.g. English, Arabic",
+        "employmentDetails": "Employment Details",
+        "workLocation": "Work Location *",
+        "workLocationPlaceholder": "e.g. Site Office A",
+        "city": "City *",
+        "cityPlaceholder": "e.g. Riyadh",
+        "region": "Region *",
+        "regionPlaceholder": "e.g. Central Region",
+        "salaryRange": "Salary Range",
+        "salaryRangePlaceholder": "e.g. 2,000 - 3,500 SAR",
+        "workingHours": "Working Hours",
+        "workingHoursPlaceholder": "e.g. 8 hours/day",
+        "contractDuration": "Contract Duration",
+        "contractDurationPlaceholder": "e.g. 2 Years",
+        "accommodation": "Accommodation Provided",
+        "transportation": "Transportation Provided",
+        "yes": "Yes",
+        "no": "No",
+        "sidebar": {
+          "statusTitle": "Request Status",
+          "statusLabel": "Status",
+          "statusPending": "Pending",
+          "statusDescription": "This request status is system-managed. Upon submission, our smart recommendation engine will begin matching candidate profiles and coordination workflows."
+        },
+        "submit": "Submit Request",
+        "cancel": "Cancel",
+        "successMessage": "Worker request submitted successfully!",
+        "errors": {
+          "jobTitleRequired": "Job title is required",
+          "quantityMin": "Must be greater than 0",
+          "locationRequired": "Work location is required",
+          "cityRequired": "City is required",
+          "regionRequired": "Region is required"
+        },
+        "jobs": {
+          "driver": "Driver",
+          "cleaner": "Cleaner",
+          "housekeeper": "Housekeeper",
+          "constructionWorker": "Construction Worker",
+          "softwareEngineer": "Software Engineer",
+          "other": "Other"
+        }
+      }
+    },
+    "workers": {
+      "title": "Workers Directory",
+      "subtitle": "Search, filter, and recruit available talent or explore curated recommended matches.",
+      "tabs": {
+        "allWorkers": "All Available Workers",
+        "recommended": "Recommended Matches"
+      },
+      "filters": {
+        "nationality": "Filter by Nationality",
+        "experience": "Filter by Experience",
+        "experienceOptions": {
+          "all": "All Experience Levels",
+          "none": "No experience",
+          "oneToThree": "1-3 years",
+          "threePlus": "3+ years"
+        },
+        "clear": "Clear Filters"
+      },
+      "columns": {
+        "name": "Worker Name",
+        "jobTitle": "Job Title",
+        "nationality": "Nationality",
+        "experience": "Experience (Yrs)",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "sendOffer": "Send Offer"
+      },
+      "dialog": {
+        "title": "Send Job Offer to {{name}}",
+        "jobTitle": "Job Title",
+        "salaryOffer": "Salary Offer",
+        "salaryOfferPlaceholder": "e.g. 5,000 SAR",
+        "location": "Location",
+        "locationPlaceholder": "e.g. Riyadh",
+        "message": "Message to Worker",
+        "messagePlaceholder": "Describe responsibilities, expectations, and benefit details...",
+        "cancel": "Cancel",
+        "sendOffer": "Send Offer"
+      },
+      "successMessage": "Recruitment offer sent successfully!"
+    },
+    "offers": {
+      "title": "Offers",
+      "subtitle": "Track the status of direct offers sent to workers.",
+      "columns": {
+        "workerName": "Worker Name",
+        "positionOffered": "Position Offered",
+        "location": "Location",
+        "salary": "Salary (SAR)",
+        "dateSent": "Date Sent",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "cancel": "Cancel"
+      },
+      "dialog": {
+        "title": "Cancel Offer?",
+        "confirmPrefix": "Are you sure you want to cancel the offer sent to",
+        "confirmMiddle": "for",
+        "keep": "Keep Offer",
+        "cancelConfirm": "Yes, Cancel"
+      }
+    },
+    "approvals": {
+      "title": "Approvals Hub",
+      "subtitle": "Review and approve agency recruitment submissions and incoming transfer requests.",
+      "tabs": {
+        "recruitment": "Recruitment Submissions",
+        "transfer": "Transfer Requests"
+      },
+      "actions": {
+        "approve": "Approve",
+        "reject": "Reject"
+      },
+      "columns": {
+        "jobTitle": "Job Title",
+        "workersNeeded": "Workers Needed",
+        "date": "Date",
+        "status": "Status",
+        "actions": "Actions",
+        "workerName": "Worker Name",
+        "currentSponsor": "Current Sponsor",
+        "preferredLocation": "Preferred Location",
+        "expectedSalary": "Expected Salary",
+        "availability": "Availability"
+      },
+      "values": {
+        "notSpecified": "Not Specified",
+        "immediate": "Immediate"
+      },
+      "dialog": {
+        "title_approve": "Approve Request",
+        "title_reject": "Reject Request",
+        "confirmText_approve": "Are you sure you want to approve this request? This action cannot be undone.",
+        "confirmText_reject": "Are you sure you want to reject this request? This action cannot be undone.",
+        "cancel": "Cancel",
+        "confirmButton_approve": "Confirm Approve",
+        "confirmButton_reject": "Confirm Reject"
+      }
+    },
+    "search": {
+      "title": "Worker Search",
+      "subtitle": "Find and recruit available talent directly.",
+      "filters": {
+        "nationality": "Filter by Nationality",
+        "experience": "Filter by Experience"
+      },
+      "columns": {
+        "name": "Worker Name",
+        "jobTitle": "Job Title",
+        "nationality": "Nationality",
+        "experience": "Experience (Yrs)",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "actions": {
+        "sendOffer": "Send Offer"
+      },
+      "dialog": {
+        "title": "Send Offer to {{name}}",
+        "jobTitle": "Job Title",
+        "salaryOffer": "Salary Offer",
+        "location": "Location",
+        "message": "Message to Worker",
+        "cancel": "Cancel",
+        "sendOffer": "Send Offer"
+      }
+    },
+    "recommended": {
+      "title": "Recommended Workers",
+      "subtitle": "Verified workers available for sponsorship transfer, matched to your hiring needs.",
+      "columns": {
+        "workerName": "Worker Name",
+        "jobTitle": "Job Title",
+        "nationality": "Nationality",
+        "city": "City",
+        "experience": "Experience (yrs)",
+        "documents": "Documents",
+        "actions": "Actions"
+      },
+      "actions": {
+        "offerSent": "Offer Sent",
+        "sendOffer": "Send Offer"
+      },
+      "dialog": {
+        "title": "Send Offer to {{name}}",
+        "jobTitle": "Job Title",
+        "salaryOffer": "Salary Offer",
+        "salaryOfferPlaceholder": "e.g. 2,500 SAR/month",
+        "workLocation": "Work Location",
+        "workLocationPlaceholder": "e.g. Riyadh",
+        "message": "Message to Worker",
+        "cancel": "Cancel",
+        "sendOffer": "Send Offer"
+      }
+    }
+  },
+  "public_reg": {
+    "landing": {
+      "nav": {
+        "brand": "WorkForcePro",
+        "sign_in": "Sign In",
+        "get_started": "Get Started"
+      },
+      "hero": {
+        "title_part1": "Workforce Recruitment, ",
+        "title_part2": "Simplified",
+        "subtitle": "The unified platform connecting workers, sponsors, and recruitment agencies — streamline every step from sourcing to placement.",
+        "create_account": "Create Free Account"
+      },
+      "stats": {
+        "active_workers": "Active Workers",
+        "registered_sponsors": "Registered Sponsors",
+        "partner_agencies": "Partner Agencies",
+        "placement_rate": "Placement Rate"
+      },
+      "features": {
+        "header_tag": "Platform Modules",
+        "header_title": "Designed for Every Role",
+        "header_desc": "Three purpose-built modules, one integrated platform — each role gets exactly what they need.",
+        "for_workers": {
+          "title": "For Workers",
+          "desc": "Manage your profile, track job applications, upload documents, and request sponsorship transfers — all from one unified dashboard.",
+          "point1": "Profile & document management",
+          "point2": "Job search & applications",
+          "point3": "Sponsorship transfer requests"
+        },
+        "for_sponsors": {
+          "title": "For Sponsors",
+          "desc": "Post recruitment requests, search verified talent directly, manage your workforce, and handle all approvals in one place.",
+          "point1": "Worker recruitment & search",
+          "point2": "Job offer management",
+          "point3": "Recruitment approvals"
+        },
+        "for_agencies": {
+          "title": "For Agencies",
+          "desc": "Register workers into your pool, verify essential documents, and fulfill sponsor recruitment requests with full workflow visibility.",
+          "point1": "Worker pool management",
+          "point2": "Document verification",
+          "point3": "Recruitment fulfillment"
+        }
+      },
+      "cta": {
+        "title": "Ready to streamline your workforce?",
+        "subtitle": "Join thousands of workers, sponsors, and agencies already using WorkForcePro.",
+        "get_started_free": "Get Started Free",
+        "already_have_account": "Already have an account? Sign In"
+      },
+      "footer": {
+        "copyright": "WorkForcePro © {{year}}",
+        "desc": "Workforce Recruitment & Sponsorship Transfer Platform"
+      }
+    },
+    "login": {
+      "welcome_back": "Welcome back,",
+      "role_account": "{{role}} Account",
+      "back_to_home": "Back to Home",
+      "title": "Sign in to your account",
+      "no_account": "Don't have an account?",
+      "create_one_free": "Create one free",
+      "email_label": "Email address",
+      "email_placeholder": "you@example.com",
+      "password_label": "Password",
+      "password_placeholder": "••••••••",
+      "forgot_password": "Forgot password?",
+      "submit_btn": "Sign In as {{role}}",
+      "or_divider": "or",
+      "return_home": "Return to homepage",
+      "roles": {
+        "worker": {
+          "label": "Worker",
+          "desc": "Find jobs, track applications, manage your sponsorship"
+        },
+        "sponsor": {
+          "label": "Sponsor",
+          "desc": "Manage your workforce, post requests, send offers"
+        },
+        "agency": {
+          "label": "Agency",
+          "desc": "Register workers, verify documents, fulfill requests"
+        }
+      }
+    },
+    "select": {
+      "title": "Choose Account Type",
+      "already_have_account": "Already have an account? Login here",
+      "options": {
+        "worker": {
+          "title": "Worker",
+          "desc": "Register to find jobs and manage sponsorships."
+        },
+        "sponsor": {
+          "title": "Sponsor",
+          "desc": "Register to hire talent and request workers."
+        },
+        "agency": {
+          "title": "Recruitment Agency",
+          "desc": "Register to provide talent to sponsors."
+        }
+      }
+    },
+    "worker": {
+      "title": "Worker Registration",
+      "subtitle": "Create your profile to start finding opportunities in Saudi Arabia.",
+      "basic_info_title": "Basic Information",
+      "full_name_label": "Full Name",
+      "nationality_label": "Nationality",
+      "gender_label": "Gender",
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "dob_label": "Date of Birth",
+      "current_city_label": "Current City",
+      "contact_info_title": "Contact Information",
+      "mobile_label": "Mobile Number",
+      "email_label": "Email (optional)",
+      "password_label": "Password",
+      "employment_info_title": "Employment Information",
+      "job_title_label": "Job Title",
+      "experience_label": "Years of Experience",
+      "employment_status_label": "Employment Status",
+      "status_available": "Available",
+      "status_employed": "Employed",
+      "preferred_location_label": "Preferred Work Location",
+      "sponsorship_title": "Sponsorship Status",
+      "sponsorship_legend": "Current Sponsorship Status",
+      "sponsorship_sponsored": "Sponsored",
+      "sponsorship_needs_transfer": "Needs Sponsorship Transfer",
+      "documents_title": "Documents",
+      "id_passport_label": "National ID or Passport Number",
+      "upload_resume_btn": "Upload Resume (optional)",
+      "back_btn": "Back",
+      "submit_btn": "Complete Registration"
+    },
+    "sponsor": {
+      "title": "Sponsor Registration",
+      "subtitle": "Register as an employer to hire verified workers in Saudi Arabia.",
+      "basic_info_title": "Basic Information",
+      "type_label": "Sponsor Type",
+      "type_individual": "Individual",
+      "type_company": "Company",
+      "company_name_label": "Company Name",
+      "full_name_label": "Full Name",
+      "city_label": "City",
+      "address_label": "Address (optional)",
+      "contact_info_title": "Contact Information",
+      "mobile_label": "Mobile Number",
+      "email_label": "Email (optional)",
+      "password_label": "Password",
+      "identification_title": "Identification",
+      "national_id_label": "National ID Number",
+      "commercial_reg_label": "Commercial Registration Number",
+      "hiring_info_title": "Hiring Information",
+      "workers_needed_label": "Number of Workers Needed",
+      "required_job_title_label": "Required Job Title",
+      "preferred_nationality_label": "Preferred Nationality (optional)",
+      "no_preference": "No Preference",
+      "work_location_label": "Work Location",
+      "back_btn": "Back",
+      "submit_btn": "Complete Registration"
+    },
+    "agency": {
+      "title": "Agency Registration",
+      "subtitle": "Register your recruitment agency to manage and deploy the Saudi workforce.",
+      "info_title": "Agency Information",
+      "name_label": "Agency Name",
+      "license_label": "License Number",
+      "city_label": "City",
+      "commercial_reg_label": "Commercial Registration Number",
+      "admin_contact_title": "Admin Contact",
+      "contact_person_label": "Contact Person Name",
+      "mobile_label": "Mobile Number",
+      "email_label": "Work Email",
+      "password_label": "Password",
+      "back_btn": "Back",
+      "submit_btn": "Complete Registration"
+    }
+  },
+  "mock": {
+    "cities": {
+      "Riyadh": "Riyadh",
+      "Jeddah": "Jeddah",
+      "Dammam": "Dammam",
+      "Mecca": "Mecca",
+      "Medina": "Medina",
+      "Khobar": "Khobar",
+      "Tabuk": "Tabuk",
+      "Abha": "Abha",
+      "Taif": "Taif",
+      "Hail": "Hail"
+    },
+    "nationalities": {
+      "Egyptian": "Egyptian",
+      "Pakistani": "Pakistani",
+      "Indian": "Indian",
+      "Filipino": "Filipino",
+      "Indonesian": "Indonesian",
+      "Yemeni": "Yemeni",
+      "Bangladeshi": "Bangladeshi",
+      "Sudanese": "Sudanese",
+      "Ethiopian": "Ethiopian",
+      "Nepalese": "Nepalese"
+    },
+    "genders": {
+      "Male": "Male",
+      "Female": "Female"
+    },
+    "employmentStatuses": {
+      "Available": "Available",
+      "Employed": "Employed"
+    },
+    "sponsorshipStatuses": {
+      "Needs Sponsorship Transfer": "Needs Sponsorship Transfer",
+      "Sponsored": "Sponsored"
+    },
+    "documentNames": {
+      "Passport Copy": "Passport Copy",
+      "National ID": "National ID",
+      "Resume / CV": "Resume / CV"
+    },
+    "names": {
+      "Mohamed Ali Hassan": "Mohamed Ali Hassan",
+      "Rajesh Kumar": "Rajesh Kumar",
+      "Fatima Binte Salim": "Fatima Binte Salim",
+      "Ali Raza Khan": "Ali Raza Khan",
+      "Maria Santos": "Maria Santos",
+      "Hassan Omar Yusuf": "Hassan Omar Yusuf",
+      "Suresh Bahadur": "Suresh Bahadur",
+      "Ahmed Abdi Farah": "Ahmed Abdi Farah",
+      "Ibrahim Al-Sayed": "Ibrahim Al-Sayed",
+      "Ramesh Thapa": "Ramesh Thapa",
+      "Nadia Rizwana": "Nadia Rizwana",
+      "Jose Reyes": "Jose Reyes",
+      "Khalid Mansoor": "Khalid Mansoor",
+      "Abdullah Al-Rashid": "Abdullah Al-Rashid",
+      "Noura Al-Ghamdi": "Noura Al-Ghamdi",
+      "Al-Banna Construction Co.": "Al-Banna Construction Co.",
+      "Spice Garden Restaurant": "Spice Garden Restaurant",
+      "Al-Mashriq Properties": "Al-Mashriq Properties",
+      "Mecca Development Group": "Mecca Development Group",
+      "Al-Faris Trading Co.": "Al-Faris Trading Co.",
+      "Al-Amal Housekeeping": "Al-Amal Housekeeping",
+      "Gulf Builders LLC": "Gulf Builders LLC"
+    },
+    "descriptions": {
+      "Private driver for family use, must hold valid Saudi driving license.": "Private driver for family use, must hold valid Saudi driving license.",
+      "Full-time live-in housekeeper for a family villa.": "Full-time live-in housekeeper for a family villa.",
+      "Residential construction project in Dammam area.": "Residential construction project in Dammam area.",
+      "Restaurant cook specializing in Asian cuisine.": "Restaurant cook specializing in Asian cuisine.",
+      "Office cleaning for commercial building complex.": "Office cleaning for commercial building complex.",
+      "Brick and tile laying for a commercial project.": "Brick and tile laying for a commercial project.",
+      "I have 7 years of driving experience in Riyadh and am familiar with all main routes.": "I have 7 years of driving experience in Riyadh and am familiar with all main routes.",
+      "Valid Saudi driving license holder.": "Valid Saudi driving license holder.",
+      "Experienced in Asian and Middle Eastern cuisine.": "Experienced in Asian and Middle Eastern cuisine.",
+      "Four years experience as a live-in housekeeper.": "Four years experience as a live-in housekeeper."
+    }
+  }
+}

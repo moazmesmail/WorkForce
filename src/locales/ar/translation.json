@@ -1,0 +1,946 @@
+{
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "registerWorker": "تسجيل عامل",
+    "manageWorkers": "إدارة العمال",
+    "verifyDocuments": "التحقق من الوثائق",
+    "recruitmentRequests": "طلبات الاستقدام",
+    "requests": "الطلبات",
+    "workers": "العمال",
+    "offers": "العروض",
+    "approvals": "مركز الموافقات",
+    "profile": "الملف الشخصي",
+    "sponsorshipTransfer": "نقل الكفالة",
+    "applicationTracking": "متابعة الطلبات",
+    "jobOpportunities": "الفرص الوظيفية",
+    "navigation": "الملاحة"
+  },
+  "common": {
+    "logout": "تسجيل الخروج",
+    "search": "بحث...",
+    "actions": "الإجراءات",
+    "status": "الحالة",
+    "cancel": "إلغاء",
+    "save": "حفظ التغييرات",
+    "close": "إغلاق",
+    "submit": "إرسال",
+    "confirm": "تأكيد",
+    "edit": "تعديل",
+    "view": "عرض",
+    "notifications": "الإشعارات",
+    "loading": "جاري التحميل...",
+    "error": "خطأ في تحميل البيانات",
+    "noRecords": "لم يتم العثور على سجلات"
+  },
+  "roles": {
+    "worker": "عامل",
+    "sponsor": "كفيل",
+    "agency": "وكالة"
+  },
+  "status": {
+    "verified": "متحقق منه",
+    "pending": "قيد الانتظار",
+    "reviewingMatches": "مراجعة المطابقات",
+    "candidatesSelected": "تم اختيار المرشحين",
+    "completed": "مكتمل",
+    "cancelled": "ملغى",
+    "draft": "مسودة",
+    "approved": "مقبول",
+    "rejected": "مرفوض",
+    "pendingVerification": "في انتظار التحقق",
+    "needsSponsorshipTransfer": "بحاجة لنقل كفالة",
+    "offerReceived": "تم استلام عرض",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "sponsorship": {
+    "title": "نقل الكفالة",
+    "currentStatus": "الحالة الحالية",
+    "eligibility": "الأهلية",
+    "eligible": "مؤهل للنقل",
+    "initiateTransfer": "بدء نقل الكفالة",
+    "initiateDesc": "ابدأ طلباً جديداً لنقل الكفالة. سيقوم النظام بمطابقة طلبك مع الكفلاء المحتملين بعد إرساله.",
+    "requestTransfer": "طلب نقل",
+    "transferHistory": "سجل النقل",
+    "viewDetails": "عرض التفاصيل",
+    "columns": {
+      "date": "التاريخ",
+      "currentSponsor": "الكفيل الحالي",
+      "jobTitle": "المسمى الوظيفي",
+      "matchedSponsor": "الكفيل المطابق",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "pendingMatch": "قيد الانتظار للمطابقة",
+    "requestNotFound": "الطلب غير موجود",
+    "requestNotFoundDesc": "لم يتم العثور على طلب نقل الكفالة المطلوب.",
+    "detailsTitle": "تفاصيل طلب نقل الكفالة",
+    "submittedOn": "تم التقديم في تاريخ",
+    "jobPref": "تفضيلات مطابقة الوظائف",
+    "prefLocation": "مكان العمل المفضل",
+    "expectedSalary": "الراتب الشهري المتوقع",
+    "availDate": "تاريخ التوافر",
+    "additionalNotes": "ملاحظات إضافية للطلب",
+    "noNotes": "لم يتم إرفاق أي رسالة أو ملاحظات إضافية مع هذا الطلب.",
+    "matchConfirmed": "تم تأكيد مطابقة الكفيل",
+    "matchConfirmedDesc": "لقد قام صاحب العمل بمراجعة تفضيلاتك والموافقة على طلب نقل الكفالة الخاص بك.",
+    "matchedEmployer": "صاحب العمل المطابق (الكفيل الجديد)",
+    "currentEmployer": "صاحب العمل الحالي",
+    "approvalStatus": "حالة الموافقة على النقل",
+    "matchRejected": "تم رفض الطلب",
+    "matchRejectedDesc": "تم رفض طلب نقل الكفالة الخاص بك من قبل الكفيل المحتمل أو نظام مطابقة الطلبات.",
+    "awaitingMatch": "في انتظار المطابقة",
+    "awaitingMatchDesc": "لقد تم تسجيل طلب نقل الكفالة الخاص بك في نظام المطابقة. سيقوم أصحاب العمل الذين يبحثون عن مسمى وظيفتك وموقعك المفضلين بالاطلاع على ملفك ومطابقته.",
+    "searchingPool": "جاري البحث في قاعدة البيانات...",
+    "matchingStatus": "حالة المطابقة",
+    "preconditions": "الشروط المسبقة",
+    "inSaudi": "هل العامل موجود حالياً داخل المملكة العربية السعودية؟ *",
+    "inSaudiDesc": "تتطلب لوائح نقل الكفالة أن يكون العامل متواجداً فعلياً داخل المملكة العربية السعودية وقت تقديم الطلب.",
+    "selectWorker": "اختر العامل",
+    "workerName": "اسم العامل *",
+    "desiredJobTitle": "المسمى الوظيفي المطلوب *",
+    "prefLocationLabel": "مكان العمل المفضل (المدينة/المنطقة في السعودية) *",
+    "prefLocationPlaceholder": "مثال: الرياض، جدة، الدمام",
+    "expectedSalaryLabel": "الراتب الشهري المتوقع (ريال سعودي، اختياري)",
+    "expectedSalaryPlaceholder": "مثال: 3500",
+    "availDateLabel": "تاريخ التوافر للعمل *",
+    "appMessageLabel": "رسالة تقديمية / نبذة مختصرة (اختياري)",
+    "appMessagePlaceholder": "عرف بنفسك أو أضف ملاحظات...",
+    "submitRequest": "تقديم الطلب",
+    "successMessage": "تم تقديم طلب نقل الكفالة بنجاح!",
+    "errInSaudi": "يجب أن يكون العامل متواجداً داخل المملكة العربية السعودية لتقديم طلب نقل الكفالة.",
+    "errRequired": "يرجى ملء جميع الحقول المطلوبة المميزة بنجمة (*).",
+    "submitRequestTitle": "تقديم طلب نقل كفالة",
+    "agencyDesc": "طلب نقل كفالة لعامل. سيقوم النظام بمطابقتهم مع أصحاب العمل.",
+    "workerDesc": "التقديم على نقل كفالة. سيقوم أصحاب العمل بمطابقتك بناءً على ملفك وتفضيلاتك."
+  },
+  "jobTitles": {
+    "driver": "سائق",
+    "cleaner": "عامل نظافة",
+    "housekeeper": "تدبير منزلي",
+    "constructionWorker": "عامل بناء",
+    "mason": "بناء",
+    "softwareEngineer": "مهندس برمجيات",
+    "cook": "طباخ",
+    "electrician": "كهربائي",
+    "plumber": "سباك",
+    "securityGuard": "حارس أمن",
+    "gardener": "بستاني",
+    "painter": "دهان",
+    "carpenter": "نجار",
+    "generalLaborer": "عامل عام"
+  },
+  "agency": {
+    "dashboard": {
+      "title": "لوحة تحكم الوكالة",
+      "welcome": "مرحباً بعودتك، {{name}} — قم بإدارة مجموعة العمال وتلبية طلبات الكفلاء.",
+      "welcomeFallback": "هناك",
+      "totalWorkersManaged": "إجمالي العمال المدارين",
+      "pendingVerification": "في انتظار التحقق",
+      "activeSponsorRequests": "طلبات الكفالة النشطة",
+      "placementRate": "معدل التوظيف",
+      "recentWorkers": "أحدث العمال",
+      "viewAll": "عرض الكل",
+      "sponsorRequests": "طلبات الكفلاء",
+      "workersNeeded": "مطلوب {{count}} عمال",
+      "quickActions": "إجراءات سريعة",
+      "registerNewWorker": "تسجيل عامل جديد",
+      "verifyDocuments": "التحقق من الوثائق",
+      "manageWorkers": "إدارة العمال",
+      "sponsorshipTransfer": "نقل الكفالة",
+      "viewRequests": "عرض الطلبات"
+    },
+    "registerWorker": {
+      "title": "تسجيل عامل جديد",
+      "subtitle": "تسجيل عامل جديد في مجموعة الوكالة نيابة عنه.",
+      "basicInfo": "معلومات أساسية",
+      "fullName": "الاسم الكامل",
+      "nationality": "الجنسية",
+      "gender": "الجنس",
+      "genderMale": "ذكر",
+      "genderFemale": "أنثى",
+      "dateOfBirth": "تاريخ الميلاد",
+      "currentCity": "المدينة الحالية",
+      "contactInfo": "معلومات الاتصال",
+      "mobileNumber": "رقم الجوال",
+      "emailOptional": "البريد الإلكتروني (اختياري)",
+      "employmentInfo": "معلومات العمل",
+      "jobTitle": "المسمى الوظيفي",
+      "yearsOfExperience": "سنوات الخبرة",
+      "employmentStatus": "حالة العمل",
+      "statusAvailable": "متاح",
+      "statusEmployed": "موظف",
+      "preferredWorkLocation": "مكان العمل المفضل",
+      "sponsorshipStatusTitle": "حالة الكفالة",
+      "currentSponsorshipStatus": "حالة الكفالة الحالية",
+      "sponsorshipSponsored": "مكفول",
+      "sponsorshipNeedsTransfer": "بحاجة لنقل كفالة",
+      "documents": "الوثائق",
+      "idOrPassport": "رقم الهوية الوطنية أو جواز السفر",
+      "uploadResume": "تحميل السيرة الذاتية (اختياري)",
+      "cancel": "إلغاء",
+      "submit": "إرسال التسجيل",
+      "successMessage": "تم تسجيل العامل بنجاح وإضافته إلى مجموعة الوكالة."
+    },
+    "manageWorkers": {
+      "title": "إدارة العمال",
+      "subtitle": "عرض وإدارة العمال المسجلين من قبل وكالتك.",
+      "columns": {
+        "name": "الاسم",
+        "jobTitle": "المسمى الوظيفي",
+        "nationality": "الجنسية",
+        "city": "المدينة",
+        "sponsorship": "الكفالة",
+        "documents": "الوثائق",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "view": "عرض",
+        "edit": "تعديل",
+        "transfer": "نقل",
+        "cancel": "إلغاء",
+        "save": "حفظ التغييرات"
+      },
+      "editTitle": "تعديل ملف العامل",
+      "fullName": "الاسم الكامل",
+      "jobTitle": "المسمى الوظيفي",
+      "yearsOfExperience": "سنوات الخبرة",
+      "currentCity": "المدينة الحالية",
+      "mobileNumber": "رقم الجوال",
+      "transferSuccess": "{{name}} متاح الآن لنقل الكفالة."
+    },
+    "verifyDocuments": {
+      "title": "التحقق من الوثائق",
+      "subtitle": "مراجعة واعتماد الوثائق التي قام العامل بتحميلها.",
+      "columns": {
+        "workerName": "اسم العامل",
+        "document": "الوثيقة",
+        "uploadDate": "تاريخ الرفع",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "view": "عرض",
+        "verify": "تحقق",
+        "reject": "رفض"
+      },
+      "messages": {
+        "verified": "تم التحقق من {{docName}} لـ {{workerName}}.",
+        "rejected": "تم رفض {{docName}} لـ {{workerName}}."
+      }
+    },
+    "recruitmentRequests": {
+      "title": "طلبات الاستقدام",
+      "subtitle": "تلبية طلبات الكفلاء عن طريق تقديم المرشحين المناسبين.",
+      "columns": {
+        "id": "معرف الطلب",
+        "sponsor": "الكفيل",
+        "jobTitle": "المسمى الوظيفي",
+        "location": "الموقع",
+        "needed": "مطلوب",
+        "date": "التاريخ",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "submitCandidates": "تقديم المرشحين",
+        "submitCountCandidates": "تقديم ({{count}}) مرشحين",
+        "cancel": "إلغاء"
+      },
+      "submitCandidatesTitle": "تقديم المرشحين — {{title}}",
+      "selectWorkersDescPart1": "اختر عمالاً من مجموعتك لتقديمهم لـ",
+      "selectWorkersDescPart2": "(مطلوب {{count}}).",
+      "yearsExp": "خبرة {{count}} سنوات",
+      "candidatesSubmitted": "تم تقديم المرشحين بنجاح!"
+    }
+  },
+  "worker": {
+    "jobTitle": "المسمى الوظيفي",
+    "sponsor": "الكفيل",
+    "location": "الموقع",
+    "dateApplied": "تاريخ التقديم",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "viewOffer": "عرض العرض",
+    "noOfferYet": "لا يوجد عرض بعد",
+    "applicationTrackingTitle": "متابعة الطلبات",
+    "applicationTrackingSubtitle": "مراقبة حالة طلبات التوظيف الخاصة بك.",
+    "welcomeBack": "مرحباً بعودتك، {{name}}",
+    "there": "بك",
+    "dashboardSubtitle": "إليك نظرة عامة على نشاط حسابك.",
+    "stats": {
+      "activeApplications": "الطلبات النشطة",
+      "documentsUploaded": "المستندات المرفوعة",
+      "profileCompletion": "إكمال الملف الشخصي",
+      "verificationStatus": "حالة التحقق"
+    },
+    "verified": "تم التحقق",
+    "profileOverview": "نظرة عامة على الملف الشخصي",
+    "edit": "تعديل",
+    "fullName": "الاسم الكامل",
+    "currentSponsor": "الكفيل الحالي",
+    "driver": "سائق",
+    "mockNameDefault": "محمد علي حسن",
+    "mockSponsorName": "شركة الفارس للتجارة",
+    "mockLocation": "الرياض، المملكة العربية السعودية",
+    "actionRequired": "إجراء مطلوب",
+    "pendingVerificationCount": "{{count}} مستند(ات) قيد التحقق",
+    "recentApplications": "الطلبات الأخيرة",
+    "viewAll": "عرض الكل",
+    "noApplications": "لا توجد طلبات بعد.",
+    "browseJobs": "تصفح الوظائف",
+    "quickActions": "إجراءات سريعة",
+    "quickActionsItems": {
+      "browseJobs": "تصفح الفرص الوظيفية",
+      "uploadDocs": "رفع المستندات",
+      "requestTransfer": "طلب نقل الكفالة",
+      "updateProfile": "تحديث الملف الشخصي"
+    },
+    "documentName": "اسم المستند",
+    "uploadDate": "تاريخ الرفع",
+    "view": "عرض",
+    "replace": "استبدال",
+    "myDocumentsTitle": "مستنداتي",
+    "myDocumentsSubtitle": "إدارة مستندات الهوية والتوظيف الخاصة بك.",
+    "uploadDocumentButton": "رفع مستند",
+    "uploadDocumentTitle": "رفع مستند",
+    "documentTypeLabel": "نوع المستند",
+    "docType": {
+      "passport": "نسخة جواز السفر",
+      "nationalId": "الهوية الوطنية",
+      "resume": "السيرة الذاتية"
+    },
+    "selectedFile": "الملف المحدد: {{fileName}}",
+    "chooseFile": "اختر ملفاً (PDF, JPG, PNG)",
+    "cancel": "إلغاء",
+    "upload": "رفع",
+    "docReplacedMsg": "تم استبدال {{docType}} وهو قيد التحقق.",
+    "docUploadedMsg": "تم رفع {{docType}} بنجاح.",
+    "jobNotFoundTitle": "الوظيفة غير موجودة",
+    "jobNotFoundDesc": "لم يتم العثور على فرصة العمل المطلوبة.",
+    "jobOverviewTitle": "نبذة عن الوظيفة",
+    "salaryRangeLabel": "نطاق الراتب",
+    "requiredExperienceLabel": "الخبرة المطلوبة",
+    "accommodationLabel": "السكن",
+    "provided": "مؤمن",
+    "notProvided": "غير مؤمن",
+    "datePostedLabel": "تاريخ النشر",
+    "jobDescAndReqsTitle": "الوصف الوظيفي والمتطلبات",
+    "jobDescIntroText1": "نحن نبحث عن",
+    "jobDescIntroText2": "للعمل مع",
+    "jobDescIntroText3": "في",
+    "jobDescIntroText4": "في هذا الدور، ستكون جزءاً من فريق تعاوني يركز على تنفيذ الأولويات الرئيسية، وتوسيع العمليات، والحفاظ على معايير الجودة العالية.",
+    "keyResponsibilities": "المسؤوليات الرئيسية",
+    "resp1": "التعاون مع أصحاب المصلحة من تخصصات متعددة لفهم المتطلبات وتنفيذ الخطط.",
+    "resp2": "ضمان التوافق مع الأهداف التنظيمية ومعايير السلامة داخل مكان العمل.",
+    "resp3": "أداء الأنشطة اليومية وسير العمل بكفاءة، مع تحديث السجلات باستمرار.",
+    "resp4": "المشاركة في ورش عمل تحسين العمليات، وجهود تحسين الإجراءات، والمراجعات.",
+    "qualificationsAndSkills": "المؤهلات والمهارات",
+    "qual1Text1": "الحد الأدنى",
+    "qual1Text2": "من خبرة العمل ذات الصلة في هذا المجال.",
+    "qual2": "مهارات اتصال قوية وقدرة على العمل ضمن فرق منظمة.",
+    "qual3": "الإلمام بمعايير الامتثال الحديثة في مكان العمل.",
+    "appSubmittedTitle": "تم تقديم الطلب",
+    "alreadyAppliedDesc": "لقد قمت بالفعل بالتقديم على هذه الوظيفة. يقوم صاحب العمل حالياً بمراجعة ملفك الشخصي.",
+    "trackApplicationButton": "متابعة الطلب",
+    "applyForJobTitle": "التقديم على هذه الوظيفة",
+    "submitProfileToText": "قم بتقديم ملفك الشخصي مباشرة إلى",
+    "applyNow": "قدم الآن",
+    "positionClosed": "الوظيفة مغلقة",
+    "appSuccessAlert": "تم تقديم الطلب بنجاح! جاري تحويلك إلى صفحة المتابعة...",
+    "jobOfferDetailsTitle": "تفاصيل عرض العمل",
+    "backToApplicationsButton": "العودة إلى الطلبات",
+    "accepted": "مقبول",
+    "rejected": "مرفوض",
+    "salaryOfferedLabel": "الراتب المعروض",
+    "workLocationLabel": "مكان العمل",
+    "workingHoursLabel": "ساعات العمل",
+    "contractDurationLabel": "مدة العقد",
+    "transportationLabel": "المواصلات",
+    "offerDateLabel": "تاريخ العرض",
+    "offerReviewWarning": "يرجى مراجعة العرض بعناية. القبول يبدأ عملية نقل الكفالة وهو ملزم.",
+    "rejectOfferButton": "رفض العرض",
+    "acceptOfferButton": "قبول العرض",
+    "acceptOfferTitle": "هل تقبل عرض العمل هذا؟",
+    "rejectOfferTitle": "هل ترفض عرض العمل هذا؟",
+    "acceptOfferDesc": "من خلال القبول، فإنك توافق على الشروط وتبدأ عملية نقل الكفالة.",
+    "rejectOfferDesc": "هل أنت متأكد أنك تريد رفض هذا العرض؟ لا يمكن التراجع عن هذا الإجراء.",
+    "confirmAcceptButton": "تأكيد القبول",
+    "confirmRejectButton": "تأكيد الرفض",
+    "salarySar": "الراتب (ريال سعودي)",
+    "experience": "الخبرة",
+    "viewAndApplyButton": "عرض وتطبيق",
+    "jobOpportunitiesTitle": "الفرص الوظيفية",
+    "jobOpportunitiesSubtitle": "تصفح الوظائف الشاغرة وقدم طلبك.",
+    "filterByJobTitleLabel": "تصفية حسب المسمى الوظيفي",
+    "allTitles": "جميع المسميات",
+    "profile": {
+      "mockName": "أحمد حسن",
+      "mockNationality": "مصري",
+      "mockGender": "ذكر",
+      "mockVisaType": "تأشيرة عمل",
+      "location": "دبي، الإمارات العربية المتحدة",
+      "homeCountryAddress": "القاهرة، مصر"
+    },
+    "sponsoredCurrentCorp": "مكفول · الشركة الحالية",
+    "editProfile": "تعديل الملف الشخصي",
+    "tab": {
+      "basicInfo": "معلومات أساسية",
+      "contact": "الاتصال",
+      "employment": "العمل",
+      "documents": "المستندات"
+    },
+    "nationality": "الجنسية",
+    "dateOfBirth": "تاريخ الميلاد",
+    "gender": "الجنس",
+    "passportNumber": "رقم جواز السفر",
+    "visaType": "نوع التأشيرة",
+    "emailAddress": "البريد الإلكتروني",
+    "phoneNumber": "رقم الهاتف",
+    "emergencyContact": "جهة اتصال الطوارئ",
+    "currentAddress": "العنوان الحالي",
+    "homeCountryAddress": "عنوان البلد الأم",
+    "yearsOfExperience": "سنوات الخبرة",
+    "mockCurrentSponsor": "الشركة الحالية",
+    "monthlySalaryAed": "الراتب الشهري (درهم إماراتي)",
+    "contractStart": "بداية العقد",
+    "contractEnd": "نهاية العقد",
+    "skills": "المهارات",
+    "saveChanges": "حفظ التغييرات",
+    "cancel": "إلغاء"
+  },
+  "sponsor": {
+    "dashboard": {
+      "title": "لوحة تحكم الكفيل",
+      "welcome": "مرحباً بعودتك، {{name}} — قم بإدارة قواك العاملة ومسار التوظيف الخاص بك.",
+      "there": "بك",
+      "activeWorkers": "العمال النشطون",
+      "pendingRequests": "الطلبات المعلقة",
+      "sentOffers": "العروض المرسلة",
+      "pendingApprovals": "الموافقات المعلقة",
+      "recentWorkerRequests": "طلبات العمال الأخيرة",
+      "viewAll": "عرض الكل",
+      "workerCount_one": "عامل واحد",
+      "workerCount_other": "{{count}} عمال",
+      "quickActions": "إجراءات سريعة",
+      "createWorkerRequest": "إنشاء طلب عامل",
+      "searchAvailableWorkers": "البحث عن العمال المتاحين",
+      "viewRecommendedWorkers": "عرض العمال الموصى بهم",
+      "manageApprovals": "إدارة الموافقات",
+      "activeRecruitments": "عمليات التوظيف النشطة",
+      "workersNeeded": "بحاجة إلى {{count}}"
+    },
+    "requests": {
+      "title": "الطلبات",
+      "subtitle": "إدارة طلباتك للعمال الجدد.",
+      "filterByStatus": "تصفية حسب الحالة",
+      "allStatuses": "جميع الحالات",
+      "newRequest": "طلب جديد",
+      "columns": {
+        "jobTitle": "المسمى الوظيفي",
+        "needed": "العدد المطلوب",
+        "location": "الموقع",
+        "salary": "الراتب (ريال سعودي)",
+        "date": "التاريخ",
+        "status": "الحالة"
+      },
+      "status": {
+        "draft": "مسودة",
+        "pending": "قيد الانتظار",
+        "reviewingMatches": "مراجعة المطابقات",
+        "candidatesSelected": "تم اختيار المرشحين",
+        "completed": "مكتمل",
+        "cancelled": "ملغى"
+      },
+      "form": {
+        "title": "إنشاء طلب عامل",
+        "subtitle": "طلب عمال جدد بمعايير محددة لمؤسستك.",
+        "jobInfo": "معلومات الوظيفة",
+        "jobTitle": "المسمى الوظيفي *",
+        "quantity": "عدد العمال المطلوبين *",
+        "specifyJobTitle": "حدد المسمى الوظيفي *",
+        "experience": "الخبرة المطلوبة",
+        "experienceOptions": {
+          "none": "بدون خبرة",
+          "oneToThree": "من سنة إلى ٣ سنوات",
+          "threePlus": "أكثر من ٣ سنوات"
+        },
+        "skills": "المهارات المطلوبة (اختياري)",
+        "skillsPlaceholder": "مثال: شهادة رافعة شوكية، سباكة",
+        "description": "الوصف الوظيفي (اختياري)",
+        "workerReqs": "متطلبات العامل",
+        "nationality": "الجنسية المفضلة (اختياري)",
+        "nationalityPlaceholder": "مثال: هندي، باكستاني، فلبيني",
+        "gender": "الجنس المفضل (اختياري)",
+        "genderOptions": {
+          "any": "الكل",
+          "male": "ذكر",
+          "female": "أنثى"
+        },
+        "ageRange": "الفئة العمرية (اختياري)",
+        "ageRangePlaceholder": "مثال: ٢١-٣٥",
+        "languages": "متطلبات اللغة (اختياري)",
+        "languagesPlaceholder": "مثال: إنجليزية، عربية",
+        "employmentDetails": "تفاصيل العمل",
+        "workLocation": "موقع العمل *",
+        "workLocationPlaceholder": "مثال: موقع العمل أ",
+        "city": "المدينة *",
+        "cityPlaceholder": "مثال: الرياض",
+        "region": "المنطقة *",
+        "regionPlaceholder": "مثال: المنطقة الوسطى",
+        "salaryRange": "نطاق الراتب",
+        "salaryRangePlaceholder": "مثال: ٢٠٠٠ - ٣٥٠٠ ريال سعودي",
+        "workingHours": "ساعات العمل",
+        "workingHoursPlaceholder": "مثال: ٨ ساعات/يوم",
+        "contractDuration": "مدة العقد",
+        "contractDurationPlaceholder": "مثال: سنتان",
+        "accommodation": "السكن مؤمن",
+        "transportation": "المواصلات مؤمنة",
+        "yes": "نعم",
+        "no": "لا",
+        "sidebar": {
+          "statusTitle": "حالة الطلب",
+          "statusLabel": "الحالة",
+          "statusPending": "قيد الانتظار",
+          "statusDescription": "حالة الطلب هذه مدارة بواسطة النظام. عند الإرسال، سيبدأ محرك التوصيات الذكي لدينا في مطابقة ملفات تعريف المرشحين وسير العمل التنسيقي."
+        },
+        "submit": "إرسال الطلب",
+        "cancel": "إلغاء",
+        "successMessage": "تم تقديم طلب العامل بنجاح!",
+        "errors": {
+          "jobTitleRequired": "المسمى الوظيفي مطلوب",
+          "quantityMin": "يجب أن يكون أكبر من 0",
+          "locationRequired": "موقع العمل مطلوب",
+          "cityRequired": "المدينة مطلوبة",
+          "regionRequired": "المنطقة مطلوبة"
+        },
+        "jobs": {
+          "driver": "سائق",
+          "cleaner": "عامل نظافة",
+          "housekeeper": "تدبير منزلي",
+          "constructionWorker": "عامل بناء",
+          "softwareEngineer": "مهندس برمجيات",
+          "other": "أخرى"
+        }
+      }
+    },
+    "workers": {
+      "title": "دليل العمال",
+      "subtitle": "ابحث عن الكفاءات المتاحة وصنفها ووظفها أو استكشف المطابقات الموصى بها والمنسقة بعناية.",
+      "tabs": {
+        "allWorkers": "جميع العمال المتاحين",
+        "recommended": "المطابقات الموصى بها"
+      },
+      "filters": {
+        "nationality": "تصفية حسب الجنسية",
+        "experience": "تصفية حسب الخبرة",
+        "experienceOptions": {
+          "all": "جميع مستويات الخبرة",
+          "none": "بدون خبرة",
+          "oneToThree": "من سنة إلى ٣ سنوات",
+          "threePlus": "أكثر من ٣ سنوات"
+        },
+        "clear": "مسح التصفية"
+      },
+      "columns": {
+        "name": "اسم العامل",
+        "jobTitle": "المسمى الوظيفي",
+        "nationality": "الجنسية",
+        "experience": "الخبرة (سنوات)",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "sendOffer": "إرسال عرض"
+      },
+      "dialog": {
+        "title": "إرسال عرض عمل إلى {{name}}",
+        "jobTitle": "المسمى الوظيفي",
+        "salaryOffer": "عرض الراتب",
+        "salaryOfferPlaceholder": "مثال: ٥٠٠٠ ريال سعودي",
+        "location": "الموقع",
+        "locationPlaceholder": "مثال: الرياض",
+        "message": "رسالة إلى العامل",
+        "messagePlaceholder": "صف المسؤوليات والتوقعات وتفاصيل المزايا...",
+        "cancel": "إلغاء",
+        "sendOffer": "إرسال العرض"
+      },
+      "successMessage": "تم إرسال عرض التوظيف بنجاح!"
+    },
+    "offers": {
+      "title": "العروض",
+      "subtitle": "متابعة حالة العروض المباشرة المرسلة إلى العمال.",
+      "columns": {
+        "workerName": "اسم العامل",
+        "positionOffered": "المنصب المعروض",
+        "location": "الموقع",
+        "salary": "الراتب (ريال سعودي)",
+        "dateSent": "تاريخ الإرسال",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "cancel": "إلغاء"
+      },
+      "dialog": {
+        "title": "إلغاء العرض؟",
+        "confirmPrefix": "هل أنت متأكد أنك تريد إلغاء العرض المرسل إلى",
+        "confirmMiddle": "بشأن وظيفة",
+        "keep": "الاحتفاظ بالعرض",
+        "cancelConfirm": "نعم، إلغاء"
+      }
+    },
+    "approvals": {
+      "title": "مركز الموافقات",
+      "subtitle": "مراجعة واعتماد طلبات التوظيف المقدمة من الوكالات وطلبات نقل الكفالة الواردة.",
+      "tabs": {
+        "recruitment": "طلبات التوظيف",
+        "transfer": "طلبات النقل"
+      },
+      "actions": {
+        "approve": "موافقة",
+        "reject": "رفض"
+      },
+      "columns": {
+        "jobTitle": "المسمى الوظيفي",
+        "workersNeeded": "العمال المطلوبين",
+        "date": "التاريخ",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "workerName": "اسم العامل",
+        "currentSponsor": "الكفيل الحالي",
+        "preferredLocation": "الموقع المفضل",
+        "expectedSalary": "الراتب المتوقع",
+        "availability": "التوافر"
+      },
+      "values": {
+        "notSpecified": "غير محدد",
+        "immediate": "فوري"
+      },
+      "dialog": {
+        "title_approve": "الموافقة على الطلب",
+        "title_reject": "رفض الطلب",
+        "confirmText_approve": "هل أنت متأكد أنك تريد الموافقة على هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء.",
+        "confirmText_reject": "هل أنت متأكد أنك تريد رفض هذا الطلب؟ لا يمكن التراجع عن هذا الإجراء.",
+        "cancel": "إلغاء",
+        "confirmButton_approve": "تأكيد الموافقة",
+        "confirmButton_reject": "تأكيد الرفض"
+      }
+    },
+    "search": {
+      "title": "البحث عن العمال",
+      "subtitle": "البحث عن المواهب المتاحة وتوظيفها مباشرة.",
+      "filters": {
+        "nationality": "تصفية حسب الجنسية",
+        "experience": "تصفية حسب الخبرة"
+      },
+      "columns": {
+        "name": "اسم العامل",
+        "jobTitle": "المسمى الوظيفي",
+        "nationality": "الجنسية",
+        "experience": "الخبرة (سنوات)",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "sendOffer": "إرسال عرض"
+      },
+      "dialog": {
+        "title": "إرسال عرض إلى {{name}}",
+        "jobTitle": "المسمى الوظيفي",
+        "salaryOffer": "عرض الراتب",
+        "location": "الموقع",
+        "message": "رسالة إلى العامل",
+        "cancel": "إلغاء",
+        "sendOffer": "إرسال العرض"
+      }
+    },
+    "recommended": {
+      "title": "العمال الموصى بهم",
+      "subtitle": "العمال الموثقون والمتاحون لنقل الكفالة، والمتطابقون مع احتياجات التوظيف الخاصة بك.",
+      "columns": {
+        "workerName": "اسم العامل",
+        "jobTitle": "المسمى الوظيفي",
+        "nationality": "الجنسية",
+        "city": "المدينة",
+        "experience": "الخبرة (سنوات)",
+        "documents": "المستندات",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "offerSent": "تم إرسال العرض",
+        "sendOffer": "إرسال عرض"
+      },
+      "dialog": {
+        "title": "إرسال عرض إلى {{name}}",
+        "jobTitle": "المسمى الوظيفي",
+        "salaryOffer": "عرض الراتب",
+        "salaryOfferPlaceholder": "مثال: ٢٥٠٠ ريال سعودي/الشهر",
+        "workLocation": "موقع العمل",
+        "workLocationPlaceholder": "مثال: الرياض",
+        "message": "رسالة إلى العامل",
+        "cancel": "إلغاء",
+        "sendOffer": "إرسال العرض"
+      }
+    }
+  },
+  "public_reg": {
+    "landing": {
+      "nav": {
+        "brand": "ورك فورس برو",
+        "sign_in": "تسجيل الدخول",
+        "get_started": "البدء"
+      },
+      "hero": {
+        "title_part1": "توظيف القوى العاملة، ",
+        "title_part2": "بكل بساطة",
+        "subtitle": "المنصة الموحدة التي تربط بين العمال والكفلاء ووكالات التوظيف - تبسيط كل خطوة من البحث حتى التعيين.",
+        "create_account": "إنشاء حساب مجاني"
+      },
+      "stats": {
+        "active_workers": "عامل نشط",
+        "registered_sponsors": "كفيل مسجل",
+        "partner_agencies": "وكالة شريكة",
+        "placement_rate": "معدل التوظيف"
+      },
+      "features": {
+        "header_tag": "أقسام المنصة",
+        "header_title": "مصممة لكل دور",
+        "header_desc": "ثلاثة أقسام مخصصة في منصة واحدة متكاملة - يحصل كل مستخدم على ما يحتاجه بالضبط.",
+        "for_workers": {
+          "title": "للعمال",
+          "desc": "إدارة ملفك الشخصي، تتبع طلبات الوظائف، رفع المستندات، وطلب نقل الكفالة - كل ذلك من لوحة تحكم موحدة.",
+          "point1": "إدارة الملف الشخصي والمستندات",
+          "point2": "البحث عن وظائف والتقدم إليها",
+          "point3": "طلبات نقل الكفالة"
+        },
+        "for_sponsors": {
+          "title": "للكفلاء",
+          "desc": "نشر طلبات التوظيف، البحث المباشر عن الكفاءات المؤهلة، إدارة القوى العاملة الخاصة بك، والموافقة على الطلبات في مكان واحد.",
+          "point1": "طلبات التوظيف والبحث عن عمال",
+          "point2": "إدارة عروض العمل",
+          "point3": "اعتمادات وموافقات التوظيف"
+        },
+        "for_agencies": {
+          "title": "للوكالات",
+          "desc": "تسجيل العمال في قاعدة بياناتك، التحقق من المستندات الأساسية، وتلبية طلبات توظيف الكفلاء مع رؤية كاملة لخطوات العمل.",
+          "point1": "إدارة مجموعة العمال",
+          "point2": "التحقق من المستندات",
+          "point3": "تلبية طلبات التوظيف"
+        }
+      },
+      "cta": {
+        "title": "هل أنت مستعد لتبسيط إدارة القوى العاملة لديك؟",
+        "subtitle": "انضم إلى الآلاف من العمال والكفلاء والوكالات الذين يستخدمون WorkForcePro بالفعل.",
+        "get_started_free": "ابدأ مجاناً",
+        "already_have_account": "لديك حساب بالفعل؟ تسجيل الدخول"
+      },
+      "footer": {
+        "copyright": "WorkForcePro © {{year}}",
+        "desc": "المنصة الموحدة لتوظيف القوى العاملة ونقل الكفالة"
+      }
+    },
+    "login": {
+      "welcome_back": "مرحباً بك مجدداً،",
+      "role_account": "حساب {{role}}",
+      "back_to_home": "العودة للرئيسية",
+      "title": "تسجيل الدخول إلى حسابك",
+      "no_account": "ليس لديك حساب؟",
+      "create_one_free": "أنشئ حساباً مجانياً",
+      "email_label": "البريد الإلكتروني",
+      "email_placeholder": "you@example.com",
+      "password_label": "كلمة المرور",
+      "password_placeholder": "••••••••",
+      "forgot_password": "نسيت كلمة المرور؟",
+      "submit_btn": "تسجيل الدخول كـ {{role}}",
+      "or_divider": "أو",
+      "return_home": "العودة إلى الصفحة الرئيسية",
+      "roles": {
+        "worker": {
+          "label": "عامل",
+          "desc": "ابحث عن وظائف، وتتبع الطلبات، وإدارة نقل كفالتك"
+        },
+        "sponsor": {
+          "label": "كفيل",
+          "desc": "إدارة القوى العاملة الخاصة بك، ونشر الطلبات، وإرسال العروض"
+        },
+        "agency": {
+          "label": "وكالة",
+          "desc": "تسجيل العمال، والتحقق من المستندات، وتلبية الطلبات"
+        }
+      }
+    },
+    "select": {
+      "title": "اختر نوع الحساب",
+      "already_have_account": "لديك حساب بالفعل؟ سجل دخولك من هنا",
+      "options": {
+        "worker": {
+          "title": "عامل",
+          "desc": "سجل للبحث عن عمل وإدارة نقل الكفالة."
+        },
+        "sponsor": {
+          "title": "كفيل",
+          "desc": "سجل لتوظيف الكفاءات وإرسال طلبات التوظيف."
+        },
+        "agency": {
+          "title": "وكالة توظيف",
+          "desc": "سجل لتوفير وتأمين الكفاءات للكفلاء."
+        }
+      }
+    },
+    "worker": {
+      "title": "تسجيل عامل جديد",
+      "subtitle": "أنشئ ملفك الشخصي للبدء في العثور على فرص عمل في المملكة العربية السعودية.",
+      "basic_info_title": "المعلومات الأساسية",
+      "full_name_label": "الاسم الكامل",
+      "nationality_label": "الجنسية",
+      "gender_label": "الجنس",
+      "gender_male": "ذكر",
+      "gender_female": "أنثى",
+      "dob_label": "تاريخ الميلاد",
+      "current_city_label": "المدينة الحالية",
+      "contact_info_title": "معلومات الاتصال",
+      "mobile_label": "رقم الجوال",
+      "email_label": "البريد الإلكتروني (اختياري)",
+      "password_label": "كلمة المرور",
+      "employment_info_title": "معلومات العمل",
+      "job_title_label": "المسمى الوظيفي",
+      "experience_label": "سنوات الخبرة",
+      "employment_status_label": "حالة العمل",
+      "status_available": "متاح للعمل",
+      "status_employed": "على رأس العمل",
+      "preferred_location_label": "مكان العمل المفضل",
+      "sponsorship_title": "حالة الكفالة",
+      "sponsorship_legend": "حالة الكفالة الحالية",
+      "sponsorship_sponsored": "على كفالة صاحب العمل الحقيقي",
+      "sponsorship_needs_transfer": "بحاجة لنقل كفالة",
+      "documents_title": "المستندات",
+      "id_passport_label": "رقم الهوية الوطنية أو جواز السفر",
+      "upload_resume_btn": "تحميل السيرة الذاتية (اختياري)",
+      "back_btn": "السابق",
+      "submit_btn": "إكمال التسجيل"
+    },
+    "sponsor": {
+      "title": "تسجيل كفيل جديد",
+      "subtitle": "سجل كصاحب عمل لتوظيف عمالة موثقة في المملكة العربية السعودية.",
+      "basic_info_title": "المعلومات الأساسية",
+      "type_label": "نوع الكفيل",
+      "type_individual": "أفراد",
+      "type_company": "منشأة / شركة",
+      "company_name_label": "اسم الشركة/المؤسسة",
+      "full_name_label": "الاسم الكامل",
+      "city_label": "المدينة",
+      "address_label": "العنوان (اختياري)",
+      "contact_info_title": "معلومات الاتصال",
+      "mobile_label": "رقم الجوال",
+      "email_label": "البريد الإلكتروني (اختياري)",
+      "password_label": "كلمة المرور",
+      "identification_title": "معلومات إثبات الهوية",
+      "national_id_label": "رقم الهوية الوطنية",
+      "commercial_reg_label": "رقم السجل التجاري",
+      "hiring_info_title": "معلومات الاستقدام والتوظيف",
+      "workers_needed_label": "عدد العمالة المطلوبة",
+      "required_job_title_label": "المسمى الوظيفي المطلوب",
+      "preferred_nationality_label": "الجنسية المفضلة (اختياري)",
+      "no_preference": "لا يوجد تفضيل",
+      "work_location_label": "مكان العمل",
+      "back_btn": "السابق",
+      "submit_btn": "إكمال التسجيل"
+    },
+    "agency": {
+      "title": "تسجيل وكالة جديدة",
+      "subtitle": "سجل وكالة التوظيف الخاصة بك لإدارة وتوجيه القوى العاملة في المملكة.",
+      "info_title": "معلومات الوكالة",
+      "name_label": "اسم الوكالة",
+      "license_label": "رقم الترخيص",
+      "city_label": "المدينة",
+      "commercial_reg_label": "رقم السجل التجاري",
+      "admin_contact_title": "المسؤول عن الحساب",
+      "contact_person_label": "اسم الشخص المسؤول",
+      "mobile_label": "رقم الجوال",
+      "email_label": "بريد العمل الإلكتروني",
+      "password_label": "كلمة المرور",
+      "back_btn": "السابق",
+      "submit_btn": "إكمال التسجيل"
+    }
+  },
+  "mock": {
+    "cities": {
+      "Riyadh": "الرياض",
+      "Jeddah": "جدة",
+      "Dammam": "الدمام",
+      "Mecca": "مكة المكرمة",
+      "Medina": "المدينة المنورة",
+      "Khobar": "الخبر",
+      "Tabuk": "تبوك",
+      "Abha": "أبها",
+      "Taif": "الطائف",
+      "Hail": "حائل"
+    },
+    "nationalities": {
+      "Egyptian": "مصري",
+      "Pakistani": "باكستاني",
+      "Indian": "هندي",
+      "Filipino": "فلبيني",
+      "Indonesian": "إندونيسي",
+      "Yemeni": "يمني",
+      "Bangladeshi": "بنجلاديشي",
+      "Sudanese": "سوداني",
+      "Ethiopian": "إثيوبي",
+      "Nepalese": "نيبالي"
+    },
+    "genders": {
+      "Male": "ذكر",
+      "Female": "أنثى"
+    },
+    "employmentStatuses": {
+      "Available": "متاح",
+      "Employed": "على رأس العمل"
+    },
+    "sponsorshipStatuses": {
+      "Needs Sponsorship Transfer": "بحاجة لنقل كفالة",
+      "Sponsored": "مكفول"
+    },
+    "documentNames": {
+      "Passport Copy": "نسخة جواز السفر",
+      "National ID": "الهوية الوطنية",
+      "Resume / CV": "السيرة الذاتية"
+    },
+    "names": {
+      "Mohamed Ali Hassan": "محمد علي حسن",
+      "Rajesh Kumar": "راجيش كومار",
+      "Fatima Binte Salim": "فاطمة بنت سالم",
+      "Ali Raza Khan": "علي رضا خان",
+      "Maria Santos": "ماريا سانتوس",
+      "Hassan Omar Yusuf": "حسن عمر يوسف",
+      "Suresh Bahadur": "سوريش بهادور",
+      "Ahmed Abdi Farah": "أحمد عبدي فرح",
+      "Ibrahim Al-Sayed": "إبراهيم السيد",
+      "Ramesh Thapa": "راميش ثابا",
+      "Nadia Rizwana": "نادية رضوانة",
+      "Jose Reyes": "خوسيه ريس",
+      "Khalid Mansoor": "خالد منصور",
+      "Abdullah Al-Rashid": "عبد الله الرشيد",
+      "Noura Al-Ghamdi": "نورة الغامدي",
+      "Al-Banna Construction Co.": "شركة البناء للمقاولات",
+      "Spice Garden Restaurant": "مطعم حديقة التوابل",
+      "Al-Mashriq Properties": "عقارات المشرق",
+      "Mecca Development Group": "مجموعة مكة للتطوير",
+      "Al-Faris Trading Co.": "شركة الفارس للتجارة",
+      "Al-Amal Housekeeping": "الأمل للخدمات المنزلية",
+      "Gulf Builders LLC": "خليج البنائين ذ.م.م"
+    },
+    "descriptions": {
+      "Private driver for family use, must hold valid Saudi driving license.": "سائق خاص للاستخدام العائلي، يجب أن يحمل رخصة قيادة سعودية سارية المفعول.",
+      "Full-time live-in housekeeper for a family villa.": "تدبير منزلي بدوام كامل وإقامة كاملة لفيلا عائلية.",
+      "Residential construction project in Dammam area.": "مشروع بناء سكني في منطقة الدمام.",
+      "Restaurant cook specializing in Asian cuisine.": "طباخ مطعم متخصص في المطبخ الآسيوي.",
+      "Office cleaning for commercial building complex.": "تنظيف مكاتب لمجمع مباني تجارية.",
+      "Brick and tile laying for a commercial project.": "تركيب الطوب والبلاط لمشروع تجاري.",
+      "I have 7 years of driving experience in Riyadh and am familiar with all main routes.": "لدي 7 سنوات من الخبرة في القيادة في الرياض وأنا على دراية بجميع الطرق الرئيسية.",
+      "Valid Saudi driving license holder.": "حامل رخصة قيادة سعودية سارية المفعول.",
+      "Experienced in Asian and Middle Eastern cuisine.": "خبرة في المأكولات الآسيوية والشرق أوسطية.",
+      "Four years experience as a live-in housekeeper.": "أربع سنوات خبرة في التدبير المنزلي المقيم."
+    }
+  }
+}

@@ -23,12 +23,14 @@ import { AppDataTable } from '../ui/data-display/AppDataTable';
 import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { myDocuments as initialDocs } from '../../data/mockData';
+import { useTranslation } from 'react-i18next';
 
 type Doc = { id: string; name: string; uploadDate: string; status: string };
 
 const DOCUMENT_TYPES = ['Passport Copy', 'National ID', 'Resume / CV'];
 
 export default function WorkerDocuments() {
+    const { t } = useTranslation();
     const [docs, setDocs] = useState<Doc[]>(initialDocs);
     const [uploadOpen, setUploadOpen] = useState(false);
     const [docType, setDocType] = useState('');
@@ -43,6 +45,13 @@ export default function WorkerDocuments() {
         severity: 'success',
     });
 
+    const getDocTypeTranslation = (type: string) => {
+        if (type === 'Passport Copy') return t('worker.docType.passport');
+        if (type === 'National ID') return t('worker.docType.nationalId');
+        if (type === 'Resume / CV') return t('worker.docType.resume');
+        return type;
+    };
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.[0]) setFileName(e.target.files[0].name);
     };
@@ -51,6 +60,7 @@ export default function WorkerDocuments() {
         if (!docType) return;
         const today = new Date().toISOString().split('T')[0];
         const existing = docs.findIndex((d) => d.name === docType);
+        const translatedType = getDocTypeTranslation(docType);
         if (existing >= 0) {
             const updated = [...docs];
             updated[existing] = {
@@ -61,7 +71,7 @@ export default function WorkerDocuments() {
             setDocs(updated);
             setSnackbar({
                 open: true,
-                message: `${docType} replaced and pending verification.`,
+                message: t('worker.docReplacedMsg', { docType: translatedType }),
                 severity: 'info',
             });
         } else {
@@ -76,7 +86,7 @@ export default function WorkerDocuments() {
             ]);
             setSnackbar({
                 open: true,
-                message: `${docType} uploaded successfully.`,
+                message: t('worker.docUploadedMsg', { docType: translatedType }),
                 severity: 'success',
             });
         }
@@ -86,17 +96,22 @@ export default function WorkerDocuments() {
     };
 
     const columns: MRT_ColumnDef<Doc>[] = [
-        { accessorKey: 'name', header: 'Document Name', size: 200 },
-        { accessorKey: 'uploadDate', header: 'Upload Date', size: 130 },
+        {
+            accessorKey: 'name',
+            header: t('worker.documentName'),
+            size: 200,
+            Cell: ({ cell }) => getDocTypeTranslation(cell.getValue() as string),
+        },
+        { accessorKey: 'uploadDate', header: t('worker.uploadDate'), size: 130 },
         {
             accessorKey: 'status',
-            header: 'Status',
+            header: t('worker.status'),
             size: 140,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('worker.actions'),
             size: 180,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -107,7 +122,7 @@ export default function WorkerDocuments() {
                         variant="outlined"
                         startIcon={<Eye size={14} />}
                     >
-                        View
+                        {t('worker.view')}
                     </Button>
                     <Button
                         size="small"
@@ -120,7 +135,7 @@ export default function WorkerDocuments() {
                             setUploadOpen(true);
                         }}
                     >
-                        Replace
+                        {t('worker.replace')}
                     </Button>
                 </Box>
             ),
@@ -137,10 +152,10 @@ export default function WorkerDocuments() {
             >
                 <Box>
                     <Typography variant="h4" fontWeight="bold">
-                        My Documents
+                        {t('worker.myDocumentsTitle')}
                     </Typography>
                     <Typography color="text.secondary">
-                        Manage your identity and employment documents.
+                        {t('worker.myDocumentsSubtitle')}
                     </Typography>
                 </Box>
                 <Button
@@ -148,7 +163,7 @@ export default function WorkerDocuments() {
                     startIcon={<UploadCloud size={18} />}
                     onClick={() => setUploadOpen(true)}
                 >
-                    Upload Document
+                    {t('worker.uploadDocumentButton')}
                 </Button>
             </Box>
 
@@ -163,20 +178,20 @@ export default function WorkerDocuments() {
                 maxWidth="sm"
                 fullWidth
             >
-                <DialogTitle>Upload Document</DialogTitle>
+                <DialogTitle>{t('worker.uploadDocumentTitle')}</DialogTitle>
                 <DialogContent dividers>
                     <Grid container spacing={2} sx={{ mt: 1 }}>
                         <Grid item xs={12}>
                             <FormControl fullWidth required>
-                                <InputLabel>Document Type</InputLabel>
+                                <InputLabel>{t('worker.documentTypeLabel')}</InputLabel>
                                 <Select
                                     value={docType}
-                                    label="Document Type"
+                                    label={t('worker.documentTypeLabel')}
                                     onChange={(e) => setDocType(e.target.value)}
                                 >
-                                    {DOCUMENT_TYPES.map((t) => (
-                                        <MenuItem key={t} value={t}>
-                                            {t}
+                                    {DOCUMENT_TYPES.map((tName) => (
+                                        <MenuItem key={tName} value={tName}>
+                                            {getDocTypeTranslation(tName)}
                                         </MenuItem>
                                     ))}
                                 </Select>
@@ -190,8 +205,8 @@ export default function WorkerDocuments() {
                                 sx={{ py: 2 }}
                             >
                                 {fileName
-                                    ? `Selected: ${fileName}`
-                                    : 'Choose File (PDF, JPG, PNG)'}
+                                    ? t('worker.selectedFile', { fileName })
+                                    : t('worker.chooseFile')}
                                 <input
                                     type="file"
                                     hidden
@@ -203,13 +218,13 @@ export default function WorkerDocuments() {
                     </Grid>
                 </DialogContent>
                 <DialogActions sx={{ p: 2 }}>
-                    <Button onClick={() => setUploadOpen(false)}>Cancel</Button>
+                    <Button onClick={() => setUploadOpen(false)}>{t('worker.cancel')}</Button>
                     <Button
                         variant="contained"
                         onClick={handleUpload}
                         disabled={!docType}
                     >
-                        Upload
+                        {t('worker.upload')}
                     </Button>
                 </DialogActions>
             </Dialog>

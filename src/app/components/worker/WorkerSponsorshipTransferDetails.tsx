@@ -24,12 +24,22 @@ import {
     CheckCircle,
     Info,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 export default function WorkerSponsorshipTransferDetails() {
+    const { t } = useTranslation();
+    const { tName, tCity } = useMockTranslation();
     const { id } = useParams();
     const navigate = useNavigate();
     const [request, setRequest] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
+
+    const getJobTitleLabel = (title: string) => {
+        if (!title) return '';
+        const key = title.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+        return t(`jobTitles.${key}`, title);
+    };
 
     useEffect(() => {
         // Load from localStorage or mock data
@@ -84,12 +94,11 @@ export default function WorkerSponsorshipTransferDetails() {
                         <ArrowLeft size={18} />
                     </Button>
                     <Typography variant="h4" fontWeight="bold">
-                        Request Not Found
+                        {t('sponsorship.requestNotFound')}
                     </Typography>
                 </Box>
                 <Alert severity="error" sx={{ borderRadius: '8px' }}>
-                    The requested sponsorship transfer request could not be
-                    located.
+                    {t('sponsorship.requestNotFoundDesc')}
                 </Alert>
             </DashboardLayout>
         );
@@ -121,10 +130,10 @@ export default function WorkerSponsorshipTransferDetails() {
                     </Button>
                     <Box>
                         <Typography variant="h4" fontWeight="bold">
-                            Transfer Request Details
+                            {t('sponsorship.detailsTitle')}
                         </Typography>
                         <Typography color="text.secondary" variant="body2">
-                            ID: {request.id} · Submitted on{' '}
+                            ID: {request.id} · {t('sponsorship.submittedOn')}{' '}
                             {request.requestDate}
                         </Typography>
                     </Box>
@@ -146,7 +155,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                 gap: 1,
                             }}
                         >
-                            <Briefcase size={18} /> Job Matching Preferences
+                            <Briefcase size={18} /> {t('sponsorship.jobPref')}
                         </Typography>
                         <Divider sx={{ mb: 3 }} />
 
@@ -173,12 +182,14 @@ export default function WorkerSponsorshipTransferDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Desired Job Title
+                                            {t('sponsorship.columns.jobTitle')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
-                                            {request.desiredJobTitle ||
+                                            {getJobTitleLabel(
+                                                request.desiredJobTitle ||
                                                 request.jobTitle ||
-                                                'General'}
+                                                'General'
+                                            )}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -206,11 +217,11 @@ export default function WorkerSponsorshipTransferDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Preferred Work Location
+                                            {t('sponsorship.prefLocation')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
-                                            {request.preferredLocation ||
-                                                'Anywhere (Saudi Arabia)'}
+                                            {tCity(request.preferredLocation) ||
+                                                t('sponsorship.anywhere', 'Anywhere (Saudi Arabia)')}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -238,11 +249,11 @@ export default function WorkerSponsorshipTransferDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Expected Monthly Salary
+                                            {t('sponsorship.expectedSalary')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
                                             {request.expectedSalary ||
-                                                'Not Specified'}
+                                                t('common.noRecords')}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -270,7 +281,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Availability Date
+                                            {t('sponsorship.availDate')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
                                             {request.availabilityDate ||
@@ -294,7 +305,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                 gap: 1,
                             }}
                         >
-                            <Info size={18} /> Additional Application Notes
+                            <Info size={18} /> {t('sponsorship.additionalNotes')}
                         </Typography>
                         <Divider sx={{ mb: 2.5 }} />
                         <Box
@@ -319,7 +330,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                 }}
                             >
                                 {request.message ||
-                                    'No additional application message or notes were attached to this request.'}
+                                    t('sponsorship.noNotes')}
                             </Typography>
                         </Box>
                     </Paper>
@@ -357,7 +368,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                     fontWeight="bold"
                                     color="#1A7F37"
                                 >
-                                    Sponsor Match Confirmed
+                                    {t('sponsorship.matchConfirmed')}
                                 </Typography>
                             </Box>
                             <Typography
@@ -365,8 +376,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                 mb={3}
                                 color="text.secondary"
                             >
-                                An employer has reviewed your preferences and
-                                approved your sponsorship transfer request.
+                                {t('sponsorship.matchConfirmedDesc')}
                             </Typography>
                             <Divider sx={{ mb: 2.5 }} />
                             <Box display="flex" flexDirection="column" gap={2}>
@@ -375,14 +385,14 @@ export default function WorkerSponsorshipTransferDetails() {
                                         variant="caption"
                                         color="text.secondary"
                                     >
-                                        Matched Employer (New Sponsor)
+                                        {t('sponsorship.matchedEmployer')}
                                     </Typography>
                                     <Typography
                                         fontWeight="bold"
                                         variant="h6"
                                         color="text.primary"
                                     >
-                                        {request.newSponsor}
+                                        {tName(request.newSponsor)}
                                     </Typography>
                                 </Box>
                                 <Box>
@@ -390,11 +400,11 @@ export default function WorkerSponsorshipTransferDetails() {
                                         variant="caption"
                                         color="text.secondary"
                                     >
-                                        Current Employer
+                                        {t('sponsorship.currentEmployer')}
                                     </Typography>
                                     <Typography fontWeight="semibold">
-                                        {request.currentSponsor ||
-                                            'Current Corp'}
+                                        {tName(request.currentSponsor ||
+                                            'Current Corp')}
                                     </Typography>
                                 </Box>
                                 <Box>
@@ -402,7 +412,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                         variant="caption"
                                         color="text.secondary"
                                     >
-                                        Transfer Approval Status
+                                        {t('sponsorship.approvalStatus')}
                                     </Typography>
                                     <Box
                                         display="flex"
@@ -445,7 +455,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                     fontWeight="bold"
                                     color="#D92D20"
                                 >
-                                    Request Rejected
+                                    {t('sponsorship.matchRejected')}
                                 </Typography>
                             </Box>
                             <Typography
@@ -453,9 +463,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                 mb={3}
                                 color="text.secondary"
                             >
-                                Your sponsorship transfer request has been
-                                rejected by the prospective sponsor or system
-                                matching pool.
+                                {t('sponsorship.matchRejectedDesc')}
                             </Typography>
                             <Divider sx={{ mb: 2.5 }} />
                             <Box>
@@ -463,10 +471,10 @@ export default function WorkerSponsorshipTransferDetails() {
                                     variant="caption"
                                     color="text.secondary"
                                 >
-                                    Current Sponsor
+                                    {t('sponsorship.columns.currentSponsor')}
                                 </Typography>
                                 <Typography fontWeight="semibold">
-                                    {request.currentSponsor || 'Current Corp'}
+                                    {tName(request.currentSponsor || 'Current Corp')}
                                 </Typography>
                             </Box>
                         </Paper>
@@ -489,7 +497,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                     fontWeight="bold"
                                     color="#B54708"
                                 >
-                                    Awaiting Match
+                                    {t('sponsorship.awaitingMatch')}
                                 </Typography>
                             </Box>
                             <Typography
@@ -497,10 +505,7 @@ export default function WorkerSponsorshipTransferDetails() {
                                 mb={3}
                                 color="text.secondary"
                             >
-                                Your transfer request has been registered in our
-                                matching pool. Employers looking for your
-                                specific job title and location will match with
-                                your profile.
+                                {t('sponsorship.awaitingMatchDesc')}
                             </Typography>
                             <Divider sx={{ mb: 2.5 }} />
                             <Box display="flex" flexDirection="column" gap={2}>
@@ -509,11 +514,11 @@ export default function WorkerSponsorshipTransferDetails() {
                                         variant="caption"
                                         color="text.secondary"
                                     >
-                                        Current Employer
+                                        {t('sponsorship.currentEmployer')}
                                     </Typography>
                                     <Typography fontWeight="semibold">
-                                        {request.currentSponsor ||
-                                            'Current Corp'}
+                                        {tName(request.currentSponsor ||
+                                            'Current Corp')}
                                     </Typography>
                                 </Box>
                                 <Box>
@@ -521,14 +526,14 @@ export default function WorkerSponsorshipTransferDetails() {
                                         variant="caption"
                                         color="text.secondary"
                                     >
-                                        Matching Status
+                                        {t('sponsorship.matchingStatus')}
                                     </Typography>
                                     <Typography
                                         fontWeight="semibold"
                                         color="#B54708"
                                         sx={{ mt: 0.5 }}
                                     >
-                                        Searching pool...
+                                        {t('sponsorship.searchingPool')}
                                     </Typography>
                                 </Box>
                             </Box>

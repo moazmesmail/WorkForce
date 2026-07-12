@@ -13,6 +13,8 @@ import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router';
 import { workers, recruitmentRequests } from '../../data/mockData';
 import { StatusBadge } from '../shared/StatusBadge';
+import { useTranslation } from 'react-i18next';
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 export const agencyNavItems: NavItem[] = [
     { label: 'Dashboard', path: '/agency/dashboard', icon: <Home /> },
@@ -36,7 +38,7 @@ export const agencyNavItems: NavItem[] = [
 
 const statCards = [
     {
-        label: 'Total Workers Managed',
+        label: 'agency.dashboard.totalWorkersManaged',
         value: '45',
         icon: Users,
         color: '#0969DA',
@@ -44,7 +46,7 @@ const statCards = [
         path: '/agency/workers',
     },
     {
-        label: 'Pending Verification',
+        label: 'agency.dashboard.pendingVerification',
         value: '8',
         icon: FileCheck,
         color: '#B54708',
@@ -52,7 +54,7 @@ const statCards = [
         path: '/agency/documents',
     },
     {
-        label: 'Active Sponsor Requests',
+        label: 'agency.dashboard.activeSponsorRequests',
         value: '12',
         icon: ClipboardList,
         color: '#1A7F37',
@@ -60,7 +62,7 @@ const statCards = [
         path: '/agency/requests',
     },
     {
-        label: 'Placement Rate',
+        label: 'agency.dashboard.placementRate',
         value: '94%',
         icon: TrendingUp,
         color: '#5E7089',
@@ -72,6 +74,7 @@ const statCards = [
 export default function AgencyDashboard() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <DashboardLayout navItems={agencyNavItems}>
@@ -85,11 +88,12 @@ export default function AgencyDashboard() {
                         mb: 0.25,
                     }}
                 >
-                    Agency Dashboard
+                    {t('agency.dashboard.title')}
                 </Typography>
                 <Typography sx={{ color: '#5E7089', fontSize: '0.875rem' }}>
-                    Welcome back, {currentUser?.name?.split(' ')[0] || 'there'}{' '}
-                    — manage your worker pool and fulfill sponsor requests.
+                    {t('agency.dashboard.welcome', {
+                        name: currentUser?.name?.split(' ')[0] || t('agency.dashboard.welcomeFallback'),
+                    })}
                 </Typography>
             </Box>
 
@@ -154,7 +158,7 @@ export default function AgencyDashboard() {
                                         mt: 0.5,
                                     }}
                                 >
-                                    {s.label}
+                                    {t(s.label)}
                                 </Typography>
                             </Paper>
                         </Grid>
@@ -181,7 +185,7 @@ export default function AgencyDashboard() {
                                     color: '#111827',
                                 }}
                             >
-                                Recent Workers
+                                {t('agency.dashboard.recentWorkers')}
                             </Typography>
                             <Button
                                 size="small"
@@ -193,7 +197,7 @@ export default function AgencyDashboard() {
                                     px: 1,
                                 }}
                             >
-                                View All
+                                {t('agency.dashboard.viewAll')}
                             </Button>
                         </Box>
                         <Divider sx={{ mb: 2 }} />
@@ -204,73 +208,76 @@ export default function AgencyDashboard() {
                                 gap: 1.25,
                             }}
                         >
-                            {workers.slice(0, 4).map((w) => (
-                                <Box
-                                    key={w.id}
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        p: 1.5,
-                                        borderRadius: '6px',
-                                        border: '1px solid #D2DAE5',
-                                        gap: 2,
-                                        '&:hover': {
-                                            backgroundColor: '#F5F7FA',
-                                        },
-                                        transition: 'background-color 0.1s',
-                                    }}
-                                >
+                            {workers.slice(0, 4).map((w) => {
+                                const { tName, tJobTitle } = useMockTranslation();
+                                return (
                                     <Box
+                                        key={w.id}
                                         sx={{
                                             display: 'flex',
                                             alignItems: 'center',
-                                            gap: 1.5,
-                                            minWidth: 0,
+                                            justifyContent: 'space-between',
+                                            p: 1.5,
+                                            borderRadius: '6px',
+                                            border: '1px solid #D2DAE5',
+                                            gap: 2,
+                                            '&:hover': {
+                                                backgroundColor: '#F5F7FA',
+                                            },
+                                            transition: 'background-color 0.1s',
                                         }}
                                     >
                                         <Box
                                             sx={{
-                                                width: 32,
-                                                height: 32,
-                                                borderRadius: '8px',
-                                                backgroundColor: '#DDF4FF',
                                                 display: 'flex',
                                                 alignItems: 'center',
-                                                justifyContent: 'center',
-                                                fontSize: '0.75rem',
-                                                fontWeight: 700,
-                                                color: '#0969DA',
-                                                flexShrink: 0,
+                                                gap: 1.5,
+                                                minWidth: 0,
                                             }}
                                         >
-                                            {w.name.charAt(0)}
-                                        </Box>
-                                        <Box sx={{ minWidth: 0 }}>
-                                            <Typography
+                                            <Box
                                                 sx={{
-                                                    fontSize: '0.875rem',
-                                                    fontWeight: 600,
-                                                    color: '#111827',
-                                                }}
-                                            >
-                                                {w.name}
-                                            </Typography>
-                                            <Typography
-                                                sx={{
+                                                    width: 32,
+                                                    height: 32,
+                                                    borderRadius: '8px',
+                                                    backgroundColor: '#DDF4FF',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
                                                     fontSize: '0.75rem',
-                                                    color: '#5E7089',
+                                                    fontWeight: 700,
+                                                    color: '#0969DA',
+                                                    flexShrink: 0,
                                                 }}
                                             >
-                                                {w.jobTitle}
-                                            </Typography>
+                                                {w.name.charAt(0)}
+                                            </Box>
+                                            <Box sx={{ minWidth: 0 }}>
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: '0.875rem',
+                                                        fontWeight: 600,
+                                                        color: '#111827',
+                                                    }}
+                                                >
+                                                    {tName(w.name)}
+                                                </Typography>
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: '0.75rem',
+                                                        color: '#5E7089',
+                                                    }}
+                                                >
+                                                    {tJobTitle(w.jobTitle)}
+                                                </Typography>
+                                            </Box>
                                         </Box>
+                                        <StatusBadge
+                                            status={w.verificationStatus}
+                                        />
                                     </Box>
-                                    <StatusBadge
-                                        status={w.verificationStatus}
-                                    />
-                                </Box>
-                            ))}
+                                );
+                            })}
                         </Box>
                     </Paper>
                 </Grid>
@@ -294,7 +301,7 @@ export default function AgencyDashboard() {
                                     color: '#111827',
                                 }}
                             >
-                                Sponsor Requests
+                                {t('agency.dashboard.sponsorRequests')}
                             </Typography>
                             <Button
                                 size="small"
@@ -306,7 +313,7 @@ export default function AgencyDashboard() {
                                     px: 1,
                                 }}
                             >
-                                View All
+                                {t('agency.dashboard.viewAll')}
                             </Button>
                         </Box>
                         <Divider sx={{ mb: 2 }} />
@@ -317,46 +324,48 @@ export default function AgencyDashboard() {
                                 gap: 1.25,
                             }}
                         >
-                            {recruitmentRequests.map((req) => (
-                                <Box
-                                    key={req.id}
-                                    sx={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'space-between',
-                                        p: 1.5,
-                                        borderRadius: '6px',
-                                        border: '1px solid #D2DAE5',
-                                        gap: 2,
-                                        '&:hover': {
-                                            backgroundColor: '#F5F7FA',
-                                        },
-                                        transition: 'background-color 0.1s',
-                                    }}
-                                >
-                                    <Box sx={{ minWidth: 0 }}>
-                                        <Typography
-                                            sx={{
-                                                fontSize: '0.875rem',
-                                                fontWeight: 600,
-                                                color: '#111827',
-                                            }}
-                                        >
-                                            {req.jobTitle}
-                                        </Typography>
-                                        <Typography
-                                            sx={{
-                                                fontSize: '0.75rem',
-                                                color: '#5E7089',
-                                            }}
-                                        >
-                                            {req.sponsor} · {req.workersNeeded}{' '}
-                                            workers needed
-                                        </Typography>
+                            {recruitmentRequests.map((req) => {
+                                const { tJobTitle, tName } = useMockTranslation();
+                                return (
+                                    <Box
+                                        key={req.id}
+                                        sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            p: 1.5,
+                                            borderRadius: '6px',
+                                            border: '1px solid #D2DAE5',
+                                            gap: 2,
+                                            '&:hover': {
+                                                backgroundColor: '#F5F7FA',
+                                            },
+                                            transition: 'background-color 0.1s',
+                                        }}
+                                    >
+                                        <Box sx={{ minWidth: 0 }}>
+                                            <Typography
+                                                sx={{
+                                                    fontSize: '0.875rem',
+                                                    fontWeight: 600,
+                                                    color: '#111827',
+                                                }}
+                                            >
+                                                {tJobTitle(req.jobTitle)}
+                                            </Typography>
+                                            <Typography
+                                                sx={{
+                                                    fontSize: '0.75rem',
+                                                    color: '#5E7089',
+                                                }}
+                                            >
+                                                {tName(req.sponsor)} · {t('agency.dashboard.workersNeeded', { count: req.workersNeeded })}
+                                            </Typography>
+                                        </Box>
+                                        <StatusBadge status={req.status} />
                                     </Box>
-                                    <StatusBadge status={req.status} />
-                                </Box>
-                            ))}
+                                );
+                            })}
                         </Box>
                     </Paper>
 
@@ -370,41 +379,41 @@ export default function AgencyDashboard() {
                                 mb: 1.5,
                             }}
                         >
-                            Quick Actions
+                            {t('agency.dashboard.quickActions')}
                         </Typography>
                         <Divider sx={{ mb: 2 }} />
                         <Grid container spacing={1.5}>
                             {[
                                 {
-                                    label: 'Register New Worker',
+                                    label: 'agency.dashboard.registerNewWorker',
                                     icon: UserPlus,
                                     path: '/agency/register-worker',
                                     color: '#0969DA',
                                     bg: '#DDF4FF',
                                 },
                                 {
-                                    label: 'Verify Documents',
+                                    label: 'agency.dashboard.verifyDocuments',
                                     icon: FileCheck,
                                     path: '/agency/documents',
                                     color: '#B54708',
                                     bg: '#FEF0C7',
                                 },
                                 {
-                                    label: 'Manage Workers',
+                                    label: 'agency.dashboard.manageWorkers',
                                     icon: Users,
                                     path: '/agency/workers',
                                     color: '#1A7F37',
                                     bg: '#DDFBE6',
                                 },
                                 {
-                                    label: 'Sponsorship Transfer',
+                                    label: 'agency.dashboard.sponsorshipTransfer',
                                     icon: ClipboardList,
                                     path: '/agency/sponsorship/new',
                                     color: '#1A7F37',
                                     bg: '#DDFBE6',
                                 },
                                 {
-                                    label: 'View Requests',
+                                    label: 'agency.dashboard.viewRequests',
                                     icon: ClipboardList,
                                     path: '/agency/requests',
                                     color: '#5E7089',
@@ -458,7 +467,7 @@ export default function AgencyDashboard() {
                                                     lineHeight: 1.3,
                                                 }}
                                             >
-                                                {a.label}
+                                                {t(a.label)}
                                             </Typography>
                                         </Box>
                                     </Grid>

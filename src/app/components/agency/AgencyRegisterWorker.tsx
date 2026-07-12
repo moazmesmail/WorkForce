@@ -21,8 +21,10 @@ import {
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { agencyNavItems } from './AgencyDashboard';
 import { SAUDI_CITIES, JOB_TITLES, NATIONALITIES } from '../../data/mockData';
+import { useTranslation } from 'react-i18next';
 
 export default function AgencyRegisterWorker() {
+    const { t } = useTranslation();
     const [nationality, setNationality] = useState('');
     const [gender, setGender] = useState('');
     const [city, setCity] = useState('');
@@ -43,29 +45,29 @@ export default function AgencyRegisterWorker() {
         <DashboardLayout navItems={agencyNavItems}>
             <Box mb={4}>
                 <Typography variant="h4" fontWeight="bold">
-                    Register New Worker
+                    {t('agency.registerWorker.title')}
                 </Typography>
                 <Typography color="text.secondary">
-                    Onboard a new worker into the agency pool on their behalf.
+                    {t('agency.registerWorker.subtitle')}
                 </Typography>
             </Box>
 
             <form onSubmit={handleSubmit}>
                 <Paper sx={{ p: 4, mb: 3 }}>
                     <Typography variant="h6" gutterBottom>
-                        Basic Information
+                        {t('agency.registerWorker.basicInfo')}
                     </Typography>
                     <Divider sx={{ mb: 3 }} />
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
-                            <TextField fullWidth label="Full Name" required />
+                            <TextField fullWidth label={t('agency.registerWorker.fullName')} required />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth required>
-                                <InputLabel>Nationality</InputLabel>
+                                <InputLabel>{t('agency.registerWorker.nationality')}</InputLabel>
                                 <Select
                                     value={nationality}
-                                    label="Nationality"
+                                    label={t('agency.registerWorker.nationality')}
                                     onChange={(e) =>
                                         setNationality(e.target.value)
                                     }
@@ -80,21 +82,21 @@ export default function AgencyRegisterWorker() {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth required>
-                                <InputLabel>Gender</InputLabel>
+                                <InputLabel>{t('agency.registerWorker.gender')}</InputLabel>
                                 <Select
                                     value={gender}
-                                    label="Gender"
+                                    label={t('agency.registerWorker.gender')}
                                     onChange={(e) => setGender(e.target.value)}
                                 >
-                                    <MenuItem value="Male">Male</MenuItem>
-                                    <MenuItem value="Female">Female</MenuItem>
+                                    <MenuItem value="Male">{t('agency.registerWorker.genderMale')}</MenuItem>
+                                    <MenuItem value="Female">{t('agency.registerWorker.genderFemale')}</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
-                                label="Date of Birth"
+                                label={t('agency.registerWorker.dateOfBirth')}
                                 type="date"
                                 InputLabelProps={{ shrink: true }}
                                 required
@@ -102,10 +104,10 @@ export default function AgencyRegisterWorker() {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth required>
-                                <InputLabel>Current City</InputLabel>
+                                <InputLabel>{t('agency.registerWorker.currentCity')}</InputLabel>
                                 <Select
                                     value={city}
-                                    label="Current City"
+                                    label={t('agency.registerWorker.currentCity')}
                                     onChange={(e) => setCity(e.target.value)}
                                 >
                                     {SAUDI_CITIES.map((c) => (
@@ -121,21 +123,21 @@ export default function AgencyRegisterWorker() {
 
                 <Paper sx={{ p: 4, mb: 3 }}>
                     <Typography variant="h6" gutterBottom>
-                        Contact Information
+                        {t('agency.registerWorker.contactInfo')}
                     </Typography>
                     <Divider sx={{ mb: 3 }} />
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
-                                label="Mobile Number"
+                                label={t('agency.registerWorker.mobileNumber')}
                                 required
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
-                                label="Email (optional)"
+                                label={t('agency.registerWorker.emailOptional')}
                                 type="email"
                             />
                         </Grid>
@@ -144,16 +146,16 @@ export default function AgencyRegisterWorker() {
 
                 <Paper sx={{ p: 4, mb: 3 }}>
                     <Typography variant="h6" gutterBottom>
-                        Employment Information
+                        {t('agency.registerWorker.employmentInfo')}
                     </Typography>
                     <Divider sx={{ mb: 3 }} />
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth required>
-                                <InputLabel>Job Title</InputLabel>
+                                <InputLabel>{t('agency.registerWorker.jobTitle')}</InputLabel>
                                 <Select
                                     value={jobTitle}
-                                    label="Job Title"
+                                    label={t('agency.registerWorker.jobTitle')}
                                     onChange={(e) =>
                                         setJobTitle(e.target.value)
                                     }
@@ -169,7 +171,7 @@ export default function AgencyRegisterWorker() {
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
-                                label="Years of Experience"
+                                label={t('agency.registerWorker.yearsOfExperience')}
                                 type="number"
                                 inputProps={{ min: 0 }}
                                 required
@@ -177,29 +179,29 @@ export default function AgencyRegisterWorker() {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth required>
-                                <InputLabel>Employment Status</InputLabel>
+                                <InputLabel>{t('agency.registerWorker.employmentStatus')}</InputLabel>
                                 <Select
                                     value={employmentStatus}
-                                    label="Employment Status"
+                                    label={t('agency.registerWorker.employmentStatus')}
                                     onChange={(e) =>
                                         setEmploymentStatus(e.target.value)
                                     }
                                 >
                                     <MenuItem value="Available">
-                                        Available
+                                        {t('agency.registerWorker.statusAvailable')}
                                     </MenuItem>
                                     <MenuItem value="Employed">
-                                        Employed
+                                        {t('agency.registerWorker.statusEmployed')}
                                     </MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth required>
-                                <InputLabel>Preferred Work Location</InputLabel>
+                                <InputLabel>{t('agency.registerWorker.preferredWorkLocation')}</InputLabel>
                                 <Select
                                     value={preferredLocation}
-                                    label="Preferred Work Location"
+                                    label={t('agency.registerWorker.preferredWorkLocation')}
                                     onChange={(e) =>
                                         setPreferredLocation(e.target.value)
                                     }
@@ -217,12 +219,12 @@ export default function AgencyRegisterWorker() {
 
                 <Paper sx={{ p: 4, mb: 3 }}>
                     <Typography variant="h6" gutterBottom>
-                        Sponsorship Status
+                        {t('agency.registerWorker.sponsorshipStatusTitle')}
                     </Typography>
                     <Divider sx={{ mb: 3 }} />
                     <FormControl component="fieldset">
                         <FormLabel component="legend">
-                            Current Sponsorship Status
+                            {t('agency.registerWorker.currentSponsorshipStatus')}
                         </FormLabel>
                         <RadioGroup
                             row
@@ -234,12 +236,12 @@ export default function AgencyRegisterWorker() {
                             <FormControlLabel
                                 value="Sponsored"
                                 control={<Radio />}
-                                label="Sponsored"
+                                label={t('agency.registerWorker.sponsorshipSponsored')}
                             />
                             <FormControlLabel
                                 value="Needs Sponsorship Transfer"
                                 control={<Radio />}
-                                label="Needs Sponsorship Transfer"
+                                label={t('agency.registerWorker.sponsorshipNeedsTransfer')}
                             />
                         </RadioGroup>
                     </FormControl>
@@ -247,14 +249,14 @@ export default function AgencyRegisterWorker() {
 
                 <Paper sx={{ p: 4, mb: 3 }}>
                     <Typography variant="h6" gutterBottom>
-                        Documents
+                        {t('agency.registerWorker.documents')}
                     </Typography>
                     <Divider sx={{ mb: 3 }} />
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
-                                label="National ID or Passport Number"
+                                label={t('agency.registerWorker.idOrPassport')}
                                 required
                             />
                         </Grid>
@@ -265,7 +267,7 @@ export default function AgencyRegisterWorker() {
                                 fullWidth
                                 sx={{ height: '56px' }}
                             >
-                                Upload Resume (optional)
+                                {t('agency.registerWorker.uploadResume')}
                                 <input
                                     type="file"
                                     hidden
@@ -277,9 +279,9 @@ export default function AgencyRegisterWorker() {
                 </Paper>
 
                 <Box display="flex" gap={2} justifyContent="flex-end">
-                    <Button variant="outlined">Cancel</Button>
+                    <Button variant="outlined">{t('agency.registerWorker.cancel')}</Button>
                     <Button type="submit" variant="contained" size="large">
-                        Submit Registration
+                        {t('agency.registerWorker.submit')}
                     </Button>
                 </Box>
             </form>
@@ -291,7 +293,7 @@ export default function AgencyRegisterWorker() {
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             >
                 <Alert severity="success" onClose={() => setSnackbar(false)}>
-                    Worker registered successfully and added to agency pool.
+                    {t('agency.registerWorker.successMessage')}
                 </Alert>
             </Snackbar>
         </DashboardLayout>

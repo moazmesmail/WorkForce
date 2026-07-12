@@ -19,32 +19,34 @@ import {
     ArrowLeft,
     Zap,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const roleInfo = [
     {
-        label: 'Worker',
+        labelKey: 'public_reg.login.roles.worker.label',
         icon: Briefcase,
-        description: 'Find jobs, track applications, manage your sponsorship',
+        descriptionKey: 'public_reg.login.roles.worker.desc',
         activeColor: '#0969DA',
         activeBg: '#DDF4FF',
     },
     {
-        label: 'Sponsor',
+        labelKey: 'public_reg.login.roles.sponsor.label',
         icon: Building2,
-        description: 'Manage your workforce, post requests, send offers',
+        descriptionKey: 'public_reg.login.roles.sponsor.desc',
         activeColor: '#1A7F37',
         activeBg: '#DDFBE6',
     },
     {
-        label: 'Agency',
+        labelKey: 'public_reg.login.roles.agency.label',
         icon: ShieldCheck,
-        description: 'Register workers, verify documents, fulfill requests',
+        descriptionKey: 'public_reg.login.roles.agency.desc',
         activeColor: '#B54708',
         activeBg: '#FEF0C7',
     },
 ];
 
 export default function LoginPage() {
+    const { t } = useTranslation();
     const [tabIndex, setTabIndex] = useState(0);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -148,12 +150,12 @@ export default function LoginPage() {
                             mb: 1.5,
                         }}
                     >
-                        Welcome back,{' '}
+                        {t('public_reg.login.welcome_back')}{' '}
                         <Box
                             component="span"
                             sx={{ color: active.activeColor }}
                         >
-                            {active.label}
+                            {t(active.labelKey)}
                         </Box>
                     </Typography>
                     <Typography
@@ -164,7 +166,7 @@ export default function LoginPage() {
                             maxWidth: 300,
                         }}
                     >
-                        {active.description}
+                        {t(active.descriptionKey)}
                     </Typography>
 
                     {/* Role list */}
@@ -181,7 +183,7 @@ export default function LoginPage() {
                             const isActive = i === tabIndex;
                             return (
                                 <Box
-                                    key={r.label}
+                                    key={r.labelKey}
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
@@ -205,7 +207,7 @@ export default function LoginPage() {
                                             fontWeight: isActive ? 600 : 400,
                                         }}
                                     >
-                                        {r.label} Account
+                                        {t('public_reg.login.role_account', { role: t(r.labelKey) })}
                                     </Typography>
                                 </Box>
                             );
@@ -227,7 +229,7 @@ export default function LoginPage() {
                         },
                     }}
                 >
-                    Back to Home
+                    {t('public_reg.login.back_to_home')}
                 </Button>
             </Box>
 
@@ -286,12 +288,12 @@ export default function LoginPage() {
                             letterSpacing: '-0.015em',
                         }}
                     >
-                        Sign in to your account
+                        {t('public_reg.login.title')}
                     </Typography>
                     <Typography
                         sx={{ color: '#5E7089', mb: 4, fontSize: '0.875rem' }}
                     >
-                        Don&apos;t have an account?{' '}
+                        {t('public_reg.login.no_account')}{' '}
                         <Box
                             component="span"
                             onClick={() => navigate('/register')}
@@ -302,7 +304,7 @@ export default function LoginPage() {
                                 '&:hover': { textDecoration: 'underline' },
                             }}
                         >
-                            Create one free
+                            {t('public_reg.login.create_one_free')}
                         </Box>
                     </Typography>
 
@@ -322,7 +324,7 @@ export default function LoginPage() {
                             const isActive = i === tabIndex;
                             return (
                                 <Box
-                                    key={r.label}
+                                    key={r.labelKey}
                                     onClick={() => setTabIndex(i)}
                                     sx={{
                                         flex: 1,
@@ -360,7 +362,7 @@ export default function LoginPage() {
                                                 : '#8494AB',
                                         }}
                                     >
-                                        {r.label}
+                                        {t(r.labelKey)}
                                     </Typography>
                                 </Box>
                             );
@@ -384,12 +386,12 @@ export default function LoginPage() {
                                         mb: 0.75,
                                     }}
                                 >
-                                    Email address
+                                    {t('public_reg.login.email_label')}
                                 </Typography>
                                 <TextField
                                     fullWidth
                                     type="email"
-                                    placeholder="you@example.com"
+                                    placeholder={t('public_reg.login.email_placeholder') || ''}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
@@ -411,7 +413,7 @@ export default function LoginPage() {
                                             color: '#374151',
                                         }}
                                     >
-                                        Password
+                                        {t('public_reg.login.password_label')}
                                     </Typography>
                                     <Typography
                                         sx={{
@@ -424,13 +426,13 @@ export default function LoginPage() {
                                             },
                                         }}
                                     >
-                                        Forgot password?
+                                        {t('public_reg.login.forgot_password')}
                                     </Typography>
                                 </Box>
                                 <TextField
                                     fullWidth
                                     type={showPassword ? 'text' : 'password'}
-                                    placeholder="••••••••"
+                                    placeholder={t('public_reg.login.password_placeholder') || ''}
                                     value={password}
                                     onChange={(e) =>
                                         setPassword(e.target.value)
@@ -479,7 +481,7 @@ export default function LoginPage() {
                                     fontWeight: 700,
                                 }}
                             >
-                                Sign In as {active.label}
+                                {t('public_reg.login.submit_btn', { role: t(active.labelKey) })}
                             </Button>
                         </Box>
                     </form>
@@ -492,7 +494,7 @@ export default function LoginPage() {
                                 px: 1,
                             }}
                         >
-                            or
+                            {t('public_reg.login.or_divider')}
                         </Typography>
                     </Divider>
 
@@ -513,7 +515,7 @@ export default function LoginPage() {
                             },
                         }}
                     >
-                        Return to homepage
+                        {t('public_reg.login.return_home')}
                     </Button>
                 </Box>
             </Box>

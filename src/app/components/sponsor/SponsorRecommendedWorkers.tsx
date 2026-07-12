@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Typography,
     Box,
@@ -20,6 +21,8 @@ import {
     TextField,
 } from '@mui/material';
 
+import { useMockTranslation } from '../../utils/translateHelpers';
+
 // Only show workers who need sponsorship transfer (available to be matched)
 const recommended = workers.filter(
     (w) =>
@@ -28,6 +31,8 @@ const recommended = workers.filter(
 );
 
 export default function SponsorRecommendedWorkers() {
+    const { t } = useTranslation();
+    const { tName, tJobTitle, tNationality, tCity } = useMockTranslation();
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState<(typeof workers)[0] | null>(null);
     const [sent, setSent] = useState<string[]>([]);
@@ -44,33 +49,53 @@ export default function SponsorRecommendedWorkers() {
     };
 
     const columns: MRT_ColumnDef<(typeof workers)[0]>[] = [
-        { accessorKey: 'name', header: 'Worker Name', size: 160 },
-        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
-        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
-        { accessorKey: 'currentCity', header: 'City', size: 110 },
+        { 
+            accessorKey: 'name', 
+            header: t('sponsor.recommended.columns.workerName'), 
+            size: 160,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'jobTitle', 
+            header: t('sponsor.recommended.columns.jobTitle'), 
+            size: 150,
+            Cell: ({ cell }) => tJobTitle(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'nationality', 
+            header: t('sponsor.recommended.columns.nationality'), 
+            size: 120,
+            Cell: ({ cell }) => tNationality(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'currentCity', 
+            header: t('sponsor.recommended.columns.city'), 
+            size: 110,
+            Cell: ({ cell }) => tCity(cell.getValue() as string)
+        },
         {
             accessorKey: 'yearsOfExperience',
-            header: 'Experience (yrs)',
+            header: t('sponsor.recommended.columns.experience'),
             size: 130,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
         },
         {
             accessorKey: 'verificationStatus',
-            header: 'Documents',
+            header: t('sponsor.recommended.columns.documents'),
             size: 130,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('sponsor.recommended.columns.actions'),
             size: 130,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
             Cell: ({ row }) =>
                 sent.includes(row.original.id) ? (
                     <Button size="small" variant="outlined" disabled>
-                        Offer Sent
+                        {t('sponsor.recommended.actions.offerSent')}
                     </Button>
                 ) : (
                     <Button
@@ -79,7 +104,7 @@ export default function SponsorRecommendedWorkers() {
                         startIcon={<Send size={16} />}
                         onClick={() => handleSendOffer(row.original)}
                     >
-                        Send Offer
+                        {t('sponsor.recommended.actions.sendOffer')}
                     </Button>
                 ),
         },
@@ -96,11 +121,10 @@ export default function SponsorRecommendedWorkers() {
                 />
                 <Box>
                     <Typography variant="h4" fontWeight="bold">
-                        Recommended Workers
+                        {t('sponsor.recommended.title')}
                     </Typography>
                     <Typography color="text.secondary">
-                        Verified workers available for sponsorship transfer,
-                        matched to your hiring needs.
+                        {t('sponsor.recommended.subtitle')}
                     </Typography>
                 </Box>
             </Box>
@@ -116,34 +140,34 @@ export default function SponsorRecommendedWorkers() {
                 maxWidth="sm"
                 fullWidth
             >
-                <DialogTitle>Send Offer to {selected?.name}</DialogTitle>
+                <DialogTitle>{t('sponsor.recommended.dialog.title', { name: selected?.name ? tName(selected.name) : '' })}</DialogTitle>
                 <DialogContent dividers>
                     <Grid container spacing={2} sx={{ mt: 1 }}>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
-                                label="Job Title"
+                                label={t('sponsor.recommended.dialog.jobTitle')}
                                 defaultValue={selected?.jobTitle}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
-                                label="Salary Offer (SAR)"
-                                placeholder="e.g. 2,500 SAR/month"
+                                label={t('sponsor.recommended.dialog.salaryOffer')}
+                                placeholder={t('sponsor.recommended.dialog.salaryOfferPlaceholder')}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
-                                label="Work Location"
-                                placeholder="e.g. Riyadh"
+                                label={t('sponsor.recommended.dialog.workLocation')}
+                                placeholder={t('sponsor.recommended.dialog.workLocationPlaceholder')}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
-                                label="Message to Worker (optional)"
+                                label={t('sponsor.recommended.dialog.message')}
                                 multiline
                                 rows={3}
                             />
@@ -151,9 +175,9 @@ export default function SponsorRecommendedWorkers() {
                     </Grid>
                 </DialogContent>
                 <DialogActions sx={{ p: 2 }}>
-                    <Button onClick={() => setOpen(false)}>Cancel</Button>
+                    <Button onClick={() => setOpen(false)}>{t('sponsor.recommended.dialog.cancel')}</Button>
                     <Button variant="contained" onClick={handleConfirmOffer}>
-                        Send Offer
+                        {t('sponsor.recommended.dialog.sendOffer')}
                     </Button>
                 </DialogActions>
             </Dialog>

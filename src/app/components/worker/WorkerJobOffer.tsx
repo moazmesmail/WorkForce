@@ -17,8 +17,13 @@ import { DashboardLayout } from '../shared/DashboardLayout';
 import { workerNavItems } from './WorkerDashboard';
 import { jobOffers } from '../../data/mockData';
 import { CheckCircle, XCircle, Home, Car } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 export default function WorkerJobOffer() {
+    const { t } = useTranslation();
+    const { tJobTitle, tName, tCity } = useMockTranslation();
     const { id } = useParams();
     const navigate = useNavigate();
     const [confirmOpen, setConfirmOpen] = useState(false);
@@ -46,13 +51,13 @@ export default function WorkerJobOffer() {
                 mb={3}
             >
                 <Typography variant="h4" fontWeight="bold">
-                    Job Offer Details
+                    {t('worker.jobOfferDetailsTitle')}
                 </Typography>
                 <Button
                     variant="outlined"
                     onClick={() => navigate('/worker/applications')}
                 >
-                    Back to Applications
+                    {t('worker.backToApplicationsButton')}
                 </Button>
             </Box>
 
@@ -69,15 +74,15 @@ export default function WorkerJobOffer() {
                             color="primary.main"
                             fontWeight="bold"
                         >
-                            {offer.jobTitle}
+                            {tJobTitle(offer.jobTitle)}
                         </Typography>
                         <Typography variant="h6" color="text.secondary">
-                            {offer.sponsorName}
+                            {tName(offer.sponsorName)}
                         </Typography>
                     </Box>
                     {decided && (
                         <Chip
-                            label={decided}
+                            label={decided === 'Accepted' ? t('worker.accepted') : t('worker.rejected')}
                             color={decided === 'Accepted' ? 'success' : 'error'}
                             sx={{ fontWeight: 700, fontSize: '0.9rem', px: 1 }}
                         />
@@ -93,7 +98,7 @@ export default function WorkerJobOffer() {
                             color="text.secondary"
                             display="block"
                         >
-                            Salary Offered
+                            {t('worker.salaryOfferedLabel')}
                         </Typography>
                         <Typography variant="body1" fontWeight="bold">
                             {offer.salaryOffered}
@@ -105,10 +110,10 @@ export default function WorkerJobOffer() {
                             color="text.secondary"
                             display="block"
                         >
-                            Work Location
+                            {t('worker.workLocationLabel')}
                         </Typography>
                         <Typography variant="body1" fontWeight="bold">
-                            {offer.workLocation}
+                            {tCity(offer.workLocation)}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -117,7 +122,7 @@ export default function WorkerJobOffer() {
                             color="text.secondary"
                             display="block"
                         >
-                            Working Hours
+                            {t('worker.workingHoursLabel')}
                         </Typography>
                         <Typography variant="body1" fontWeight="bold">
                             {offer.workingHours}
@@ -129,7 +134,7 @@ export default function WorkerJobOffer() {
                             color="text.secondary"
                             display="block"
                         >
-                            Contract Duration
+                            {t('worker.contractDurationLabel')}
                         </Typography>
                         <Typography variant="body1" fontWeight="bold">
                             {offer.contractDuration}
@@ -142,13 +147,13 @@ export default function WorkerJobOffer() {
                                 variant="caption"
                                 color="text.secondary"
                             >
-                                Accommodation
+                                {t('worker.accommodationLabel')}
                             </Typography>
                         </Box>
                         <Typography variant="body1" fontWeight="bold">
                             {offer.accommodationProvided
-                                ? 'Provided'
-                                : 'Not Provided'}
+                                ? t('worker.provided')
+                                : t('worker.notProvided')}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -158,13 +163,13 @@ export default function WorkerJobOffer() {
                                 variant="caption"
                                 color="text.secondary"
                             >
-                                Transportation
+                                {t('worker.transportationLabel')}
                             </Typography>
                         </Box>
                         <Typography variant="body1" fontWeight="bold">
                             {offer.transportationProvided
-                                ? 'Provided'
-                                : 'Not Provided'}
+                                ? t('worker.provided')
+                                : t('worker.notProvided')}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -173,7 +178,7 @@ export default function WorkerJobOffer() {
                             color="text.secondary"
                             display="block"
                         >
-                            Offer Date
+                            {t('worker.offerDateLabel')}
                         </Typography>
                         <Typography variant="body1" fontWeight="bold">
                             {offer.offerDate}
@@ -183,8 +188,7 @@ export default function WorkerJobOffer() {
 
                 <Box mt={4} p={2} bgcolor="#F5F7FA" borderRadius={1}>
                     <Typography variant="body2" color="text.secondary">
-                        Please review the offer carefully. Accepting initiates
-                        the sponsorship transfer process and is binding.
+                        {t('worker.offerReviewWarning')}
                     </Typography>
                 </Box>
 
@@ -205,7 +209,7 @@ export default function WorkerJobOffer() {
                                 setConfirmOpen(true);
                             }}
                         >
-                            Reject Offer
+                            {t('worker.rejectOfferButton')}
                         </Button>
                         <Button
                             variant="contained"
@@ -217,7 +221,7 @@ export default function WorkerJobOffer() {
                                 setConfirmOpen(true);
                             }}
                         >
-                            Accept Offer
+                            {t('worker.acceptOfferButton')}
                         </Button>
                     </Box>
                 )}
@@ -231,27 +235,26 @@ export default function WorkerJobOffer() {
             >
                 <DialogTitle>
                     {confirmAction === 'accept'
-                        ? 'Accept this Job Offer?'
-                        : 'Reject this Job Offer?'}
+                        ? t('worker.acceptOfferTitle')
+                        : t('worker.rejectOfferTitle')}
                 </DialogTitle>
                 <DialogContent>
                     <Typography>
                         {confirmAction === 'accept'
-                            ? 'By accepting, you agree to the terms and initiate the sponsorship transfer.'
-                            : 'Are you sure you want to reject this offer? This action cannot be undone.'}
+                            ? t('worker.acceptOfferDesc')
+                            : t('worker.rejectOfferDesc')}
                     </Typography>
                 </DialogContent>
                 <DialogActions sx={{ p: 2 }}>
                     <Button onClick={() => setConfirmOpen(false)}>
-                        Cancel
+                        {t('worker.cancel')}
                     </Button>
                     <Button
                         variant="contained"
                         color={confirmAction === 'accept' ? 'primary' : 'error'}
                         onClick={handleDecision}
                     >
-                        Confirm{' '}
-                        {confirmAction === 'accept' ? 'Accept' : 'Reject'}
+                        {confirmAction === 'accept' ? t('worker.confirmAcceptButton') : t('worker.confirmRejectButton')}
                     </Button>
                 </DialogActions>
             </Dialog>

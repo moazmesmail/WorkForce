@@ -7,10 +7,15 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { documents as initialDocs } from '../../data/mockData';
 import { CheckCircle, XCircle, Eye } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 type Doc = (typeof initialDocs)[0];
 
 export default function AgencyVerifyDocuments() {
+    const { t } = useTranslation();
+    const { tName, tDocName } = useMockTranslation();
     const [docs, setDocs] = useState(initialDocs);
     const [snackbar, setSnackbar] = useState<{
         open: boolean;
@@ -30,7 +35,7 @@ export default function AgencyVerifyDocuments() {
         );
         setSnackbar({
             open: true,
-            message: `${doc.name} for ${doc.workerName} verified.`,
+            message: t('agency.verifyDocuments.messages.verified', { docName: tDocName(doc.name), workerName: tName(doc.workerName) }),
             severity: 'success',
         });
     };
@@ -43,24 +48,34 @@ export default function AgencyVerifyDocuments() {
         );
         setSnackbar({
             open: true,
-            message: `${doc.name} for ${doc.workerName} rejected.`,
+            message: t('agency.verifyDocuments.messages.rejected', { docName: tDocName(doc.name), workerName: tName(doc.workerName) }),
             severity: 'error',
         });
     };
 
     const columns: MRT_ColumnDef<Doc>[] = [
-        { accessorKey: 'workerName', header: 'Worker Name', size: 160 },
-        { accessorKey: 'name', header: 'Document', size: 150 },
-        { accessorKey: 'uploadDate', header: 'Upload Date', size: 120 },
+        { 
+            accessorKey: 'workerName', 
+            header: t('agency.verifyDocuments.columns.workerName'), 
+            size: 160,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'name', 
+            header: t('agency.verifyDocuments.columns.document'), 
+            size: 150,
+            Cell: ({ cell }) => tDocName(cell.getValue() as string)
+        },
+        { accessorKey: 'uploadDate', header: t('agency.verifyDocuments.columns.uploadDate'), size: 120 },
         {
             accessorKey: 'status',
-            header: 'Status',
+            header: t('agency.verifyDocuments.columns.status'),
             size: 140,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('agency.verifyDocuments.columns.actions'),
             size: 280,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -71,7 +86,7 @@ export default function AgencyVerifyDocuments() {
                         variant="outlined"
                         startIcon={<Eye size={14} />}
                     >
-                        View
+                        {t('agency.verifyDocuments.actions.view')}
                     </Button>
                     <Button
                         size="small"
@@ -81,7 +96,7 @@ export default function AgencyVerifyDocuments() {
                         disabled={row.original.status === 'Verified'}
                         onClick={() => handleVerify(row.original)}
                     >
-                        Verify
+                        {t('agency.verifyDocuments.actions.verify')}
                     </Button>
                     <Button
                         size="small"
@@ -94,7 +109,7 @@ export default function AgencyVerifyDocuments() {
                         }
                         onClick={() => handleReject(row.original)}
                     >
-                        Reject
+                        {t('agency.verifyDocuments.actions.reject')}
                     </Button>
                 </Box>
             ),
@@ -105,10 +120,10 @@ export default function AgencyVerifyDocuments() {
         <DashboardLayout navItems={agencyNavItems}>
             <Box mb={3}>
                 <Typography variant="h4" fontWeight="bold">
-                    Verify Documents
+                    {t('agency.verifyDocuments.title')}
                 </Typography>
                 <Typography color="text.secondary">
-                    Review and approve worker uploaded documents.
+                    {t('agency.verifyDocuments.subtitle')}
                 </Typography>
             </Box>
 

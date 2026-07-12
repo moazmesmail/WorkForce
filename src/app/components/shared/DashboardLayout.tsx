@@ -15,10 +15,13 @@ import {
     Chip,
     Divider,
     Tooltip,
+    Button,
 } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../../context/AuthContext';
 import { LogOut, Zap, Bell } from 'lucide-react';
+import { useTheme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 256;
 
@@ -42,10 +45,30 @@ const roleBadgeConfig: Record<
     agency: { label: 'Agency', color: '#6b21a8', bg: '#f3e8ff' },
 };
 
+const labelKeys: Record<string, string> = {
+    'Dashboard': 'nav.dashboard',
+    'Register Worker': 'nav.registerWorker',
+    'Manage Workers': 'nav.manageWorkers',
+    'Verify Documents': 'nav.verifyDocuments',
+    'Recruitment Requests': 'nav.recruitmentRequests',
+    'Requests': 'nav.requests',
+    'Workers': 'nav.workers',
+    'Offers': 'nav.offers',
+    'Approvals': 'nav.approvals',
+    'Profile': 'nav.profile',
+    'Sponsorship Transfer': 'nav.sponsorshipTransfer',
+    'Application Tracking': 'nav.applicationTracking',
+    'Job Opportunities': 'nav.jobOpportunities'
+};
+
 export const DashboardLayout = ({
     children,
     navItems,
 }: DashboardLayoutProps) => {
+    const { t, i18n } = useTranslation();
+    const muiTheme = useTheme();
+    const isRtl = muiTheme.direction === 'rtl';
+
     const { currentUser, role, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -161,7 +184,7 @@ export const DashboardLayout = ({
                             pb: 1.5,
                         }}
                     >
-                        Navigation
+                        {t('nav.navigation')}
                     </Typography>
                     <List disablePadding>
                         {navItems.map((item) => {
@@ -221,7 +244,7 @@ export const DashboardLayout = ({
                                             {item.icon}
                                         </ListItemIcon>
                                         <ListItemText
-                                            primary={item.label}
+                                            primary={t(labelKeys[item.label] || item.label)}
                                             primaryTypographyProps={{
                                                 fontSize: '0.875rem',
                                                 fontWeight: isActive
@@ -296,11 +319,11 @@ export const DashboardLayout = ({
                                         mt: '2px',
                                     }}
                                 >
-                                    {badge.label}
+                                    {t('roles.' + role)}
                                 </Box>
                             )}
                         </Box>
-                        <Tooltip title="Sign out" placement="top">
+                        <Tooltip title={t('common.logout')} placement="top">
                             <IconButton
                                 size="small"
                                 onClick={handleLogout}
@@ -350,7 +373,7 @@ export const DashboardLayout = ({
                                 fontSize: '1rem',
                             }}
                         >
-                            {currentPage}
+                            {t(labelKeys[currentPage] || currentPage)}
                         </Typography>
                         <Typography
                             variant="caption"
@@ -360,8 +383,28 @@ export const DashboardLayout = ({
                         </Typography>
                     </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Tooltip title="Notifications">
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                        <Button
+                            onClick={() => i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')}
+                            size="small"
+                            sx={{
+                                fontSize: '0.8125rem',
+                                fontWeight: 700,
+                                color: '#5E7089',
+                                textTransform: 'none',
+                                minWidth: 'unset',
+                                px: 1.5,
+                                py: 0.5,
+                                borderRadius: '6px',
+                                '&:hover': {
+                                    backgroundColor: '#F5F7FA',
+                                },
+                            }}
+                        >
+                            {i18n.language === 'ar' ? 'English' : 'العربية'}
+                        </Button>
+
+                        <Tooltip title={t('common.notifications')}>
                             <IconButton
                                 size="small"
                                 sx={{
@@ -394,7 +437,7 @@ export const DashboardLayout = ({
                                 ml: 1,
                                 pl: 2,
                                 borderLeft: '1px solid #D2DAE5',
-                            }}
+                             }}
                         >
                             <Avatar
                                 sx={{
@@ -410,7 +453,7 @@ export const DashboardLayout = ({
                             </Avatar>
                             {badge && (
                                 <Chip
-                                    label={badge.label}
+                                    label={t('roles.' + role)}
                                     size="small"
                                     sx={{
                                         height: 22,

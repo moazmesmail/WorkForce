@@ -8,58 +8,60 @@ import {
     Zap,
 } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const stats = [
-    { value: '12,000+', label: 'Active Workers' },
-    { value: '850+', label: 'Registered Sponsors' },
-    { value: '200+', label: 'Partner Agencies' },
-    { value: '98%', label: 'Placement Rate' },
+    { value: '12,000+', labelKey: 'public_reg.landing.stats.active_workers' },
+    { value: '850+', labelKey: 'public_reg.landing.stats.registered_sponsors' },
+    { value: '200+', labelKey: 'public_reg.landing.stats.partner_agencies' },
+    { value: '98%', labelKey: 'public_reg.landing.stats.placement_rate' },
 ];
 
 const features = [
     {
         icon: Briefcase,
-        title: 'For Workers',
+        titleKey: 'public_reg.landing.features.for_workers.title',
         color: '#0969DA',
         bg: '#DDF4FF',
-        description:
-            'Manage your profile, track job applications, upload documents, and request sponsorship transfers — all from one unified dashboard.',
-        points: [
-            'Profile & document management',
-            'Job search & applications',
-            'Sponsorship transfer requests',
+        descriptionKey:
+            'public_reg.landing.features.for_workers.desc',
+        pointsKeys: [
+            'public_reg.landing.features.for_workers.point1',
+            'public_reg.landing.features.for_workers.point2',
+            'public_reg.landing.features.for_workers.point3',
         ],
     },
     {
         icon: Building2,
-        title: 'For Sponsors',
+        titleKey: 'public_reg.landing.features.for_sponsors.title',
         color: '#1A7F37',
         bg: '#DDFBE6',
-        description:
-            'Post recruitment requests, search verified talent directly, manage your workforce, and handle all approvals in one place.',
-        points: [
-            'Worker requests & search',
-            'Job offer management',
-            'Recruitment approvals',
+        descriptionKey:
+            'public_reg.landing.features.for_sponsors.desc',
+        pointsKeys: [
+            'public_reg.landing.features.for_sponsors.point1',
+            'public_reg.landing.features.for_sponsors.point2',
+            'public_reg.landing.features.for_sponsors.point3',
         ],
     },
     {
         icon: ShieldCheck,
-        title: 'For Agencies',
+        titleKey: 'public_reg.landing.features.for_agencies.title',
         color: '#B54708',
         bg: '#FEF0C7',
-        description:
-            'Register workers into your pool, verify essential documents, and fulfill sponsor recruitment requests with full workflow visibility.',
-        points: [
-            'Worker pool management',
-            'Document verification',
-            'Recruitment fulfillment',
+        descriptionKey:
+            'public_reg.landing.features.for_agencies.desc',
+        pointsKeys: [
+            'public_reg.landing.features.for_agencies.point1',
+            'public_reg.landing.features.for_agencies.point2',
+            'public_reg.landing.features.for_agencies.point3',
         ],
     },
 ];
 
 export default function LandingPage() {
     const navigate = useNavigate();
+    const { t, i18n } = useTranslation();
 
     return (
         <Box sx={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
@@ -87,7 +89,7 @@ export default function LandingPage() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 1.25,
-                            }}
+                             }}
                         >
                             <Box
                                 sx={{
@@ -126,6 +128,26 @@ export default function LandingPage() {
                             }}
                         >
                             <Button
+                                onClick={() => i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar')}
+                                sx={{
+                                    fontSize: '0.875rem',
+                                    fontWeight: 600,
+                                    color: '#5E7089',
+                                    textTransform: 'none',
+                                    minWidth: 'unset',
+                                    px: 1.5,
+                                    py: 0.5,
+                                    mr: 1,
+                                    borderRadius: '6px',
+                                    '&:hover': {
+                                        backgroundColor: '#F5F7FA',
+                                        color: '#111827',
+                                    },
+                                }}
+                            >
+                                {i18n.language === 'ar' ? 'English' : 'العربية'}
+                            </Button>
+                            <Button
                                 variant="text"
                                 onClick={() => navigate('/login')}
                                 sx={{
@@ -138,14 +160,14 @@ export default function LandingPage() {
                                     },
                                 }}
                             >
-                                Sign In
+                                {t('public_reg.landing.nav.sign_in')}
                             </Button>
                             <Button
                                 variant="contained"
                                 onClick={() => navigate('/register')}
                                 sx={{ fontSize: '0.875rem' }}
                             >
-                                Get Started
+                                {t('public_reg.landing.nav.get_started')}
                             </Button>
                         </Box>
                     </Box>
@@ -182,9 +204,9 @@ export default function LandingPage() {
                                 mb: 2.5,
                             }}
                         >
-                            Workforce Recruitment,{' '}
+                            {t('public_reg.landing.hero.title_part1')}{' '}
                             <Box component="span" sx={{ color: '#0969DA' }}>
-                                Simplified
+                                {t('public_reg.landing.hero.title_part2')}
                             </Box>
                         </Typography>
                         <Typography
@@ -197,9 +219,7 @@ export default function LandingPage() {
                                 mx: 'auto',
                             }}
                         >
-                            The unified platform connecting workers, sponsors,
-                            and recruitment agencies — streamline every step
-                            from sourcing to placement.
+                            {t('public_reg.landing.hero.subtitle')}
                         </Typography>
                         <Box
                             sx={{
@@ -216,7 +236,7 @@ export default function LandingPage() {
                                 endIcon={<ArrowRight size={16} />}
                                 sx={{ px: 3.5, fontSize: '0.9375rem' }}
                             >
-                                Create Free Account
+                                {t('public_reg.landing.hero.create_account')}
                             </Button>
                             <Button
                                 variant="outlined"
@@ -233,7 +253,7 @@ export default function LandingPage() {
                                     },
                                 }}
                             >
-                                Sign In
+                                {t('public_reg.landing.nav.sign_in')}
                             </Button>
                         </Box>
                     </Box>
@@ -250,7 +270,7 @@ export default function LandingPage() {
                 <Container maxWidth="lg">
                     <Grid container>
                         {stats.map((stat, i) => (
-                            <Grid size={{ xs: 6, md: 3 }} key={stat.label}>
+                            <Grid size={{ xs: 6, md: 3 }} key={stat.labelKey}>
                                 <Box
                                     sx={{
                                         py: 3,
@@ -280,7 +300,7 @@ export default function LandingPage() {
                                             mt: 0.5,
                                         }}
                                     >
-                                        {stat.label}
+                                        {t(stat.labelKey)}
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -303,7 +323,7 @@ export default function LandingPage() {
                                 mb: 1.5,
                             }}
                         >
-                            Platform Modules
+                            {t('public_reg.landing.features.header_tag')}
                         </Typography>
                         <Typography
                             sx={{
@@ -314,7 +334,7 @@ export default function LandingPage() {
                                 mb: 1.5,
                             }}
                         >
-                            Designed for Every Role
+                            {t('public_reg.landing.features.header_title')}
                         </Typography>
                         <Typography
                             sx={{
@@ -325,8 +345,7 @@ export default function LandingPage() {
                                 fontSize: '0.9375rem',
                             }}
                         >
-                            Three purpose-built modules, one integrated platform
-                            — each role gets exactly what they need.
+                            {t('public_reg.landing.features.header_desc')}
                         </Typography>
                     </Box>
 
@@ -334,7 +353,7 @@ export default function LandingPage() {
                         {features.map((f) => {
                             const Icon = f.icon;
                             return (
-                                <Grid size={{ xs: 12, md: 4 }} key={f.title}>
+                                <Grid size={{ xs: 12, md: 4 }} key={f.titleKey}>
                                     <Box
                                         sx={{
                                             p: 3.5,
@@ -377,7 +396,7 @@ export default function LandingPage() {
                                                 mb: 1,
                                             }}
                                         >
-                                            {f.title}
+                                            {t(f.titleKey)}
                                         </Typography>
                                         <Typography
                                             sx={{
@@ -387,7 +406,7 @@ export default function LandingPage() {
                                                 mb: 2.5,
                                             }}
                                         >
-                                            {f.description}
+                                            {t(f.descriptionKey)}
                                         </Typography>
                                         <Box
                                             sx={{
@@ -396,9 +415,9 @@ export default function LandingPage() {
                                                 gap: 0.875,
                                             }}
                                         >
-                                            {f.points.map((p) => (
+                                            {f.pointsKeys.map((pk) => (
                                                 <Box
-                                                    key={p}
+                                                    key={pk}
                                                     sx={{
                                                         display: 'flex',
                                                         alignItems: 'center',
@@ -422,7 +441,7 @@ export default function LandingPage() {
                                                             color: '#5E7089',
                                                         }}
                                                     >
-                                                        {p}
+                                                        {t(pk)}
                                                     </Typography>
                                                 </Box>
                                             ))}
@@ -455,7 +474,7 @@ export default function LandingPage() {
                                 mb: 1.5,
                             }}
                         >
-                            Ready to streamline your workforce?
+                            {t('public_reg.landing.cta.title')}
                         </Typography>
                         <Typography
                             sx={{
@@ -465,8 +484,7 @@ export default function LandingPage() {
                                 lineHeight: 1.7,
                             }}
                         >
-                            Join thousands of workers, sponsors, and agencies
-                            already using WorkForcePro.
+                            {t('public_reg.landing.cta.subtitle')}
                         </Typography>
                         <Box
                             sx={{
@@ -483,7 +501,7 @@ export default function LandingPage() {
                                 endIcon={<ArrowRight size={16} />}
                                 sx={{ px: 3.5, fontSize: '0.9375rem' }}
                             >
-                                Get Started Free
+                                {t('public_reg.landing.cta.get_started_free')}
                             </Button>
                             <Button
                                 variant="outlined"
@@ -501,7 +519,7 @@ export default function LandingPage() {
                                     },
                                 }}
                             >
-                                Already have an account? Sign In
+                                {t('public_reg.landing.cta.already_have_account')}
                             </Button>
                         </Box>
                     </Box>
@@ -537,14 +555,13 @@ export default function LandingPage() {
                             <Typography
                                 sx={{ fontSize: '0.8125rem', color: '#8494AB' }}
                             >
-                                WorkForcePro © {new Date().getFullYear()}
+                                {t('public_reg.landing.footer.copyright', { year: new Date().getFullYear() })}
                             </Typography>
                         </Box>
                         <Typography
                             sx={{ fontSize: '0.8125rem', color: '#8494AB' }}
                         >
-                            Workforce Recruitment & Sponsorship Transfer
-                            Platform
+                            {t('public_reg.landing.footer.desc')}
                         </Typography>
                     </Box>
                 </Container>

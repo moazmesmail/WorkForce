@@ -16,11 +16,15 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { workerRequests } from '../../data/mockData';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 // Only show requests that are open (Pending or Reviewing Matches)
 const OPEN_STATUSES = ['Pending', 'Reviewing Matches'];
 
 export default function WorkerJobOpportunities() {
+    const { t } = useTranslation();
+    const { tJobTitle, tName, tCity } = useMockTranslation();
     const navigate = useNavigate();
     const [titleFilter, setTitleFilter] = useState('');
 
@@ -32,21 +36,48 @@ export default function WorkerJobOpportunities() {
             (titleFilter === '' || r.jobTitle === titleFilter)
     );
 
+    const translateExperience = (exp: string): string => {
+        if (exp === '3+ years') return t('sponsor.requests.form.experienceOptions.threePlus');
+        if (exp === '1-3 years') return t('sponsor.requests.form.experienceOptions.oneToThree');
+        if (exp === 'No experience') return t('sponsor.requests.form.experienceOptions.none');
+        return exp;
+    };
+
     const columns: MRT_ColumnDef<(typeof workerRequests)[0]>[] = [
-        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
-        { accessorKey: 'sponsorName', header: 'Sponsor', size: 170 },
-        { accessorKey: 'workLocation', header: 'Location', size: 120 },
-        { accessorKey: 'salaryRange', header: 'Salary (SAR)', size: 150 },
-        { accessorKey: 'requiredExperience', header: 'Experience', size: 120 },
+        { 
+            accessorKey: 'jobTitle', 
+            header: t('worker.jobTitle'), 
+            size: 150,
+            Cell: ({ cell }) => tJobTitle(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'sponsorName', 
+            header: t('worker.sponsor'), 
+            size: 170,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'workLocation', 
+            header: t('worker.location'), 
+            size: 120,
+            Cell: ({ cell }) => tCity(cell.getValue() as string)
+        },
+        { accessorKey: 'salaryRange', header: t('worker.salarySar'), size: 150 },
+        { 
+            accessorKey: 'requiredExperience', 
+            header: t('worker.experience'), 
+            size: 120,
+            Cell: ({ cell }) => translateExperience(cell.getValue() as string)
+        },
         {
             accessorKey: 'accommodationProvided',
-            header: 'Accommodation',
+            header: t('worker.accommodationLabel'),
             size: 130,
-            Cell: ({ cell }) => (cell.getValue() ? 'Provided' : 'Not Provided'),
+            Cell: ({ cell }) => (cell.getValue() ? t('worker.provided') : t('worker.notProvided')),
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('worker.actions'),
             size: 120,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -56,7 +87,7 @@ export default function WorkerJobOpportunities() {
                     variant="outlined"
                     onClick={() => navigate(`/worker/jobs/${row.original.id}`)}
                 >
-                    View & Apply
+                    {t('worker.viewAndApplyButton')}
                 </Button>
             ),
         },
@@ -72,25 +103,25 @@ export default function WorkerJobOpportunities() {
             >
                 <Box>
                     <Typography variant="h4" fontWeight="bold">
-                        Job Opportunities
+                        {t('worker.jobOpportunitiesTitle')}
                     </Typography>
                     <Typography color="text.secondary">
-                        Browse open positions and submit your application.
+                        {t('worker.jobOpportunitiesSubtitle')}
                     </Typography>
                 </Box>
                 <FormControl size="small" sx={{ minWidth: 180 }}>
-                    <InputLabel>Filter by Job Title</InputLabel>
+                    <InputLabel>{t('worker.filterByJobTitleLabel')}</InputLabel>
                     <Select
                         value={titleFilter}
-                        label="Filter by Job Title"
+                        label={t('worker.filterByJobTitleLabel')}
                         onChange={(e: SelectChangeEvent) =>
                             setTitleFilter(e.target.value)
                         }
                     >
-                        <MenuItem value="">All Titles</MenuItem>
-                        {allTitles.map((t) => (
-                            <MenuItem key={t} value={t}>
-                                {t}
+                        <MenuItem value="">{t('worker.allTitles')}</MenuItem>
+                        {allTitles.map((tName) => (
+                            <MenuItem key={tName} value={tName}>
+                                {tJobTitle(tName)}
                             </MenuItem>
                         ))}
                     </Select>

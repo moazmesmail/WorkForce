@@ -12,10 +12,13 @@ import {
     Users,
 } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
 import { recruitmentRequests, workerRequests } from '../../data/mockData';
 import { DashboardLayout, NavItem } from '../shared/DashboardLayout';
 import { StatusBadge } from '../shared/StatusBadge';
+
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 export const sponsorNavItems: NavItem[] = [
     { label: 'Dashboard', path: '/sponsor/dashboard', icon: <Home /> },
@@ -27,7 +30,7 @@ export const sponsorNavItems: NavItem[] = [
 
 const statCards = [
     {
-        label: 'Active Workers',
+        labelKey: 'sponsor.dashboard.activeWorkers',
         value: '12',
         icon: Users,
         color: '#0969DA',
@@ -35,7 +38,7 @@ const statCards = [
         path: '/sponsor/workers',
     },
     {
-        label: 'Pending Requests',
+        labelKey: 'sponsor.dashboard.pendingRequests',
         value: '3',
         icon: Clock,
         color: '#B54708',
@@ -43,7 +46,7 @@ const statCards = [
         path: '/sponsor/requests',
     },
     {
-        label: 'Sent Offers',
+        labelKey: 'sponsor.dashboard.sentOffers',
         value: '5',
         icon: Send,
         color: '#1A7F37',
@@ -51,7 +54,7 @@ const statCards = [
         path: '/sponsor/offers',
     },
     {
-        label: 'Pending Approvals',
+        labelKey: 'sponsor.dashboard.pendingApprovals',
         value: '2',
         icon: CheckSquare,
         color: '#D92D20',
@@ -63,6 +66,8 @@ const statCards = [
 export default function SponsorDashboard() {
     const { currentUser } = useAuth();
     const navigate = useNavigate();
+    const { t } = useTranslation();
+    const { tJobTitle } = useMockTranslation();
 
     return (
         <DashboardLayout navItems={sponsorNavItems}>
@@ -76,11 +81,10 @@ export default function SponsorDashboard() {
                         mb: 0.25,
                     }}
                 >
-                    Sponsor Dashboard
+                    {t('sponsor.dashboard.title')}
                 </Typography>
                 <Typography sx={{ color: '#5E7089', fontSize: '0.875rem' }}>
-                    Welcome back, {currentUser?.name?.split(' ')[0] || 'there'}{' '}
-                    — manage your workforce and recruitment pipeline.
+                    {t('sponsor.dashboard.welcome', { name: currentUser?.name?.split(' ')[0] || t('sponsor.dashboard.there') })}
                 </Typography>
             </Box>
 
@@ -89,7 +93,7 @@ export default function SponsorDashboard() {
                 {statCards.map((s) => {
                     const Icon = s.icon;
                     return (
-                        <Grid item xs={12} sm={6} lg={3} key={s.label}>
+                        <Grid item xs={12} sm={6} lg={3} key={s.labelKey}>
                             <Paper
                                 onClick={() => navigate(s.path)}
                                 sx={{
@@ -145,7 +149,7 @@ export default function SponsorDashboard() {
                                         mt: 0.5,
                                     }}
                                 >
-                                    {s.label}
+                                    {t(s.labelKey)}
                                 </Typography>
                             </Paper>
                         </Grid>
@@ -172,7 +176,7 @@ export default function SponsorDashboard() {
                                     color: '#111827',
                                 }}
                             >
-                                Recent Worker Requests
+                                {t('sponsor.dashboard.recentWorkerRequests')}
                             </Typography>
                             <Button
                                 size="small"
@@ -184,7 +188,7 @@ export default function SponsorDashboard() {
                                     px: 1,
                                 }}
                             >
-                                View All
+                                {t('sponsor.dashboard.viewAll')}
                             </Button>
                         </Box>
                         <Divider sx={{ mb: 2 }} />
@@ -246,7 +250,7 @@ export default function SponsorDashboard() {
                                                     color: '#111827',
                                                 }}
                                             >
-                                                {req.jobTitle}
+                                                {tJobTitle(req.jobTitle)}
                                             </Typography>
                                             <Typography
                                                 sx={{
@@ -254,8 +258,7 @@ export default function SponsorDashboard() {
                                                     color: '#5E7089',
                                                 }}
                                             >
-                                                {req.quantity} worker
-                                                {req.quantity > 1 ? 's' : ''} ·{' '}
+                                                {t('sponsor.dashboard.workerCount', { count: req.quantity })} ·{' '}
                                                 {req.requestDate}
                                             </Typography>
                                         </Box>
@@ -278,7 +281,7 @@ export default function SponsorDashboard() {
                                 mb: 1.5,
                             }}
                         >
-                            Quick Actions
+                            {t('sponsor.dashboard.quickActions')}
                         </Typography>
                         <Divider sx={{ mb: 2 }} />
                         <Box
@@ -290,22 +293,22 @@ export default function SponsorDashboard() {
                         >
                             {[
                                 {
-                                    label: 'Create Worker Request',
+                                    labelKey: 'sponsor.dashboard.createWorkerRequest',
                                     icon: FileText,
                                     path: '/sponsor/requests',
                                 },
                                 {
-                                    label: 'Search Available Workers',
+                                    labelKey: 'sponsor.dashboard.searchAvailableWorkers',
                                     icon: Search,
                                     path: '/sponsor/search',
                                 },
                                 {
-                                    label: 'View Recommended Workers',
+                                    labelKey: 'sponsor.dashboard.viewRecommendedWorkers',
                                     icon: Star,
                                     path: '/sponsor/recommended',
                                 },
                                 {
-                                    label: 'Manage Approvals',
+                                    labelKey: 'sponsor.dashboard.manageApprovals',
                                     icon: CheckSquare,
                                     path: '/sponsor/approval',
                                 },
@@ -313,7 +316,7 @@ export default function SponsorDashboard() {
                                 const AIcon = a.icon;
                                 return (
                                     <Box
-                                        key={a.label}
+                                        key={a.labelKey}
                                         onClick={() => navigate(a.path)}
                                         sx={{
                                             display: 'flex',
@@ -340,7 +343,7 @@ export default function SponsorDashboard() {
                                                 flex: 1,
                                             }}
                                         >
-                                            {a.label}
+                                            {t(a.labelKey)}
                                         </Typography>
                                         <ArrowRight size={13} color="#B0BDD0" />
                                     </Box>
@@ -358,7 +361,7 @@ export default function SponsorDashboard() {
                                 mb: 1.5,
                             }}
                         >
-                            Active Recruitments
+                            {t('sponsor.dashboard.activeRecruitments')}
                         </Typography>
                         <Divider sx={{ mb: 2 }} />
                         <Box
@@ -389,7 +392,7 @@ export default function SponsorDashboard() {
                                                 whiteSpace: 'nowrap',
                                             }}
                                         >
-                                            {r.jobTitle}
+                                            {tJobTitle(r.jobTitle)}
                                         </Typography>
                                         <Typography
                                             sx={{
@@ -397,7 +400,7 @@ export default function SponsorDashboard() {
                                                 color: '#5E7089',
                                             }}
                                         >
-                                            {r.workersNeeded} needed
+                                            {t('sponsor.dashboard.workersNeeded', { count: r.workersNeeded })}
                                         </Typography>
                                     </Box>
                                     <StatusBadge status={r.status} />

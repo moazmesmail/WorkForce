@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import {
     Typography,
     Box,
@@ -29,6 +30,7 @@ import { workerRequests as mockWorkerRequests } from '../../data/mockData';
 
 export default function SponsorWorkerRequestForm() {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [successOpen, setSuccessOpen] = useState(false);
 
     // Form states
@@ -62,12 +64,12 @@ export default function SponsorWorkerRequestForm() {
         const newErrors: Record<string, string> = {};
         const finalJobTitle = jobTitle === 'Other' ? customJobTitle : jobTitle;
 
-        if (!finalJobTitle) newErrors.jobTitle = 'Job title is required';
+        if (!finalJobTitle) newErrors.jobTitle = t('sponsor.requests.form.errors.jobTitleRequired');
         if (!quantity || parseInt(quantity, 10) <= 0)
-            newErrors.quantity = 'Must be greater than 0';
-        if (!workLocation) newErrors.workLocation = 'Work location is required';
-        if (!city) newErrors.city = 'City is required';
-        if (!region) newErrors.region = 'Region is required';
+            newErrors.quantity = t('sponsor.requests.form.errors.quantityMin');
+        if (!workLocation) newErrors.workLocation = t('sponsor.requests.form.errors.locationRequired');
+        if (!city) newErrors.city = t('sponsor.requests.form.errors.cityRequired');
+        if (!region) newErrors.region = t('sponsor.requests.form.errors.regionRequired');
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -124,6 +126,15 @@ export default function SponsorWorkerRequestForm() {
         'Other',
     ];
 
+    const jobTitleKeyMap: Record<string, string> = {
+        'Driver': 'sponsor.requests.form.jobs.driver',
+        'Cleaner': 'sponsor.requests.form.jobs.cleaner',
+        'Housekeeper': 'sponsor.requests.form.jobs.housekeeper',
+        'Construction Worker': 'sponsor.requests.form.jobs.constructionWorker',
+        'Software Engineer': 'sponsor.requests.form.jobs.softwareEngineer',
+        'Other': 'sponsor.requests.form.jobs.other',
+    };
+
     return (
         <DashboardLayout navItems={sponsorNavItems}>
             {/* Header */}
@@ -137,11 +148,10 @@ export default function SponsorWorkerRequestForm() {
                 </Button>
                 <Box>
                     <Typography variant="h4" fontWeight="bold">
-                        Create Worker Request
+                        {t('sponsor.requests.form.title')}
                     </Typography>
                     <Typography color="text.secondary" variant="body2">
-                        Request new workers with specific criteria for your
-                        organization.
+                        {t('sponsor.requests.form.subtitle')}
                     </Typography>
                 </Box>
             </Box>
@@ -162,7 +172,7 @@ export default function SponsorWorkerRequestForm() {
                                     gap: 1,
                                 }}
                             >
-                                <Briefcase size={18} /> Job Information
+                                <Briefcase size={18} /> {t('sponsor.requests.form.jobInfo')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
 
@@ -173,12 +183,12 @@ export default function SponsorWorkerRequestForm() {
                                         error={!!errors.jobTitle}
                                     >
                                         <InputLabel id="job-title-label">
-                                            Job Title *
+                                            {t('sponsor.requests.form.jobTitle')}
                                         </InputLabel>
                                         <Select
                                             labelId="job-title-label"
                                             value={jobTitle}
-                                            label="Job Title *"
+                                            label={t('sponsor.requests.form.jobTitle')}
                                             onChange={(e) => {
                                                 setJobTitle(e.target.value);
                                                 setErrors((prev) => ({
@@ -189,7 +199,7 @@ export default function SponsorWorkerRequestForm() {
                                         >
                                             {jobTitleOptions.map((opt) => (
                                                 <MenuItem key={opt} value={opt}>
-                                                    {opt}
+                                                    {t(jobTitleKeyMap[opt] || opt)}
                                                 </MenuItem>
                                             ))}
                                         </Select>
@@ -199,7 +209,7 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Number of Workers Needed *"
+                                        label={t('sponsor.requests.form.quantity')}
                                         type="number"
                                         value={quantity}
                                         onChange={(e) => {
@@ -218,7 +228,7 @@ export default function SponsorWorkerRequestForm() {
                                     <Grid size={{ xs: 12 }}>
                                         <TextField
                                             fullWidth
-                                            label="Specify Job Title *"
+                                            label={t('sponsor.requests.form.specifyJobTitle')}
                                             value={customJobTitle}
                                             onChange={(e) => {
                                                 setCustomJobTitle(
@@ -238,24 +248,24 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="experience-label">
-                                            Required Experience
+                                            {t('sponsor.requests.form.experience')}
                                         </InputLabel>
                                         <Select
                                             labelId="experience-label"
                                             value={experience}
-                                            label="Required Experience"
+                                            label={t('sponsor.requests.form.experience')}
                                             onChange={(e) =>
                                                 setExperience(e.target.value)
                                             }
                                         >
                                             <MenuItem value="No experience">
-                                                No experience
+                                                {t('sponsor.requests.form.experienceOptions.none')}
                                             </MenuItem>
                                             <MenuItem value="1-3 years">
-                                                1-3 years
+                                                {t('sponsor.requests.form.experienceOptions.oneToThree')}
                                             </MenuItem>
                                             <MenuItem value="3+ years">
-                                                3+ years
+                                                {t('sponsor.requests.form.experienceOptions.threePlus')}
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
@@ -264,8 +274,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Required Skills (optional)"
-                                        placeholder="e.g. Forklift Certification, Plumbing"
+                                        label={t('sponsor.requests.form.skills')}
+                                        placeholder={t('sponsor.requests.form.skillsPlaceholder')}
                                         value={skills}
                                         onChange={(e) =>
                                             setSkills(e.target.value)
@@ -278,7 +288,7 @@ export default function SponsorWorkerRequestForm() {
                                         fullWidth
                                         multiline
                                         rows={3}
-                                        label="Job Description (optional)"
+                                        label={t('sponsor.requests.form.description')}
                                         value={description}
                                         onChange={(e) =>
                                             setDescription(e.target.value)
@@ -300,7 +310,7 @@ export default function SponsorWorkerRequestForm() {
                                     gap: 1,
                                 }}
                             >
-                                <UserCheck size={18} /> Worker Requirements
+                                <UserCheck size={18} /> {t('sponsor.requests.form.workerReqs')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
 
@@ -308,8 +318,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Preferred Nationality (optional)"
-                                        placeholder="e.g. Indian, Pakistani, Filipino"
+                                        label={t('sponsor.requests.form.nationality')}
+                                        placeholder={t('sponsor.requests.form.nationalityPlaceholder')}
                                         value={nationality}
                                         onChange={(e) =>
                                             setNationality(e.target.value)
@@ -320,22 +330,22 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="gender-label">
-                                            Preferred Gender (optional)
+                                            {t('sponsor.requests.form.gender')}
                                         </InputLabel>
                                         <Select
                                             labelId="gender-label"
                                             value={gender}
-                                            label="Preferred Gender (optional)"
+                                            label={t('sponsor.requests.form.gender')}
                                             onChange={(e) =>
                                                 setGender(e.target.value)
                                             }
                                         >
-                                            <MenuItem value="Any">Any</MenuItem>
+                                            <MenuItem value="Any">{t('sponsor.requests.form.genderOptions.any')}</MenuItem>
                                             <MenuItem value="Male">
-                                                Male
+                                                {t('sponsor.requests.form.genderOptions.male')}
                                             </MenuItem>
                                             <MenuItem value="Female">
-                                                Female
+                                                {t('sponsor.requests.form.genderOptions.female')}
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
@@ -344,8 +354,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Age Range (optional)"
-                                        placeholder="e.g. 21-35"
+                                        label={t('sponsor.requests.form.ageRange')}
+                                        placeholder={t('sponsor.requests.form.ageRangePlaceholder')}
                                         value={ageRange}
                                         onChange={(e) =>
                                             setAgeRange(e.target.value)
@@ -356,8 +366,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Language Requirements (optional)"
-                                        placeholder="e.g. English, Arabic"
+                                        label={t('sponsor.requests.form.languages')}
+                                        placeholder={t('sponsor.requests.form.languagesPlaceholder')}
                                         value={languages}
                                         onChange={(e) =>
                                             setLanguages(e.target.value)
@@ -379,7 +389,7 @@ export default function SponsorWorkerRequestForm() {
                                     gap: 1,
                                 }}
                             >
-                                <CreditCard size={18} /> Employment Details
+                                <CreditCard size={18} /> {t('sponsor.requests.form.employmentDetails')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
 
@@ -387,8 +397,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 4 }}>
                                     <TextField
                                         fullWidth
-                                        label="Work Location *"
-                                        placeholder="e.g. Site Office A"
+                                        label={t('sponsor.requests.form.workLocation')}
+                                        placeholder={t('sponsor.requests.form.workLocationPlaceholder')}
                                         value={workLocation}
                                         onChange={(e) => {
                                             setWorkLocation(e.target.value);
@@ -405,8 +415,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 4 }}>
                                     <TextField
                                         fullWidth
-                                        label="City *"
-                                        placeholder="e.g. Riyadh"
+                                        label={t('sponsor.requests.form.city')}
+                                        placeholder={t('sponsor.requests.form.cityPlaceholder')}
                                         value={city}
                                         onChange={(e) => {
                                             setCity(e.target.value);
@@ -423,8 +433,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 4 }}>
                                     <TextField
                                         fullWidth
-                                        label="Region *"
-                                        placeholder="e.g. Central Region"
+                                        label={t('sponsor.requests.form.region')}
+                                        placeholder={t('sponsor.requests.form.regionPlaceholder')}
                                         value={region}
                                         onChange={(e) => {
                                             setRegion(e.target.value);
@@ -441,8 +451,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Salary Range"
-                                        placeholder="e.g. 2,000 - 3,500 SAR"
+                                        label={t('sponsor.requests.form.salaryRange')}
+                                        placeholder={t('sponsor.requests.form.salaryRangePlaceholder')}
                                         value={salaryRange}
                                         onChange={(e) =>
                                             setSalaryRange(e.target.value)
@@ -453,8 +463,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Working Hours"
-                                        placeholder="e.g. 8 hours/day"
+                                        label={t('sponsor.requests.form.workingHours')}
+                                        placeholder={t('sponsor.requests.form.workingHoursPlaceholder')}
                                         value={workingHours}
                                         onChange={(e) =>
                                             setWorkingHours(e.target.value)
@@ -465,8 +475,8 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 6 }}>
                                     <TextField
                                         fullWidth
-                                        label="Contract Duration"
-                                        placeholder="e.g. 2 Years"
+                                        label={t('sponsor.requests.form.contractDuration')}
+                                        placeholder={t('sponsor.requests.form.contractDurationPlaceholder')}
                                         value={contractDuration}
                                         onChange={(e) =>
                                             setContractDuration(e.target.value)
@@ -477,18 +487,18 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 3 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="accommodation-label">
-                                            Accommodation Provided
+                                            {t('sponsor.requests.form.accommodation')}
                                         </InputLabel>
                                         <Select
                                             labelId="accommodation-label"
                                             value={accommodation}
-                                            label="Accommodation Provided"
+                                            label={t('sponsor.requests.form.accommodation')}
                                             onChange={(e) =>
                                                 setAccommodation(e.target.value)
                                             }
                                         >
-                                            <MenuItem value="Yes">Yes</MenuItem>
-                                            <MenuItem value="No">No</MenuItem>
+                                            <MenuItem value="Yes">{t('sponsor.requests.form.yes')}</MenuItem>
+                                            <MenuItem value="No">{t('sponsor.requests.form.no')}</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>
@@ -496,20 +506,20 @@ export default function SponsorWorkerRequestForm() {
                                 <Grid size={{ xs: 12, sm: 3 }}>
                                     <FormControl fullWidth>
                                         <InputLabel id="transportation-label">
-                                            Transportation Provided
+                                            {t('sponsor.requests.form.transportation')}
                                         </InputLabel>
                                         <Select
                                             labelId="transportation-label"
                                             value={transportation}
-                                            label="Transportation Provided"
+                                            label={t('sponsor.requests.form.transportation')}
                                             onChange={(e) =>
                                                 setTransportation(
                                                     e.target.value
                                                 )
                                             }
                                         >
-                                            <MenuItem value="Yes">Yes</MenuItem>
-                                            <MenuItem value="No">No</MenuItem>
+                                            <MenuItem value="Yes">{t('sponsor.requests.form.yes')}</MenuItem>
+                                            <MenuItem value="No">{t('sponsor.requests.form.no')}</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>
@@ -537,7 +547,7 @@ export default function SponsorWorkerRequestForm() {
                                     gap: 1,
                                 }}
                             >
-                                <Info size={18} /> Request Status
+                                <Info size={18} /> {t('sponsor.requests.form.sidebar.statusTitle')}
                             </Typography>
                             <Divider sx={{ mb: 2 }} />
                             <Box
@@ -553,21 +563,18 @@ export default function SponsorWorkerRequestForm() {
                                     variant="body2"
                                     color="text.secondary"
                                 >
-                                    Status
+                                    {t('sponsor.requests.form.sidebar.statusLabel')}
                                 </Typography>
                                 <Typography
                                     variant="subtitle1"
                                     fontWeight="bold"
                                     color="#0969DA"
                                 >
-                                    Pending
+                                    {t('sponsor.requests.form.sidebar.statusPending')}
                                 </Typography>
                             </Box>
                             <Typography variant="body2" color="text.secondary">
-                                This request status is system-managed. Upon
-                                submission, our smart recommendation engine will
-                                begin matching candidate profiles and
-                                coordination workflows.
+                                {t('sponsor.requests.form.sidebar.statusDescription')}
                             </Typography>
                         </Paper>
 
@@ -580,7 +587,7 @@ export default function SponsorWorkerRequestForm() {
                                 startIcon={<Save size={18} />}
                                 sx={{ mb: 2 }}
                             >
-                                Submit Request
+                                {t('sponsor.requests.form.submit')}
                             </Button>
                             <Button
                                 fullWidth
@@ -596,7 +603,7 @@ export default function SponsorWorkerRequestForm() {
                                     },
                                 }}
                             >
-                                Cancel
+                                {t('sponsor.requests.form.cancel')}
                             </Button>
                         </Paper>
                     </Grid>
@@ -612,7 +619,7 @@ export default function SponsorWorkerRequestForm() {
                     severity="success"
                     sx={{ width: '100%', borderRadius: '8px' }}
                 >
-                    Worker request submitted successfully!
+                    {t('sponsor.requests.form.successMessage')}
                 </Alert>
             </Snackbar>
         </DashboardLayout>

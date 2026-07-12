@@ -19,6 +19,8 @@ import { workerNavItems } from './WorkerDashboard';
 import { agencyNavItems } from '../agency/AgencyDashboard';
 import { workers } from '../../data/mockData';
 import { ArrowLeft, CheckCircle, FileText, User } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 interface WorkerSponsorshipTransferFormProps {
     isAgencyMode?: boolean;
@@ -27,6 +29,8 @@ interface WorkerSponsorshipTransferFormProps {
 export default function WorkerSponsorshipTransferForm({
     isAgencyMode = false,
 }: WorkerSponsorshipTransferFormProps) {
+    const { t } = useTranslation();
+    const { tName, tJobTitle } = useMockTranslation();
     const navigate = useNavigate();
     const navItems = isAgencyMode ? agencyNavItems : workerNavItems;
 
@@ -60,14 +64,14 @@ export default function WorkerSponsorshipTransferForm({
 
         if (!inSaudiArabia) {
             setErrorMsg(
-                'Worker must be physically inside Saudi Arabia to request a sponsorship transfer.'
+                t('sponsorship.errInSaudi')
             );
             return;
         }
 
         if (!preferredLocation || !desiredJobTitle || !availabilityDate) {
             setErrorMsg(
-                'Please fill in all required fields marked with an asterisk (*).'
+                t('sponsorship.errRequired')
             );
             return;
         }
@@ -127,13 +131,13 @@ export default function WorkerSponsorshipTransferForm({
                 <Box>
                     <Typography variant="h4" fontWeight="bold">
                         {isAgencyMode
-                            ? 'Submit Sponsorship Transfer Request'
-                            : 'Request Sponsorship Transfer'}
+                            ? t('sponsorship.submitRequestTitle')
+                            : t('sponsorship.submitRequestTitle')}
                     </Typography>
                     <Typography color="text.secondary">
                         {isAgencyMode
-                            ? 'Request sponsorship transfer for a worker. The system will match them with employers.'
-                            : 'Apply for sponsorship transfer. Employers will match with your profile and preferences.'}
+                            ? t('sponsorship.agencyDesc')
+                            : t('sponsorship.workerDesc')}
                     </Typography>
                 </Box>
             </Box>
@@ -152,7 +156,7 @@ export default function WorkerSponsorshipTransferForm({
                         gutterBottom
                         sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
                     >
-                        <CheckCircle size={18} color="#1A7F37" /> Preconditions
+                        <CheckCircle size={18} color="#1A7F37" /> {t('sponsorship.preconditions')}
                     </Typography>
                     <Divider sx={{ mb: 3 }} />
                     <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -189,8 +193,7 @@ export default function WorkerSponsorshipTransferForm({
                                                     : '#B54708',
                                             }}
                                         >
-                                            Is the worker currently physically
-                                            present inside Saudi Arabia? *
+                                            {t('sponsorship.inSaudi')}
                                         </Typography>
                                     }
                                 />
@@ -199,10 +202,7 @@ export default function WorkerSponsorshipTransferForm({
                                     display="block"
                                     sx={{ mt: 1, color: 'text.secondary' }}
                                 >
-                                    Sponsorship transfer regulations require
-                                    that the worker must be in the Kingdom of
-                                    Saudi Arabia at the time of request
-                                    submission.
+                                    {t('sponsorship.inSaudiDesc')}
                                 </Typography>
                             </Box>
                         </Grid>
@@ -220,7 +220,7 @@ export default function WorkerSponsorshipTransferForm({
                                     gap: 1,
                                 }}
                             >
-                                <User size={18} /> Select Worker
+                                <User size={18} /> {t('sponsorship.selectWorker')}
                             </Typography>
                             <Divider sx={{ mb: 3 }} />
                             <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -228,7 +228,7 @@ export default function WorkerSponsorshipTransferForm({
                                     <TextField
                                         select
                                         fullWidth
-                                        label="Worker Name *"
+                                        label={t('sponsorship.workerName')}
                                         value={selectedWorkerId}
                                         onChange={(e) =>
                                             setSelectedWorkerId(e.target.value)
@@ -237,7 +237,7 @@ export default function WorkerSponsorshipTransferForm({
                                     >
                                         {workers.map((w) => (
                                             <MenuItem key={w.id} value={w.id}>
-                                                {w.name} ({w.jobTitle})
+                                                {tName(w.name)} ({tJobTitle(w.jobTitle)})
                                             </MenuItem>
                                         ))}
                                     </TextField>
@@ -252,7 +252,7 @@ export default function WorkerSponsorshipTransferForm({
                         gutterBottom
                         sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
                     >
-                        <FileText size={18} /> Job Preferences
+                        <FileText size={18} /> {t('sponsorship.jobPref')}
                     </Typography>
                     <Divider sx={{ mb: 3 }} />
                     <Grid container spacing={3} sx={{ mb: 4 }}>
@@ -260,55 +260,55 @@ export default function WorkerSponsorshipTransferForm({
                             <TextField
                                 select
                                 fullWidth
-                                label="Desired Job Title *"
+                                label={t('sponsorship.desiredJobTitle')}
                                 value={desiredJobTitle}
                                 onChange={(e) =>
                                     setDesiredJobTitle(e.target.value)
                                 }
                                 required
                             >
-                                <MenuItem value="Driver">Driver</MenuItem>
-                                <MenuItem value="Cleaner">Cleaner</MenuItem>
+                                <MenuItem value="Driver">{t('jobTitles.driver')}</MenuItem>
+                                <MenuItem value="Cleaner">{t('jobTitles.cleaner')}</MenuItem>
                                 <MenuItem value="Housekeeper">
-                                    Housekeeper
+                                    {t('jobTitles.housekeeper')}
                                 </MenuItem>
                                 <MenuItem value="Construction Worker">
-                                    Construction Worker
+                                    {t('jobTitles.constructionWorker')}
                                 </MenuItem>
-                                <MenuItem value="Mason">Mason</MenuItem>
+                                <MenuItem value="Mason">{t('jobTitles.mason')}</MenuItem>
                                 <MenuItem value="Software Engineer">
-                                    Software Engineer
+                                    {t('jobTitles.softwareEngineer')}
                                 </MenuItem>
                             </TextField>
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
                             <TextField
                                 fullWidth
-                                label="Preferred Work Location (Saudi City/Region) *"
+                                label={t('sponsorship.prefLocationLabel')}
                                 value={preferredLocation}
                                 onChange={(e) =>
                                     setPreferredLocation(e.target.value)
                                 }
-                                placeholder="e.g. Riyadh, Jeddah, Dammam"
+                                placeholder={t('sponsorship.prefLocationPlaceholder')}
                                 required
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
                             <TextField
                                 fullWidth
-                                label="Expected Monthly Salary (SAR, optional)"
+                                label={t('sponsorship.expectedSalaryLabel')}
                                 type="number"
                                 value={expectedSalary}
                                 onChange={(e) =>
                                     setExpectedSalary(e.target.value)
                                 }
-                                placeholder="e.g. 3500"
+                                placeholder={t('sponsorship.expectedSalaryPlaceholder')}
                             />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
                             <TextField
                                 fullWidth
-                                label="Availability Date *"
+                                label={t('sponsorship.availDateLabel')}
                                 type="date"
                                 InputLabelProps={{ shrink: true }}
                                 value={availabilityDate}
@@ -323,12 +323,12 @@ export default function WorkerSponsorshipTransferForm({
                                 fullWidth
                                 multiline
                                 rows={3}
-                                label="Application Message / Short Introduction (optional)"
+                                label={t('sponsorship.appMessageLabel')}
                                 value={applicationMessage}
                                 onChange={(e) =>
                                     setApplicationMessage(e.target.value)
                                 }
-                                placeholder="Introduce yourself or add notes..."
+                                placeholder={t('sponsorship.appMessagePlaceholder')}
                             />
                         </Grid>
                     </Grid>
@@ -356,7 +356,7 @@ export default function WorkerSponsorshipTransferForm({
                                 },
                             }}
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </Button>
                         <Button
                             type="submit"
@@ -364,7 +364,7 @@ export default function WorkerSponsorshipTransferForm({
                             size="large"
                             disabled={!inSaudiArabia}
                         >
-                            Submit Request
+                            {t('sponsorship.submitRequest')}
                         </Button>
                     </Box>
                 </Paper>
@@ -379,7 +379,7 @@ export default function WorkerSponsorshipTransferForm({
                     severity="success"
                     sx={{ width: '100%', borderRadius: '8px' }}
                 >
-                    Sponsorship transfer request successfully submitted!
+                    {t('sponsorship.successMessage')}
                 </Alert>
             </Snackbar>
         </DashboardLayout>

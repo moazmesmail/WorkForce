@@ -7,9 +7,14 @@ import { AppDataTable } from '../ui/data-display/AppDataTable';
 import { MRT_ColumnDef } from 'material-react-table';
 import { sponsorshipRequests as mockSponsorshipRequests } from '../../data/mockData';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
+
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 export default function WorkerSponsorshipTransfer() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
+    const { tName } = useMockTranslation();
     const [requests, setRequests] = useState<any[]>([]);
 
     useEffect(() => {
@@ -25,35 +30,46 @@ export default function WorkerSponsorshipTransfer() {
         }
     }, []);
 
+    const getJobTitleLabel = (title: string) => {
+        if (!title) return '';
+        const key = title.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+        return t(`jobTitles.${key}`, title);
+    };
+
     const columns: MRT_ColumnDef<any>[] = [
-        { accessorKey: 'requestDate', header: 'Date', size: 100 },
-        { accessorKey: 'currentSponsor', header: 'Current Sponsor', size: 150 },
+        { accessorKey: 'requestDate', header: t('sponsorship.columns.date'), size: 100 },
+        { 
+            accessorKey: 'currentSponsor', 
+            header: t('sponsorship.columns.currentSponsor'), 
+            size: 150,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
         {
             accessorKey: 'desiredJobTitle',
-            header: 'Job Title',
+            header: t('sponsorship.columns.jobTitle'),
             size: 150,
-            Cell: ({ cell, row }) => cell.getValue() as string || row.original.jobTitle || 'General',
+            Cell: ({ cell, row }) => getJobTitleLabel(cell.getValue() as string || row.original.jobTitle || 'General'),
         },
         {
             accessorKey: 'newSponsor',
-            header: 'Matched Sponsor',
+            header: t('sponsorship.columns.matchedSponsor'),
             size: 180,
             Cell: ({ cell }) =>
                 cell.getValue() === 'Pending System Match' ? (
-                    <em style={{ color: '#8494AB' }}>Pending Match</em>
+                    <em style={{ color: '#8494AB' }}>{t('sponsorship.pendingMatch')}</em>
                 ) : (
-                    cell.getValue() as string
+                    tName(cell.getValue() as string)
                 ),
         },
         {
             accessorKey: 'status',
-            header: 'Status',
+            header: t('sponsorship.columns.status'),
             size: 120,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue() as string} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('sponsorship.columns.actions'),
             size: 140,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -74,7 +90,7 @@ export default function WorkerSponsorshipTransfer() {
                         },
                     }}
                 >
-                    View Details
+                    {t('sponsorship.viewDetails')}
                 </Button>
             ),
         },
@@ -83,24 +99,24 @@ export default function WorkerSponsorshipTransfer() {
     return (
         <DashboardLayout navItems={workerNavItems}>
             <Typography variant="h4" fontWeight="bold" mb={3}>
-                Sponsorship Transfer
+                {t('sponsorship.title')}
             </Typography>
 
             <Grid container spacing={4} mb={4}>
                 <Grid size={{ xs: 12, md: 6 }}>
                     <Paper sx={{ p: 3, height: '100%' }}>
                         <Typography variant="h6" gutterBottom>
-                            Current Status
+                            {t('sponsorship.currentStatus')}
                         </Typography>
                         <Box display="flex" alignItems="center" gap={2} mb={2}>
-                            <Typography>Status:</Typography>
+                            <Typography>{t('common.status')}:</Typography>
                             <StatusBadge status="Active" />
                         </Box>
                         <Typography mb={1}>
-                            <strong>Current Sponsor:</strong> Current Corp
+                            <strong>{t('sponsorship.columns.currentSponsor')}:</strong> {tName('Current Corp')}
                         </Typography>
                         <Typography>
-                            <strong>Eligibility:</strong> Eligible for transfer
+                            <strong>{t('sponsorship.eligibility')}:</strong> {t('sponsorship.eligible')}
                         </Typography>
                     </Paper>
                 </Grid>
@@ -116,30 +132,28 @@ export default function WorkerSponsorshipTransfer() {
                         }}
                     >
                         <Typography variant="h6" gutterBottom align="center">
-                            Initiate Transfer
+                            {t('sponsorship.initiateTransfer')}
                         </Typography>
                         <Typography
                             align="center"
                             color="text.secondary"
                             mb={3}
                         >
-                            Start a new sponsorship transfer request. The system
-                            will match your request with prospective sponsors
-                            after submission.
+                            {t('sponsorship.initiateDesc')}
                         </Typography>
                         <Button
                             variant="contained"
                             size="large"
                             onClick={() => navigate('/worker/sponsorship/new')}
                         >
-                            Request Transfer
+                            {t('sponsorship.requestTransfer')}
                         </Button>
                     </Paper>
                 </Grid>
             </Grid>
 
             <Typography variant="h5" gutterBottom>
-                Transfer History
+                {t('sponsorship.transferHistory')}
             </Typography>
             <AppDataTable columns={columns} data={requests} />
         </DashboardLayout>

@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
-export const theme = createTheme({
+export const getTheme = (direction: 'ltr' | 'rtl') => createTheme({
+    direction,
     palette: {
         primary: {
             main: '#0969DA',
@@ -45,7 +46,9 @@ export const theme = createTheme({
         },
     },
     typography: {
-        fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+        fontFamily: direction === 'rtl'
+            ? '"Cairo", "Inter", "Roboto", "Helvetica", "Arial", sans-serif'
+            : '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
         h1: { fontWeight: 800, letterSpacing: '-0.025em' },
         h2: { fontWeight: 700, letterSpacing: '-0.02em' },
         h3: { fontWeight: 700, letterSpacing: '-0.015em' },
@@ -359,3 +362,6 @@ export const theme = createTheme({
         },
     },
 });
+
+export const theme = getTheme('ltr');
+

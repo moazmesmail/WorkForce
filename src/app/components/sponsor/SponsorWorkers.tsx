@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 import { Send, Star, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { jobOffers, workers } from '../../data/mockData';
 import { DashboardLayout } from '../shared/DashboardLayout';
 import { AppDataTable } from '../ui/data-display/AppDataTable';
@@ -27,7 +28,11 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { StatusBadge } from '../shared/StatusBadge';
 import { sponsorNavItems } from './SponsorDashboard';
 
+import { useMockTranslation } from '../../utils/translateHelpers';
+
 export default function SponsorWorkers() {
+    const { t } = useTranslation();
+    const { tName, tJobTitle, tNationality } = useMockTranslation();
     const [tabValue, setTabValue] = useState(0);
     const [open, setOpen] = useState(false);
     const [selectedWorker, setSelectedWorker] = useState<any | null>(null);
@@ -129,19 +134,34 @@ export default function SponsorWorkers() {
     };
 
     const columns: MRT_ColumnDef<any>[] = [
-        { accessorKey: 'name', header: 'Worker Name', size: 150 },
-        { accessorKey: 'jobTitle', header: 'Job Title', size: 150 },
-        { accessorKey: 'nationality', header: 'Nationality', size: 120 },
-        { accessorKey: 'yearsOfExperience', header: 'Experience (Yrs)', size: 100 },
+        { 
+            accessorKey: 'name', 
+            header: t('sponsor.workers.columns.name'), 
+            size: 150,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'jobTitle', 
+            header: t('sponsor.workers.columns.jobTitle'), 
+            size: 150,
+            Cell: ({ cell }) => tJobTitle(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'nationality', 
+            header: t('sponsor.workers.columns.nationality'), 
+            size: 120,
+            Cell: ({ cell }) => tNationality(cell.getValue() as string)
+        },
+        { accessorKey: 'yearsOfExperience', header: t('sponsor.workers.columns.experience'), size: 100 },
         {
             accessorKey: 'verificationStatus',
-            header: 'Status',
+            header: t('sponsor.workers.columns.status'),
             size: 120,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('sponsor.workers.columns.actions'),
             size: 120,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -152,7 +172,7 @@ export default function SponsorWorkers() {
                     startIcon={<Send size={14} />}
                     onClick={() => handleOpenOffer(row.original)}
                 >
-                    Send Offer
+                    {t('sponsor.workers.actions.sendOffer')}
                 </Button>
             ),
         },
@@ -169,11 +189,10 @@ export default function SponsorWorkers() {
             >
                 <Box>
                     <Typography variant="h4" fontWeight="bold">
-                        Workers Directory
+                        {t('sponsor.workers.title')}
                     </Typography>
                     <Typography color="text.secondary" variant="body2">
-                        Search, filter, and recruit available talent or explore
-                        curated recommended matches.
+                        {t('sponsor.workers.subtitle')}
                     </Typography>
                 </Box>
             </Box>
@@ -191,14 +210,14 @@ export default function SponsorWorkers() {
                     <Tab
                         label={
                             <Box display="flex" alignItems="center" gap={1}>
-                                <Users size={16} /> All Available Workers
+                                <Users size={16} /> {t('sponsor.workers.tabs.allWorkers')}
                             </Box>
                         }
                     />
                     <Tab
                         label={
                             <Box display="flex" alignItems="center" gap={1}>
-                                <Star size={16} /> Recommended Matches
+                                <Star size={16} /> {t('sponsor.workers.tabs.recommended')}
                             </Box>
                         }
                     />
@@ -216,7 +235,7 @@ export default function SponsorWorkers() {
                 >
                     <TextField
                         size="small"
-                        label="Filter by Nationality"
+                        label={t('sponsor.workers.filters.nationality')}
                         variant="outlined"
                         value={nationalityFilter}
                         onChange={(e) => setNationalityFilter(e.target.value)}
@@ -225,20 +244,20 @@ export default function SponsorWorkers() {
 
                     <FormControl size="small" sx={{ minWidth: 200 }}>
                         <InputLabel id="exp-filter-label">
-                            Filter by Experience
+                            {t('sponsor.workers.filters.experience')}
                         </InputLabel>
                         <Select
                             labelId="exp-filter-label"
                             value={expFilter}
-                            label="Filter by Experience"
+                            label={t('sponsor.workers.filters.experience')}
                             onChange={(e) => setExpFilter(e.target.value)}
                         >
-                            <MenuItem value="">All Experience Levels</MenuItem>
+                            <MenuItem value="">{t('sponsor.workers.filters.experienceOptions.all')}</MenuItem>
                             <MenuItem value="no-experience">
-                                No experience
+                                {t('sponsor.workers.filters.experienceOptions.none')}
                             </MenuItem>
-                            <MenuItem value="1-3">1-3 years</MenuItem>
-                            <MenuItem value="3plus">3+ years</MenuItem>
+                            <MenuItem value="1-3">{t('sponsor.workers.filters.experienceOptions.oneToThree')}</MenuItem>
+                            <MenuItem value="3plus">{t('sponsor.workers.filters.experienceOptions.threePlus')}</MenuItem>
                         </Select>
                     </FormControl>
 
@@ -252,7 +271,7 @@ export default function SponsorWorkers() {
                             }}
                             sx={{ fontSize: '0.875rem' }}
                         >
-                            Clear Filters
+                            {t('sponsor.workers.filters.clear')}
                         </Button>
                     )}
                 </Box>
@@ -267,14 +286,14 @@ export default function SponsorWorkers() {
             {/* Send Offer Dialog */}
             <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
                 <DialogTitle sx={{ fontWeight: 'bold' }}>
-                    Send Job Offer to {selectedWorker?.name}
+                    {t('sponsor.workers.dialog.title', { name: selectedWorker?.name ? tName(selectedWorker.name) : '' })}
                 </DialogTitle>
                 <DialogContent dividers>
                     <Grid container spacing={2.5} sx={{ mt: 0.5 }}>
                         <Grid size={{ xs: 12 }}>
                             <TextField
                                 fullWidth
-                                label="Job Title"
+                                label={t('sponsor.workers.dialog.jobTitle')}
                                 value={offerJobTitle}
                                 onChange={(e) =>
                                     setOfferJobTitle(e.target.value)
@@ -284,8 +303,8 @@ export default function SponsorWorkers() {
                         <Grid size={{ xs: 12, sm: 6 }}>
                             <TextField
                                 fullWidth
-                                label="Salary Offer"
-                                placeholder="e.g. 5,000 SAR"
+                                label={t('sponsor.workers.dialog.salaryOffer')}
+                                placeholder={t('sponsor.workers.dialog.salaryOfferPlaceholder')}
                                 value={offerSalary}
                                 onChange={(e) => setOfferSalary(e.target.value)}
                             />
@@ -293,8 +312,8 @@ export default function SponsorWorkers() {
                         <Grid size={{ xs: 12, sm: 6 }}>
                             <TextField
                                 fullWidth
-                                label="Location"
-                                placeholder="e.g. Riyadh"
+                                label={t('sponsor.workers.dialog.location')}
+                                placeholder={t('sponsor.workers.dialog.locationPlaceholder')}
                                 value={offerLocation}
                                 onChange={(e) =>
                                     setOfferLocation(e.target.value)
@@ -304,10 +323,10 @@ export default function SponsorWorkers() {
                         <Grid size={{ xs: 12 }}>
                             <TextField
                                 fullWidth
-                                label="Message to Worker"
+                                label={t('sponsor.workers.dialog.message')}
                                 multiline
                                 rows={4}
-                                placeholder="Describe responsibilities, expectations, and benefit details..."
+                                placeholder={t('sponsor.workers.dialog.messagePlaceholder')}
                                 value={offerMessage}
                                 onChange={(e) =>
                                     setOfferMessage(e.target.value)
@@ -322,10 +341,10 @@ export default function SponsorWorkers() {
                         variant="outlined"
                         sx={{ color: '#5E7089', borderColor: '#D2DAE5' }}
                     >
-                        Cancel
+                        {t('sponsor.workers.dialog.cancel')}
                     </Button>
                     <Button variant="contained" onClick={handleSendOffer}>
-                        Send Offer
+                        {t('sponsor.workers.dialog.sendOffer')}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -340,7 +359,7 @@ export default function SponsorWorkers() {
                     severity="success"
                     sx={{ width: '100%', borderRadius: '8px' }}
                 >
-                    Recruitment offer sent successfully!
+                    {t('sponsor.workers.successMessage')}
                 </Alert>
             </Snackbar>
         </DashboardLayout>

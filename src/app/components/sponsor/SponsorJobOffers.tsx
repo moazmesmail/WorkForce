@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Typography,
     Box,
@@ -16,9 +17,13 @@ import { StatusBadge } from '../shared/StatusBadge';
 import { jobOffers as initialOffers } from '../../data/mockData';
 import { XCircle } from 'lucide-react';
 
+import { useMockTranslation } from '../../utils/translateHelpers';
+
 type Offer = (typeof initialOffers)[0];
 
 export default function SponsorJobOffers() {
+    const { t } = useTranslation();
+    const { tName, tJobTitle, tCity } = useMockTranslation();
     const [offersList, setOffersList] = useState(initialOffers);
     const [cancelTarget, setCancelTarget] = useState<Offer | null>(null);
 
@@ -33,20 +38,35 @@ export default function SponsorJobOffers() {
     };
 
     const columns: MRT_ColumnDef<Offer>[] = [
-        { accessorKey: 'workerName', header: 'Worker Name', size: 160 },
-        { accessorKey: 'jobTitle', header: 'Position Offered', size: 150 },
-        { accessorKey: 'workLocation', header: 'Location', size: 120 },
-        { accessorKey: 'salaryOffered', header: 'Salary (SAR)', size: 140 },
-        { accessorKey: 'offerDate', header: 'Date Sent', size: 120 },
+        { 
+            accessorKey: 'workerName', 
+            header: t('sponsor.offers.columns.workerName'), 
+            size: 160,
+            Cell: ({ cell }) => tName(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'jobTitle', 
+            header: t('sponsor.offers.columns.positionOffered'), 
+            size: 150,
+            Cell: ({ cell }) => tJobTitle(cell.getValue() as string)
+        },
+        { 
+            accessorKey: 'workLocation', 
+            header: t('sponsor.offers.columns.location'), 
+            size: 120,
+            Cell: ({ cell }) => tCity(cell.getValue() as string)
+        },
+        { accessorKey: 'salaryOffered', header: t('sponsor.offers.columns.salary'), size: 140 },
+        { accessorKey: 'offerDate', header: t('sponsor.offers.columns.dateSent'), size: 120 },
         {
             accessorKey: 'status',
-            header: 'Status',
+            header: t('sponsor.offers.columns.status'),
             size: 120,
             Cell: ({ cell }) => <StatusBadge status={cell.getValue<string>()} />,
         },
         {
             id: 'actions',
-            header: 'Actions',
+            header: t('sponsor.offers.columns.actions'),
             size: 130,
             muiTableHeadCellProps: { align: 'center' },
             muiTableBodyCellProps: { align: 'center' },
@@ -63,7 +83,7 @@ export default function SponsorJobOffers() {
                     }
                     onClick={() => setCancelTarget(row.original)}
                 >
-                    Cancel
+                    {t('sponsor.offers.actions.cancel')}
                 </Button>
             ),
         },
@@ -73,10 +93,10 @@ export default function SponsorJobOffers() {
         <DashboardLayout navItems={sponsorNavItems}>
             <Box mb={3}>
                 <Typography variant="h4" fontWeight="bold">
-                    Offers
+                    {t('sponsor.offers.title')}
                 </Typography>
                 <Typography color="text.secondary">
-                    Track the status of direct offers sent to workers.
+                    {t('sponsor.offers.subtitle')}
                 </Typography>
             </Box>
 
@@ -91,24 +111,25 @@ export default function SponsorJobOffers() {
                 maxWidth="xs"
                 fullWidth
             >
-                <DialogTitle>Cancel Offer?</DialogTitle>
+                <DialogTitle>{t('sponsor.offers.dialog.title')}</DialogTitle>
                 <DialogContent>
                     <Typography>
-                        Are you sure you want to cancel the offer sent to{' '}
-                        <strong>{cancelTarget?.workerName}</strong> for{' '}
-                        <strong>{cancelTarget?.jobTitle}</strong>?
+                        {t('sponsor.offers.dialog.confirmPrefix')}{' '}
+                        <strong>{cancelTarget ? tName(cancelTarget.workerName) : ''}</strong>{' '}
+                        {t('sponsor.offers.dialog.confirmMiddle')}{' '}
+                        <strong>{cancelTarget ? tJobTitle(cancelTarget.jobTitle) : ''}</strong>?
                     </Typography>
                 </DialogContent>
                 <DialogActions sx={{ p: 2 }}>
                     <Button onClick={() => setCancelTarget(null)}>
-                        Keep Offer
+                        {t('sponsor.offers.dialog.keep')}
                     </Button>
                     <Button
                         variant="contained"
                         color="error"
                         onClick={handleCancel}
                     >
-                        Yes, Cancel
+                        {t('sponsor.offers.dialog.cancelConfirm')}
                     </Button>
                 </DialogActions>
             </Dialog>

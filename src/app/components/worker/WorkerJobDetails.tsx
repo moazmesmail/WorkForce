@@ -29,14 +29,25 @@ import {
     Home,
     GraduationCap,
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useMockTranslation } from '../../utils/translateHelpers';
 
 export default function WorkerJobDetails() {
+    const { t } = useTranslation();
+    const { tJobTitle, tName, tCity } = useMockTranslation();
     const { id } = useParams();
     const navigate = useNavigate();
     const [job, setJob] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
     const [applied, setApplied] = useState(false);
     const [successOpen, setSuccessOpen] = useState(false);
+
+    const translateExperience = (exp: string): string => {
+        if (exp === '3+ years') return t('sponsor.requests.form.experienceOptions.threePlus');
+        if (exp === '1-3 years') return t('sponsor.requests.form.experienceOptions.oneToThree');
+        if (exp === 'No experience') return t('sponsor.requests.form.experienceOptions.none');
+        return exp;
+    };
 
     useEffect(() => {
         // Find the job
@@ -126,11 +137,11 @@ export default function WorkerJobDetails() {
                         <ArrowLeft size={18} />
                     </Button>
                     <Typography variant="h4" fontWeight="bold">
-                        Job Not Found
+                        {t('worker.jobNotFoundTitle')}
                     </Typography>
                 </Box>
                 <Alert severity="error" sx={{ borderRadius: '8px' }}>
-                    The requested job opportunity could not be located.
+                    {t('worker.jobNotFoundDesc')}
                 </Alert>
             </DashboardLayout>
         );
@@ -158,10 +169,10 @@ export default function WorkerJobDetails() {
                     </Button>
                     <Box>
                         <Typography variant="h4" fontWeight="bold">
-                            {job.jobTitle}
+                            {tJobTitle(job.jobTitle)}
                         </Typography>
                         <Typography color="text.secondary" variant="body1">
-                            {job.sponsorName} · {job.workLocation}
+                            {tName(job.sponsorName)} · {tCity(job.workLocation)}
                         </Typography>
                     </Box>
                 </Box>
@@ -182,7 +193,7 @@ export default function WorkerJobDetails() {
                                 gap: 1,
                             }}
                         >
-                            <InfoIcon /> Job Overview
+                            <InfoIcon /> {t('worker.jobOverviewTitle')}
                         </Typography>
                         <Divider sx={{ mb: 3 }} />
 
@@ -210,7 +221,7 @@ export default function WorkerJobDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Salary Range
+                                            {t('worker.salaryRangeLabel')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
                                             {job.salaryRange}
@@ -242,10 +253,10 @@ export default function WorkerJobDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Required Experience
+                                            {t('worker.requiredExperienceLabel')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
-                                            {job.requiredExperience}
+                                            {translateExperience(job.requiredExperience)}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -274,12 +285,12 @@ export default function WorkerJobDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Accommodation
+                                            {t('worker.accommodationLabel')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
                                             {job.accommodationProvided
-                                                ? 'Provided'
-                                                : 'Not Provided'}
+                                                ? t('worker.provided')
+                                                : t('worker.notProvided')}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -308,7 +319,7 @@ export default function WorkerJobDetails() {
                                             color="text.secondary"
                                             display="block"
                                         >
-                                            Date Posted
+                                            {t('worker.datePostedLabel')}
                                         </Typography>
                                         <Typography fontWeight="semibold">
                                             {job.requestDate}
@@ -331,19 +342,15 @@ export default function WorkerJobDetails() {
                                 gap: 1,
                             }}
                         >
-                            <FileText size={18} /> Job Description &
-                            Requirements
+                            <FileText size={18} /> {t('worker.jobDescAndReqsTitle')}
                         </Typography>
                         <Divider sx={{ mb: 3 }} />
 
                         <Typography variant="body1" paragraph>
-                            We are seeking a motivated{' '}
-                            <strong>{job.jobTitle}</strong> to work with{' '}
-                            <strong>{job.sponsorName}</strong> in{' '}
-                            <strong>{job.workLocation}</strong>. In this role,
-                            you will be part of a collaborative team focusing on
-                            executing key priorities, scaling operations, and
-                            upholding high quality standards.
+                            {t('worker.jobDescIntroText1')}{' '}
+                            <strong>{tJobTitle(job.jobTitle)}</strong> {t('worker.jobDescIntroText2')}{' '}
+                            <strong>{tName(job.sponsorName)}</strong> {t('worker.jobDescIntroText3')}{' '}
+                            <strong>{tCity(job.workLocation)}</strong>. {t('worker.jobDescIntroText4')}
                         </Typography>
 
                         <Typography
@@ -351,32 +358,27 @@ export default function WorkerJobDetails() {
                             fontWeight="bold"
                             sx={{ mt: 3, mb: 1 }}
                         >
-                            Key Responsibilities
+                            {t('worker.keyResponsibilities')}
                         </Typography>
                         <ul>
                             <li>
                                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                    Collaborate with multidisciplinary
-                                    stakeholders to understand requirements and
-                                    execute plans.
+                                    {t('worker.resp1')}
                                 </Typography>
                             </li>
                             <li>
                                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                    Ensure alignment with organizational goals
-                                    and safety standards inside the workplace.
+                                    {t('worker.resp2')}
                                 </Typography>
                             </li>
                             <li>
                                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                    Perform daily activities and workflows
-                                    efficiently, keeping records updated.
+                                    {t('worker.resp3')}
                                 </Typography>
                             </li>
                             <li>
                                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                    Participate in refinement workshops, process
-                                    optimization efforts, and reviews.
+                                    {t('worker.resp4')}
                                 </Typography>
                             </li>
                         </ul>
@@ -386,25 +388,22 @@ export default function WorkerJobDetails() {
                             fontWeight="bold"
                             sx={{ mt: 3, mb: 1 }}
                         >
-                            Qualifications & Skills
+                            {t('worker.qualificationsAndSkills')}
                         </Typography>
                         <ul>
                             <li>
                                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                    Minimum {job.experience} of relevant work
-                                    experience in the field.
+                                    {t('worker.qual1Text1')} {translateExperience(job.experience)} {t('worker.qual1Text2')}
                                 </Typography>
                             </li>
                             <li>
                                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                    Strong communication skills and capacity to
-                                    work within structured teams.
+                                    {t('worker.qual2')}
                                 </Typography>
                             </li>
                             <li>
                                 <Typography variant="body2" sx={{ mb: 0.5 }}>
-                                    Familiarity with modern workspace compliance
-                                    standards.
+                                    {t('worker.qual3')}
                                 </Typography>
                             </li>
                         </ul>
@@ -441,16 +440,14 @@ export default function WorkerJobDetails() {
                                     fontWeight="bold"
                                     gutterBottom
                                 >
-                                    Application Submitted
+                                    {t('worker.appSubmittedTitle')}
                                 </Typography>
                                 <Typography
                                     variant="body2"
                                     color="text.secondary"
                                     mb={3}
                                 >
-                                    You have already applied for this position.
-                                    The employer is currently reviewing your
-                                    profile.
+                                    {t('worker.alreadyAppliedDesc')}
                                 </Typography>
                                 <Button
                                     fullWidth
@@ -460,7 +457,7 @@ export default function WorkerJobDetails() {
                                         navigate('/worker/applications')
                                     }
                                 >
-                                    Track Application
+                                    {t('worker.trackApplicationButton')}
                                 </Button>
                             </Box>
                         ) : (
@@ -482,15 +479,15 @@ export default function WorkerJobDetails() {
                                     fontWeight="bold"
                                     gutterBottom
                                 >
-                                    Apply for this Job
+                                    {t('worker.applyForJobTitle')}
                                 </Typography>
                                 <Typography
                                     variant="body2"
                                     color="text.secondary"
                                     mb={3}
                                 >
-                                    Submit your profile directly to{' '}
-                                    <strong>{job.sponsorName}</strong>.
+                                    {t('worker.submitProfileToText')}{' '}
+                                    <strong>{tName(job.sponsorName)}</strong>.
                                 </Typography>
                                 <Button
                                     fullWidth
@@ -504,8 +501,8 @@ export default function WorkerJobDetails() {
                                 >
                                     {job.status === 'Pending' ||
                                     job.status === 'Reviewing Matches'
-                                        ? 'Apply Now'
-                                        : 'Position Closed'}
+                                        ? t('worker.applyNow')
+                                        : t('worker.positionClosed')}
                                 </Button>
                             </Box>
                         )}
@@ -522,8 +519,7 @@ export default function WorkerJobDetails() {
                     severity="success"
                     sx={{ width: '100%', borderRadius: '8px' }}
                 >
-                    Application submitted successfully! Redirecting to
-                    tracking...
+                    {t('worker.appSuccessAlert')}
                 </Alert>
             </Snackbar>
         </DashboardLayout>
